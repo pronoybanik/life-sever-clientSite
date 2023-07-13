@@ -1,25 +1,13 @@
 
 
-const PrimaryButton = ({ children }) => {
+const PrimaryButton = ({ children, handler }) => {
     return (
-        <div>
-
-
-            <button
-                className="inline-block uppercase font-serif  rounded bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75"
-                href="/download"
-            >
-                <span
-                    className="block rounded-sm bg-white px-8 py-3 text-sm font-medium hover:bg-transparent"
-                >
-                    {children}
-                </span>
-            </button>
-
-
-
-
-        </div>
+        <button onClick={handler} className="group relative uppercase  bg-cover bg-center  bg-no-repeat bg-gradient-to-r py-2 from-[#ee122f] to-[#e97f4e] mt-2 inline-flex items-center overflow-hidden rounded bg-indigo-600 px-8  text-white focus:outline-none focus:ring active:bg-indigo-500"
+        >
+            <span className="text-sm font-medium transition-all">
+               {children}
+            </span>
+        </button>
     );
 };
 

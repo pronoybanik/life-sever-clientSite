@@ -7,18 +7,19 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { Link } from "react-router-dom";
+import PrimaryButton from "../PrimaryButton";
 
 
 const NavBar = () => {
-  const { logOut } = useContext(authContext);
+  const { user, logOut } = useContext(authContext);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
     logOut()
       .then()
       .catch()
-  };
-  
+  }
+
 
   const menu = <>
     <Link to='/' className="text-sm font-semibold leading-6 text-gray-900 relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-indigo-300 before:transition hover:before:scale-x-100">
@@ -29,6 +30,10 @@ const NavBar = () => {
     </Link>
     <Link to='/about' className="text-sm font-semibold leading-6 text-gray-900 relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-indigo-300 before:transition hover:before:scale-x-100">
       About
+    </Link>
+
+    <Link to='/patientAccount' className="mr-6 text-sm font-semibold leading-6 text-gray-900 relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-indigo-300 before:transition hover:before:scale-x-100">
+      Patient Account
     </Link>
   </>
 
@@ -56,7 +61,7 @@ const NavBar = () => {
   </>
 
   return (
-    <div>
+    <div className="sticky top-0 z-50">
       <header className="bg-white">
         <nav className="mx-auto flex w-full items-center justify-between p-6 lg:px-8" aria-label="Global">
           <div className="flex lg:flex-1">
@@ -81,14 +86,25 @@ const NavBar = () => {
 
           </Popover.Group>
 
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <Link to='/patientAccount' className="mr-6 text-sm font-semibold leading-6 text-gray-900 relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-indigo-300 before:transition hover:before:scale-x-100">
-              Patient Account
-            </Link>
 
-            <Link to='/logIn' className="text-sm font-semibold leading-6 text-gray-900 relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-indigo-300 before:transition hover:before:scale-x-100">
-              Log in <span aria-hidden="true">&rarr;</span>
-            </Link>
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+
+
+            <div>
+              {
+                !user ?
+                  <>
+
+
+                    <Link to='/logIn' className="text-sm font-semibold leading-6 text-gray-900 relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-indigo-300 before:transition hover:before:scale-x-100">
+                      Log in <span aria-hidden="true">&rarr;</span>
+                    </Link>
+                  </>
+                  :
+                  <PrimaryButton handler={handleLogout}>log out </PrimaryButton>
+
+              }
+            </div>
 
           </div>
         </nav>
