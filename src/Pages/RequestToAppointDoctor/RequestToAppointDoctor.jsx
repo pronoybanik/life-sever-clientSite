@@ -1,21 +1,22 @@
-import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { authContext } from '../../Components/AuthProvider/AuthProvider';
 import PrimaryButton from '../../Shared/PrimaryButton';
-import usePostReq from '../../Shared/usePostReq';
+import UsePOstRequest from '../../Shared/usePostReq';
+import { useNavigate } from 'react-router-dom';
+import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';
 
 
 const RequestToAppointDoctor = () => {
     const { user } = useContext(authContext);
-
+    const [imgUrl, setImgUrl] = useState("");
+    const navigate = useNavigate();
 
     const handelSubmit = event => {
         event.preventDefault();
-
         const from = event.target;
         const LoginUserEmail = from.username.value;
         const About = from.about.value;
-        // const FileUpload = from.fileUpload.value;
+        // const FileUpload = from.fileUpload.files[0];
         const FirstName = from.firstName.value;
         const LastName = from.lastName.value;
         const Email = from.email.value;
@@ -25,19 +26,30 @@ const RequestToAppointDoctor = () => {
         const City = from.city.value;
         const Region = from.region.value;
         const PostalCode = from.postalCode.value;
+        const Role = null;
         const PushNotifications = from.pushNotifications.value;
 
-        const doctorProfileDetails = {
-            LoginUserEmail, About, StreetAddress, City, Region, PushNotifications,
-            PostalCode, FirstName, LastName, Email, MobileNumber, Country
-        }
 
-        console.log(doctorProfileDetails);
+        // upload image imgbb server
+        const DoctorImage = imgUrl;
+        const formData = new FormData();
+        formData.append("image", DoctorImage);
 
-        usePostReq("doctorProfile", doctorProfileDetails)
-       
-
-    }
+        const url = "https://api.imgbb.com/1/upload?key=99f58a547dc4b1d269148eb1b605ef29";
+        fetch(url, {
+            method: "POST",
+            body: formData,
+        })
+            .then((res) => res.json())
+            .then((imgData) => {
+                const DoctorImage = imgData.data.url;
+                const doctorProfileDetails = {
+                    LoginUserEmail, About, StreetAddress, City, Region, PushNotifications,
+                    PostalCode, FirstName, LastName, Email, MobileNumber, Country, DoctorImage, Role
+                };
+                UsePOstRequest("doctorProfile", doctorProfileDetails)
+            });
+    };
 
 
     return (
@@ -87,11 +99,13 @@ const RequestToAppointDoctor = () => {
                                 <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about yourself.</p>
                             </div>
 
+
                             <div className="col-span-full">
                                 <label htmlFor="photo" className="block text-sm font-medium leading-6 text-gray-900">
                                     Photo
                                 </label>
                                 <div className="mt-2 flex items-center gap-x-3">
+
                                     <UserCircleIcon className="h-12 w-12 text-gray-300" aria-hidden="true" />
                                     <button
                                         type="button"
@@ -110,14 +124,17 @@ const RequestToAppointDoctor = () => {
                                     <div className="text-center">
                                         <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
                                         <div className="mt-4 flex text-sm leading-6 text-gray-600">
+
                                             <label
                                                 htmlFor="file-upload"
                                                 className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                                             >
                                                 <span>Upload a file</span>
-                                                <input id="file-upload" name="fileUpload" type="file" className="sr-only" />
+                                                <input onChange={e => setImgUrl(e.target.files[0])} id="file-upload" name="fileUpload" type="file" className="sr-only" />
                                             </label>
+
                                             <p className="pl-1">or drag and drop</p>
+
                                         </div>
                                         <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
                                     </div>

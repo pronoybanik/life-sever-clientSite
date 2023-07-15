@@ -7,6 +7,7 @@ import Login from "../Pages/Login/Login";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import OurDoctors from "../Pages/OurDoctors/OurDoctors";
 import RequestToAppointDoctor from "../Pages/RequestToAppointDoctor/RequestToAppointDoctor";
+import DoctorDetails from "../Pages/DoctorDetails/DoctorDetails";
 
 const allRouter = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ const allRouter = createBrowserRouter([
             {
                 path: '/ourDoctors',
                 element: <OurDoctors></OurDoctors>
+            },
+            {
+                path: '/DoctorDetails/:id',
+                element: <DoctorDetails/>
             },
             {
                 path: '/applyToAppointDoctor',

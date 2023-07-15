@@ -4,8 +4,6 @@ const Banner = () => {
 
     return (
         <div className="bg-white">
-
-
             <section
                 className="relative lg:h-[700px] bg-[url(https://images.pexels.com/photos/2280551/pexels-photo-2280551.jpeg?auto=compress&cs=tinysrgb&w=1600)] bg-cover bg-center bg-no-repeat"
             >
@@ -30,7 +28,7 @@ const Banner = () => {
                             tenetur fuga ducimus numquam ea!
                         </p>
 
-                        
+
 
                         {/* <div
                             className="group relative  bg-cover bg-center  bg-no-repeat bg-gradient-to-r py-3 from-[#697388] to-[#bca18c] mt-2 inline-flex items-center overflow-hidden rounded bg-indigo-600 px-8  text-white focus:outline-none focus:ring active:bg-indigo-500"
