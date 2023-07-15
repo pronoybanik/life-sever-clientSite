@@ -16,35 +16,35 @@ const allRouter = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Home></Home>
+                element: <Home />
             },
             {
                 path: '/patientAccount',
-                element: <PatientAccount></PatientAccount>
+                element: <PatientAccount />
             },
             {
                 path: '/register',
-                element: <Register></Register>
+                element: <Register />
             },
             {
                 path: '/logIn',
-                element: <Login></Login>
+                element: <Login />
             },
             {
                 path: '/about',
-                element: <AboutUs></AboutUs>
+                element: <AboutUs />
             },
             {
                 path: '/ourDoctors',
-                element: <OurDoctors></OurDoctors>
+                element: <OurDoctors />
             },
             {
                 path: '/DoctorDetails/:id',
-                element: <DoctorDetails/>
+                element: <DoctorDetails />
             },
             {
                 path: '/applyToAppointDoctor',
-                element: <RequestToAppointDoctor></RequestToAppointDoctor>
+                element: <RequestToAppointDoctor />
             },
         ]
     }

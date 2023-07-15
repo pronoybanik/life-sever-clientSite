@@ -22,17 +22,17 @@ const NavBar = () => {
 
 
   const menu = <>
-    <Link to='/' className="text-sm font-semibold leading-6 text-gray-900 relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-indigo-300 before:transition hover:before:scale-x-100">
+    <Link to='/' className="text-sm font-semibold leading-6 text-gray-900 relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-[#991827]   before:transition hover:before:scale-x-100">
       Home
     </Link>
-    <Link to='/ourDoctors' className="text-sm font-semibold leading-6 text-gray-900 relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-indigo-300 before:transition hover:before:scale-x-100">
+    <Link to='/ourDoctors' className="text-sm font-semibold leading-6 text-gray-900 relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-[#a71123] before:transition hover:before:scale-x-100">
       Our Doctors
     </Link>
-    <Link to='/about' className="text-sm font-semibold leading-6 text-gray-900 relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-indigo-300 before:transition hover:before:scale-x-100">
+    <Link to='/about' className="text-sm font-semibold leading-6 text-gray-900 relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-[#a71123] before:transition hover:before:scale-x-100">
       About
     </Link>
 
-    <Link to='/patientAccount' className="mr-6 text-sm font-semibold leading-6 text-gray-900 relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-indigo-300 before:transition hover:before:scale-x-100">
+    <Link to='/patientAccount' className="mr-6 text-sm font-semibold leading-6 text-gray-900 relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-[#a71123] before:transition hover:before:scale-x-100">
       Patient Account
     </Link>
   </>
@@ -96,7 +96,7 @@ const NavBar = () => {
                   <>
 
 
-                    <Link to='/logIn' className="text-sm font-semibold leading-6 text-gray-900 relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-indigo-300 before:transition hover:before:scale-x-100">
+                    <Link to='/logIn' className="text-sm font-semibold leading-6 text-gray-900 relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-[#a71123] before:transition hover:before:scale-x-100">
                       Log in <span aria-hidden="true">&rarr;</span>
                     </Link>
                   </>
