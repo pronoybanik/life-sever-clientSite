@@ -12,7 +12,7 @@ const Services = () => {
         data-aos-duration="1500"
     >
 
-        <h1 className='text-5xl my-16 text-center'>How can we help you?</h1>
+        <h1 className='text-5xl mt-12 text-center'>How can we help you?</h1>
 
         <section className='grid  grid-cols-1 '>
             <Splide  options={{
@@ -28,7 +28,7 @@ const Services = () => {
 
                 <SplideSlide>
                     <article
-                        className="rounded-lg border mr-4   border-gray-100 p-4 shadow-sm transition hover:shadow-lg sm:p-6"
+                        className="rounded-lg border mr-4 border-gray-100 p-4 shadow-sm transition hover:shadow-lg sm:p-6"
                     >
                         <img src={ultrasound} className='w-16' alt="" />
 

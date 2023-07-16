@@ -8,6 +8,7 @@ import AboutUs from "../Pages/AboutUs/AboutUs";
 import OurDoctors from "../Pages/OurDoctors/OurDoctors";
 import RequestToAppointDoctor from "../Pages/RequestToAppointDoctor/RequestToAppointDoctor";
 import DoctorDetails from "../Pages/DoctorDetails/DoctorDetails";
+import AdminDashBoard from "../LayOut/AdminDashBoard";
 
 const allRouter = createBrowserRouter([
     {
@@ -46,6 +47,20 @@ const allRouter = createBrowserRouter([
                 path: '/applyToAppointDoctor',
                 element: <RequestToAppointDoctor />
             },
+        ]
+    },
+    {
+        path: '/adminDashBoard',
+        element: <AdminDashBoard />,
+        children: [
+            {
+                path: '/adminDashBoard/settings',
+                element: 'system '
+            },
+            {
+                path: '/adminDashBoard/message',
+                element: 'message'
+            }
         ]
     }
 ]);

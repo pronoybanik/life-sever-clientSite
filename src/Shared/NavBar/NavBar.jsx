@@ -32,8 +32,11 @@ const NavBar = () => {
       About
     </Link>
 
-    <Link to='/patientAccount' className="mr-6 text-sm font-semibold leading-6 text-gray-900 relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-[#a71123] before:transition hover:before:scale-x-100">
+    <Link to='/patientAccount' className="text-sm font-semibold leading-6 text-gray-900 relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-[#a71123] before:transition hover:before:scale-x-100">
       Patient Account
+    </Link>
+    <Link to='/adminDashBoard' className="text-sm font-semibold leading-6 text-gray-900 relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-[#a71123] before:transition hover:before:scale-x-100">
+      Admin DashBoard
     </Link>
   </>
 
@@ -56,6 +59,9 @@ const NavBar = () => {
       className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-200"
     >
       About
+    </Link>
+    <Link to='/patientAccount' className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-200">
+      Patient Account
     </Link>
 
   </>
@@ -136,15 +142,20 @@ const NavBar = () => {
                   {MobileDevice}
                 </div>
                 <div className="py-6">
-                  <Link to='/patientAccount' className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-200">
-                    Patient Account
-                  </Link>
-                  <Link
-                    to='/logIn'
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-200"
-                  >
-                    Log in
-                  </Link>
+
+                  {
+                    !user ?
+                      <>
+
+
+                        <Link to='/logIn' className="text-sm font-semibold leading-6 text-gray-900 relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-[#a71123] before:transition hover:before:scale-x-100">
+                          Log in <span aria-hidden="true">&rarr;</span>
+                        </Link>
+                      </>
+                      :
+                      <PrimaryButton handler={handleLogout}>log out </PrimaryButton>
+
+                  }
                 </div>
               </div>
             </div>
