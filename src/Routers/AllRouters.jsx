@@ -9,6 +9,7 @@ import OurDoctors from "../Pages/OurDoctors/OurDoctors";
 import RequestToAppointDoctor from "../Pages/RequestToAppointDoctor/RequestToAppointDoctor";
 import DoctorDetails from "../Pages/DoctorDetails/DoctorDetails";
 import AdminDashBoard from "../LayOut/AdminDashBoard";
+import AdminSettings from "../Pages/Admin/AdminSettings";
 
 const allRouter = createBrowserRouter([
     {
@@ -55,7 +56,7 @@ const allRouter = createBrowserRouter([
         children: [
             {
                 path: '/adminDashBoard/settings',
-                element: 'system '
+                element: <AdminSettings/>
             },
             {
                 path: '/adminDashBoard/message',

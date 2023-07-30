@@ -28,7 +28,10 @@ const RequestToAppointDoctor = () => {
         const PostalCode = from.postalCode.value;
         const Role = null;
         const PushNotifications = from.pushNotifications.value;
-
+        const DoctorType = from.doctorType.value;
+        const WorkingHour = from.workingHour.value;
+        const PerHourCharge = from.hourPrice.value;
+       
 
         // upload image imgbb server
         const DoctorImage = imgUrl;
@@ -42,19 +45,23 @@ const RequestToAppointDoctor = () => {
         })
             .then((res) => res.json())
             .then((imgData) => {
-                const DoctorImage = imgData.data.url;
+                const DoctorProfileImage = imgData.data.url;
+                console.log(DoctorProfileImage);
                 const doctorProfileDetails = {
                     LoginUserEmail, About, StreetAddress, City, Region, PushNotifications,
-                    PostalCode, FirstName, LastName, Email, MobileNumber, Country, DoctorImage, Role
+                    PostalCode, FirstName, LastName, Email, MobileNumber, Country, DoctorProfileImage, Role,
+                    DoctorType, WorkingHour, PerHourCharge
                 };
-                UsePOstRequest("doctorProfile", doctorProfileDetails)
+                console.log(doctorProfileDetails);
+                UsePOstRequest("doctorProfile", doctorProfileDetails);
+                alert('From fullUp done')
+                from.reset("")
             });
     };
 
 
     return (
         <div>
-
             <form onSubmit={handelSubmit} className='mx-20'>
                 <div className="space-y-12">
                     <div className="border-b border-gray-900/10 pb-12">
@@ -92,7 +99,7 @@ const RequestToAppointDoctor = () => {
                                         id="about"
                                         name="about"
                                         rows={3}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full ps-2 font-bold rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         defaultValue={''}
                                     />
                                 </div>
@@ -158,7 +165,7 @@ const RequestToAppointDoctor = () => {
                                         name="firstName"
                                         id="first-name"
                                         autoComplete="given-name"
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full ps-2 font-bold rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
                                 </div>
                             </div>
@@ -173,7 +180,79 @@ const RequestToAppointDoctor = () => {
                                         name="lastName"
                                         id="last-name"
                                         autoComplete="family-name"
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full ps-2 font-bold rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    />
+                                </div>
+                            </div>
+
+
+                            <div className="sm:col-span-3">
+                                <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
+                                    Country
+                                </label>
+                                <div className="mt-2">
+                                    <select
+                                        id="country"
+                                        name="country"
+                                        autoComplete="country-name"
+                                        className="block w-full font-bold rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                    >
+                                        <option>United States</option>
+                                        <option>Bangladesh</option>
+                                        <option>Canada</option>
+                                        <option>Mexico</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="sm:col-span-3">
+                                <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
+                                    Which type of doctor do you select?
+                                </label>
+                                <div className="mt-2">
+                                    <select
+                                        id="doctorType"
+                                        name="doctorType"
+                                        autoComplete="country-name"
+                                        className="block w-full font-bold rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                    >
+                                        <option>United States</option>
+                                        <option>Heart Doctor</option>
+                                        <option>Brin Doctor</option>
+                                        <option>pregnancy Doctor</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="sm:col-span-3">
+                                <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
+                                    Select when you want to work on life sever
+                                </label>
+                                <div className="mt-2">
+                                    <select
+                                        id="workingHour"
+                                        name="workingHour"
+                                        autoComplete="country-name"
+                                        className="block w-full font-bold rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                    >
+                                        <option>United States</option>
+                                        <option>8AM to 1PM</option>
+                                        <option>3PM to 8PM</option>
+                                        <option>9PM to 2AM</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="sm:col-span-3">
+                                <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
+                                    How much can be paid per hour? US/BDT
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="text"
+                                        name="hourPrice"
+                                        id="street-address"
+                                        autoComplete="price"
+                                        className="block w-full ps-2 font-bold rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
                                 </div>
                             </div>
@@ -188,7 +267,7 @@ const RequestToAppointDoctor = () => {
                                         name="email"
                                         type="email"
                                         autoComplete="email"
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full ps-2 font-bold rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
                                 </div>
                             </div>
@@ -202,29 +281,12 @@ const RequestToAppointDoctor = () => {
                                         name="mobileNumber"
                                         type="number"
                                         autoComplete="email"
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full ps-2 font-bold rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
                                 </div>
                             </div>
 
-                            <div className="sm:col-span-3">
-                                <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
-                                    Country
-                                </label>
-                                <div className="mt-2">
-                                    <select
-                                        id="country"
-                                        name="country"
-                                        autoComplete="country-name"
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                                    >
-                                        <option>United States</option>
-                                        <option>Bangladesh</option>
-                                        <option>Canada</option>
-                                        <option>Mexico</option>
-                                    </select>
-                                </div>
-                            </div>
+
 
                             <div className="col-span-full">
                                 <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
@@ -236,7 +298,7 @@ const RequestToAppointDoctor = () => {
                                         name="streetAddress"
                                         id="street-address"
                                         autoComplete="street-address"
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full ps-2 font-bold rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
                                 </div>
                             </div>
@@ -251,7 +313,7 @@ const RequestToAppointDoctor = () => {
                                         name="city"
                                         id="city"
                                         autoComplete="address-level2"
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full ps-2 font-bold rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
                                 </div>
                             </div>
@@ -266,7 +328,7 @@ const RequestToAppointDoctor = () => {
                                         name="region"
                                         id="region"
                                         autoComplete="address-level1"
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full ps-2 font-bold rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
                                 </div>
                             </div>
@@ -281,7 +343,7 @@ const RequestToAppointDoctor = () => {
                                         name="postalCode"
                                         id="postal-code"
                                         autoComplete="postal-code"
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full ps-2 font-bold rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
                                 </div>
                             </div>
@@ -289,10 +351,7 @@ const RequestToAppointDoctor = () => {
                     </div>
 
                     <div className="border-b border-gray-900/10 pb-12">
-                        <h2 className="text-base font-semibold leading-7 text-gray-900">Notifications</h2>
-                        <p className="mt-1 text-sm leading-6 text-gray-600">
-                            Well always let you know about important changes, but you pick what else you want to hear about.
-                        </p>
+
 
                         <div className="mt-10 space-y-10">
 
