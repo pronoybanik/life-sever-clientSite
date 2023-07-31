@@ -1,11 +1,10 @@
-import DoctorsPageLeftSite from "../../Components/DoctorsPageLeftSite/DoctorsPageLeftSite";
-import DoctorsPageRightSite from "../../Components/DoctorsPageRightSite/DoctorsPageRightSite";
 import DoctorsPageBannerImage from "../../imges/doctor-page/pexels-rfstudio-3825444.jpg"
 import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import DoctorsCard from "../../Components/DoctorsPageRightSite/DoctorsCard";
+import UseGetRequest from "../../Shared/UseGetRequest";
 
 const sortOptions = [
     { name: 'Most Popular', href: '#', current: true },
@@ -69,13 +68,13 @@ function classNames(...classes) {
 const OurDoctors = () => {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
     const [doctors, setDoctors] = useState([]);
+    const [getData] = UseGetRequest("doctorProfile")
 
+    // get all doctors
     useEffect(() => {
-        fetch('http://localhost:5000/doctorProfile')
-            .then(res => res.json())
-            .then(data => setDoctors(data.data))
-    }, []);
-    console.log(doctors);
+        setDoctors(getData);
+    }, [getData]);
+
 
     return (
         <div>
@@ -362,7 +361,7 @@ const OurDoctors = () => {
                                 <div className="lg:col-span-3">
                                     <div className='ml-2 mt-2  grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1  gap-4 mr-0'>
                                         {
-                                            doctors.map(doctor => <DoctorsCard key={doctor.id} doctorProfile={doctor}></DoctorsCard>)
+                                            doctors.map(doctor => <DoctorsCard key={doctor?._id} doctorProfile={doctor}></DoctorsCard>)
                                         }
                                     </div>
 

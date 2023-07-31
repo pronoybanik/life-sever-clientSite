@@ -2,13 +2,13 @@ import { memo, useMemo } from "react";
 import { Link } from "react-router-dom";
 
 const DoctorsCard = ({ doctorProfile }) => {
-    const { _id, FirstName, LastName, DoctorImage, About } = doctorProfile;
+    const { _id, FirstName, LastName, DoctorProfileImage, About } = doctorProfile;
     return (
         <div >
             <Link to={`/DoctorDetails/${_id}`} className="group relative block bg-black">
                 <img
                     alt="Developer"
-                    src={DoctorImage}
+                    src={DoctorProfileImage}
                     className="absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-50"
                 />
 

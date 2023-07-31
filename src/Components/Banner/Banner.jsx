@@ -16,7 +16,7 @@ const Banner = () => {
                 >
                     <div className="max-w-xl mx-auto text-center ltr:sm:text-left rtl:sm:text-right">
                         <h1 className="text-3xl text-white font-extrabold sm:text-5xl ">
-                            Let us find your
+                            pronoy 
 
                             <strong className="block font-extrabold text-rose-700 animate-pulse">
                                 Forever Home.
