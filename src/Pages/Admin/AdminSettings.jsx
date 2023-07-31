@@ -12,6 +12,23 @@ const AdminSettings = () => {
         setDoctors(getData);
     }, [getData]);
 
+    const deleteUserHandler = id => {
+        fetch(`http://localhost:5000/doctorProfile/details/${id}`, {
+            method: 'DELETE',
+
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.status === "success") {
+                    alert(`Delete user`)
+                    const remaining = doctors.filter((doctor) => doctor._id !== id);
+                    setDoctors(remaining);
+
+                }
+            })
+
+    }
 
 
     return (
@@ -39,11 +56,11 @@ const AdminSettings = () => {
                     <tbody className="divide-y mx-20 divide-gray-200">
                         {
                             doctors?.map(doctor => <>
-                                <tr className="max-w-lg" key={doctor.id}>
+                                <tr className="max-w-lg" key={doctor._id}>
                                     <td className="whitespace-nowrap  px-4 py-2 font-medium text-gray-900">
                                         {doctor?.FirstName} {doctor?.LastName}
                                     </td>
-                                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">{doctor?.updatedAt.slice(0,10)}</td>
+                                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">{doctor?.updatedAt.slice(0, 10)}</td>
                                     <td className="whitespace-nowrap px-4 py-2 text-gray-700">{doctor?.DoctorType}</td>
                                     <td className="whitespace-nowrap px-4 py-2 text-gray-700">{doctor?.PerHourCharge}</td>
                                     <td className="whitespace-nowrap px-4 py-2">
@@ -56,6 +73,14 @@ const AdminSettings = () => {
                                             className="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
                                         >
                                             View details
+                                        </a>
+                                    </td>
+                                    <td onClick={() => deleteUserHandler(doctor._id)} className="whitespace-nowrap px-4 py-2">
+                                        <a
+                                            href="#"
+                                            className="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
+                                        >
+                                            delete user
                                         </a>
                                     </td>
                                 </tr>

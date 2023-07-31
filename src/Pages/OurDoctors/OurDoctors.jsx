@@ -1,5 +1,3 @@
-import DoctorsPageLeftSite from "../../Components/DoctorsPageLeftSite/DoctorsPageLeftSite";
-import DoctorsPageRightSite from "../../Components/DoctorsPageRightSite/DoctorsPageRightSite";
 import DoctorsPageBannerImage from "../../imges/doctor-page/pexels-rfstudio-3825444.jpg"
 import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
@@ -363,7 +361,7 @@ const OurDoctors = () => {
                                 <div className="lg:col-span-3">
                                     <div className='ml-2 mt-2  grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1  gap-4 mr-0'>
                                         {
-                                            doctors.map(doctor => <DoctorsCard key={doctor?.id} doctorProfile={doctor}></DoctorsCard>)
+                                            doctors.map(doctor => <DoctorsCard key={doctor?._id} doctorProfile={doctor}></DoctorsCard>)
                                         }
                                     </div>
 

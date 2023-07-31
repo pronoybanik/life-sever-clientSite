@@ -1,15 +1,13 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { authContext } from '../../Components/AuthProvider/AuthProvider';
 import PrimaryButton from '../../Shared/PrimaryButton';
 import UsePOstRequest from '../../Shared/usePostReq';
-import { useNavigate } from 'react-router-dom';
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';
 
 
 const RequestToAppointDoctor = () => {
     const { user } = useContext(authContext);
     const [imgUrl, setImgUrl] = useState("");
-    const navigate = useNavigate();
 
     const handelSubmit = event => {
         event.preventDefault();
@@ -31,7 +29,7 @@ const RequestToAppointDoctor = () => {
         const DoctorType = from.doctorType.value;
         const WorkingHour = from.workingHour.value;
         const PerHourCharge = from.hourPrice.value;
-       
+
 
         // upload image imgbb server
         const DoctorImage = imgUrl;
@@ -55,7 +53,7 @@ const RequestToAppointDoctor = () => {
                 console.log(doctorProfileDetails);
                 UsePOstRequest("doctorProfile", doctorProfileDetails);
                 alert('From fullUp done')
-                from.reset("")
+                // from.reset("")
             });
     };
 

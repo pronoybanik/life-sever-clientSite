@@ -23,7 +23,7 @@ const DoctorDetails = () => {
                         <div className="grid grid-cols-2 gap-4 md:grid-cols-1">
                             <img
                                 alt="Les Paul"
-                                src={doctorDetails?.DoctorImage}
+                                src={doctorDetails?.DoctorProfileImage}
                                 className="aspect-square w-full rounded-xl object-cover"
                             />
 
