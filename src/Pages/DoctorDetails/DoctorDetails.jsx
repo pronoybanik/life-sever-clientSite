@@ -1,30 +1,30 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import UseGetRequest from '../../Shared/UseGetRequest';
+import SecondaryButton from '../../Shared/SecondaryButton';
 
 const DoctorDetails = () => {
+
     const { id } = useParams();
     const [doctorDetails, setDoctorDetails] = useState({});
+    console.log(doctorDetails);
+    const { DoctorProfileImage, FirstName, LastName, About, DoctorType, PerHourCharge, WorkingHour, MobileNumber } = doctorDetails;
+    const [getData] = UseGetRequest(`doctorProfile/details/${id}`);
 
     useEffect(() => {
-
-        axios.get(`http://localhost:5000/doctorProfile/details/${id}`)
-            .then(response => setDoctorDetails(response.data.data));
-    }, [id])
-
+        setDoctorDetails(getData)
+    }, [getData]);
 
     return (
         <div>
-
-
             <section>
                 <div className="relative mx-auto max-w-screen-xl px-4 py-8">
                     <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-2">
-                        <div className="grid grid-cols-2 gap-4 md:grid-cols-1">
+                        <div className="grid grid-cols-2 gap-4 md:grid-cols-1 lg:ml-20 lg:mt-20">
                             <img
                                 alt="Les Paul"
-                                src={doctorDetails?.DoctorProfileImage}
-                                className="aspect-square w-full rounded-xl object-cover"
+                                src={DoctorProfileImage}
+                                className="aspect-square w-[400px] rounded-xl object-cover"
                             />
 
                             {/* <div className="grid grid-cols-2 gap-4 lg:mt-4">
@@ -56,19 +56,21 @@ const DoctorDetails = () => {
 
                         <div className="sticky top-0">
                             <strong
-                                className="rounded-full border border-blue-600 bg-gray-100 px-3 py-0.5 text-xs font-medium tracking-wide text-blue-600"
+                                className="rounded-full border border-blue-600 bg-gray-100 px-3 py-0.5 text- font-medium tracking-wide text-blue-600"
                             >
-                                Pre Order
+                                Per Hour Charge - {PerHourCharge}
                             </strong>
 
                             <div className="mt-8 flex justify-between">
                                 <div className="max-w-[35ch] space-y-2">
                                     <h1 className="text-xl font-bold sm:text-2xl">
-                                        Fun Product That Does Something Cool
+                                        {FirstName}{LastName}
                                     </h1>
 
-                                    <p className="text-sm">Highest Rated Product</p>
+                                    <p className="text-lg font-semibold">{DoctorType}</p>
+                                    <p className="text-sm font-semibold">MobileNumber: {MobileNumber}</p>
 
+                                    {/* starts */}
                                     <div className="-ms-0.5 flex">
                                         <svg
                                             className="h-5 w-5 text-yellow-400"
@@ -127,25 +129,22 @@ const DoctorDetails = () => {
                                     </div>
                                 </div>
 
-                                <p className="text-lg font-bold">$119.99</p>
+                                {/* <p className="text-lg font-bold uppercase">Per Hour Charge - {PerHourCharge}</p> */}
                             </div>
 
                             <div className="mt-4">
                                 <div className="prose max-w-none">
                                     <p>
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
-                                        veniam dicta beatae eos ex error culpa delectus rem tenetur,
-                                        architecto quam nesciunt, dolor veritatis nisi minus inventore,
-                                        rerum at recusandae?
+                                        {About}
                                     </p>
                                 </div>
 
-                                <button className="mt-2 text-sm font-medium underline">Read More</button>
+                                {/* <button className="mt-2 text-sm font-medium underline">Read More</button> */}
                             </div>
 
                             <form className="mt-8">
                                 <fieldset>
-                                    <legend className="mb-1 text-sm font-medium">Color</legend>
+                                    <legend className="mb-2 text-lg font-medium">Appointment status</legend>
 
                                     <div className="flex flex-wrap gap-1">
                                         <label htmlFor="color_tt" className="cursor-pointer">
@@ -159,7 +158,7 @@ const DoctorDetails = () => {
                                             <span
                                                 className="group inline-block rounded-full border px-3 py-1 text-xs font-medium peer-checked:bg-black peer-checked:text-white"
                                             >
-                                                Texas Tea
+                                                new appointment
                                             </span>
                                         </label>
 
@@ -174,11 +173,11 @@ const DoctorDetails = () => {
                                             <span
                                                 className="group inline-block rounded-full border px-3 py-1 text-xs font-medium peer-checked:bg-black peer-checked:text-white"
                                             >
-                                                Fiesta Red
+                                                old appointment
                                             </span>
                                         </label>
 
-                                        <label htmlFor="color_cb" className="cursor-pointer">
+                                        {/* <label htmlFor="color_cb" className="cursor-pointer">
                                             <input
                                                 type="radio"
                                                 name="color"
@@ -191,12 +190,12 @@ const DoctorDetails = () => {
                                             >
                                                 Cobalt Blue
                                             </span>
-                                        </label>
+                                        </label> */}
                                     </div>
                                 </fieldset>
 
                                 <fieldset className="mt-4">
-                                    <legend className="mb-1 text-sm font-medium">Size</legend>
+                                    <legend className="mb-2 text-lg font-medium">Appointment time</legend>
 
                                     <div className="flex flex-wrap gap-1">
                                         <label htmlFor="size_xs" className="cursor-pointer">
@@ -208,13 +207,13 @@ const DoctorDetails = () => {
                                             />
 
                                             <span
-                                                className="group inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs font-medium peer-checked:bg-black peer-checked:text-white"
+                                                className="group w-36 inline-flex h-8  items-center justify-center rounded-full border text-xs font-medium peer-checked:bg-black peer-checked:text-white"
                                             >
-                                                XS
+                                                {WorkingHour}
                                             </span>
                                         </label>
 
-                                        <label htmlFor="size_s" className="cursor-pointer">
+                                        {/* <label htmlFor="size_s" className="cursor-pointer">
                                             <input
                                                 type="radio"
                                                 name="size"
@@ -227,74 +226,12 @@ const DoctorDetails = () => {
                                             >
                                                 S
                                             </span>
-                                        </label>
-
-                                        <label htmlFor="size_m" className="cursor-pointer">
-                                            <input
-                                                type="radio"
-                                                name="size"
-                                                id="size_m"
-                                                className="peer sr-only"
-                                            />
-
-                                            <span
-                                                className="group inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs font-medium peer-checked:bg-black peer-checked:text-white"
-                                            >
-                                                M
-                                            </span>
-                                        </label>
-
-                                        <label htmlFor="size_l" className="cursor-pointer">
-                                            <input
-                                                type="radio"
-                                                name="size"
-                                                id="size_l"
-                                                className="peer sr-only"
-                                            />
-
-                                            <span
-                                                className="group inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs font-medium peer-checked:bg-black peer-checked:text-white"
-                                            >
-                                                L
-                                            </span>
-                                        </label>
-
-                                        <label htmlFor="size_xl" className="cursor-pointer">
-                                            <input
-                                                type="radio"
-                                                name="size"
-                                                id="size_xl"
-                                                className="peer sr-only"
-                                            />
-
-                                            <span
-                                                className="group inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs font-medium peer-checked:bg-black peer-checked:text-white"
-                                            >
-                                                XL
-                                            </span>
-                                        </label>
+                                        </label> */}
                                     </div>
                                 </fieldset>
 
                                 <div className="mt-8 flex gap-4">
-                                    <div>
-                                        <label htmlFor="quantity" className="sr-only">Qty</label>
-
-                                        <input
-                                            type="number"
-                                            id="quantity"
-                                            min="1"
-                                            value="1"
-                                            className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
-                                        />
-                                    </div>
-
-                                    <button
-                                        type="submit"
-                                        className="block rounded bg-green-600 px-5 py-3 text-xs font-medium text-white hover:bg-green-500"
-                                    >
-                                        Add to Cart
-                                    </button>
+                                    <SecondaryButton>set appointment</SecondaryButton>
                                 </div>
                             </form>
                         </div>

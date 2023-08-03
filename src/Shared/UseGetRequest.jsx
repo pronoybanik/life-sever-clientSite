@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 
@@ -7,13 +8,9 @@ const UseGetRequest = (endPint) => {
 
     useEffect(() => {
         if (endPint) {
-            fetch(`http://localhost:5000/${endPint}`)
-                .then(res => res.json())
+            axios.get(`http://localhost:5000/${endPint}`)
                 .then(data => {
-                    console.log(data.data);
-                    setGetData(data.data);
-                    // setIsLoading(false)
-
+                    setGetData(data.data.data);
                 });
         }
     }, [endPint]);

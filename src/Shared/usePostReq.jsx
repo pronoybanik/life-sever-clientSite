@@ -1,6 +1,6 @@
 
-const usePostReq = (endPint, BodyData) => {
-    console.log(endPint, BodyData);
+const usePostRequest = (endPint, BodyData) => {
+
     fetch(`http://localhost:5000/${endPint}`, {
         method: 'POST',
         headers: {
@@ -15,4 +15,4 @@ const usePostReq = (endPint, BodyData) => {
 
 };
 
-export default usePostReq;
+export default usePostRequest;

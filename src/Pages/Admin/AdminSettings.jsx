@@ -1,33 +1,57 @@
 import { useEffect, useState } from "react";
 import UseGetRequest from "../../Shared/UseGetRequest";
 import PrimaryButton from "../../Shared/PrimaryButton";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const AdminSettings = () => {
 
     const [doctors, setDoctors] = useState([]);
-    const [getData] = UseGetRequest("doctorProfile")
+    const [getData] = UseGetRequest("doctorProfile");
+    console.log(getData);
 
     // get all doctors
     useEffect(() => {
         setDoctors(getData);
     }, [getData]);
 
+    // Delete user
     const deleteUserHandler = id => {
-        fetch(`http://localhost:5000/doctorProfile/details/${id}`, {
+        axios.delete(`http://localhost:5000/doctorProfile/details/${id}`, {
             method: 'DELETE',
+        })
+            // .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.status === 200) {
+                    alert(`Delete user`)
+                    const remaining = doctors.filter((doctor) => doctor._id !== id);
+                    setDoctors(remaining);
+                }
+            })
+    };
 
+    // admin role set
+    const handleAdmin = id => {
+        console.log(id);
+        fetch(`http://localhost:5000/doctorProfile/details/${id}`, {
+            method: 'PATCH',
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({ Role: "admin" })
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                if (data.status === "success") {
-                    alert(`Delete user`)
-                    const remaining = doctors.filter((doctor) => doctor._id !== id);
-                    setDoctors(remaining);
+                window.location.reload()
 
-                }
+                // if (data.status === 200) {
+                    // alert(``)
+                    // const remaining = doctors.filter((doctor) => doctor.Role !== 'admin');
+                    // setDoctors(remaining);
+                // }
             })
-
     }
 
 
@@ -64,24 +88,30 @@ const AdminSettings = () => {
                                     <td className="whitespace-nowrap px-4 py-2 text-gray-700">{doctor?.DoctorType}</td>
                                     <td className="whitespace-nowrap px-4 py-2 text-gray-700">{doctor?.PerHourCharge}</td>
                                     <td className="whitespace-nowrap px-4 py-2">
+                                        {
+                                            doctor?.Role === "admin" ?
 
-                                        <PrimaryButton>select by doctor</PrimaryButton>
+                                                <button className="disabled bg-slate-400 text-white px-8 py-2">Role set</button>
+                                                :
+                                                <div onClick={() => handleAdmin(doctor._id)}>
+                                                    <PrimaryButton>select by doctor</PrimaryButton>
+                                                </div>
+                                        }
                                     </td>
                                     <td className="whitespace-nowrap px-4 py-2">
-                                        <a
-                                            href="#"
+                                        <Link
+                                            to={`/DoctorDetails/${doctor?._id}`}
                                             className="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
                                         >
                                             View details
-                                        </a>
+                                        </Link>
                                     </td>
                                     <td onClick={() => deleteUserHandler(doctor._id)} className="whitespace-nowrap px-4 py-2">
-                                        <a
-                                            href="#"
+                                        <button
                                             className="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
                                         >
                                             delete user
-                                        </a>
+                                        </button>
                                     </td>
                                 </tr>
                             </>)

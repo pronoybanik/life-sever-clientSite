@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 const AdminNavBar = () => {
     const [border, setBorder] = useState("settings");
-    console.log(border);
     return (
         <div>
             <nav className="lg:mx-32" >
