@@ -12,58 +12,58 @@ import AdminDashBoard from "../LayOut/AdminDashBoard";
 import AdminSettings from "../Pages/Admin/AdminSettings";
 
 const allRouter = createBrowserRouter([
-    {
-        path: '/',
-        element: <Main></Main>,
-        children: [
-            {
-                path: '/',
-                element: <Home />
-            },
-            {
-                path: '/patientAccount',
-                element: <PatientAccount />
-            },
-            {
-                path: '/register',
-                element: <Register />
-            },
-            {
-                path: '/logIn',
-                element: <Login />
-            },
-            {
-                path: '/about',
-                element: <AboutUs />
-            },
-            {
-                path: '/ourDoctors',
-                element: <OurDoctors />
-            },
-            {
-                path: '/DoctorDetails/:id',
-                element: <DoctorDetails />
-            },
-            {
-                path: '/applyToAppointDoctor',
-                element: <RequestToAppointDoctor />
-            },
-        ]
-    },
-    {
-        path: '/adminDashBoard',
-        element: <AdminDashBoard />,
-        children: [
-            {
-                path: '/adminDashBoard/settings',
-                element: <AdminSettings/>
-            },
-            {
-                path: '/adminDashBoard/message',
-                element: 'message'
-            }
-        ]
-    }
+  {
+    path: "/",
+    element: <Main></Main>,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/patientAccount",
+        element: <PatientAccount />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/logIn",
+        element: <Login />,
+      },
+      {
+        path: "/about",
+        element: <AboutUs />,
+      },
+      {
+        path: "/ourDoctors",
+        element: <OurDoctors />,
+      },
+      {
+        path: "/DoctorDetails/:id",
+        element: <DoctorDetails />,
+      },
+      {
+        path: "/applyToAppointDoctor",
+        element: <RequestToAppointDoctor />,
+      },
+    ],
+  },
+  {
+    path: "/adminDashBoard",
+    element: <AdminDashBoard />,
+    children: [
+      {
+        path: "/adminDashBoard/settings",
+        element: <AdminSettings />,
+      },
+      {
+        path: "/adminDashBoard/message",
+        element: "message",
+      },
+    ],
+  },
 ]);
 
 export default allRouter;
