@@ -1,16 +1,21 @@
-import Banner from "../../Components/Banner/Banner";
-import Services from "../../Components/Services/Services"
-import Info from "../../Components/Info/Info"
+import Banner from "../../Components/HomePageComponent/Banner/Banner";
+import Services from "../../Components/HomePageComponent/Services/Services";
 import ContactInfo from "../../Components/HomePageComponent/ContactInfo/ContactInfo";
 import ServiceTimeInfo from "../../Components/HomePageComponent/ServiceTimeInfo/ServiceTimeInfo";
+import OurDoctorsList from "../../Components/HomePageComponent/ourDoctorsList/OurDoctorsList";
+import AboutUs from "../../Components/HomePageComponent/AboutUs/AboutUs";
+import PatientReview from "../../Components/HomePageComponent/patientReview/patientReview";
 
 const Home = () => {
   return (
     <div>
       <Banner />
-      <ContactInfo/>
-      <ServiceTimeInfo/>
-      {/* <Services /> */}
+      <ContactInfo />
+      <ServiceTimeInfo />
+      <Services />
+      <PatientReview />
+      <OurDoctorsList />
+      <AboutUs />
       {/* <Info></Info> */}
       {/* <HealthTips></HealthTips> */}
     </div>

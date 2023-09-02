@@ -1,5 +1,3 @@
-// https://images.pexels.com/photos/2280551/pexels-photo-2280551.jpeg?auto=compress&cs=tinysrgb&w=1600
-
 const Banner = () => {
   return (
     <div className="bg-white">
@@ -11,7 +9,7 @@ const Banner = () => {
         <div
           data-aos="fade-up"
           data-aos-duration="3000"
-          className="flex  items-center  lg:ml-80 md:ml-6 ml-6 w-full h-full"
+          className="flex  items-center lg:ml-80 md:ml-6 ml-6 lg:w-full h-full"
         >
           <div className="relative">
             <p className="text-white font-sans lg:text-2xl md:text-2xl text-xl ">
@@ -20,7 +18,7 @@ const Banner = () => {
             <p className="text-white lg:text-4xl md:text-3xl text-2xl font-semibold mt-4 max-w-sm sm:text-xl/relaxed">
               Medical Excellence Every Day.
             </p>
-            <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-2 mt-4">
+            <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-2 mt-6">
               <button className="text-white border py-2 px-4">
                 Make A Appointment
               </button>

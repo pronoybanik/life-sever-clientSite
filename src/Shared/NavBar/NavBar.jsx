@@ -92,16 +92,17 @@ const NavBar = () => {
               <span className="sr-only">Your Company</span>
               {/* <img className="h-8 w-auto" src={siteLogo} alt="" /> */}
               <div className="flex text-white">
-                <div className="text-3xl 2">
+                <div className="lg:text-3xl text-2xl">
                   <MdDataSaverOn />
                 </div>
                 <div className="flex -mt-1 ml-2">
-                  <p className="text-3xl font-sans font-bold mr-4">Life</p>
-                  <p className="text-3xl font-sans mr-4">Sever</p>
+                  <p className="lg:text-3xl text-2xl font-sans font-bold mr-4">Life</p>
+                  <p className="lg:text-3xl text-2xl font-sans mr-4">Sever</p>
                 </div>
               </div>
             </a>
           </div>
+          
           <div className="flex lg:hidden">
             <button
               type="button"
@@ -119,7 +120,7 @@ const NavBar = () => {
             </Popover.Group>
             <div>
               {!user ? (
-                <div className="lg:-mt-1">
+                <div className="hidden lg:-mt-1">
                   <Link
                     to="/logIn"
                     className="text-sm font-semibold leading-6  text-white relative before:absolute before:-bottom-2 before:h-0.5 before:w-full before:scale-x-0 before:bg-slate-100 before:transition hover:before:scale-x-100"
