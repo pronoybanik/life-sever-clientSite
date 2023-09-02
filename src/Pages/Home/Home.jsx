@@ -4,7 +4,7 @@ import ContactInfo from "../../Components/HomePageComponent/ContactInfo/ContactI
 import ServiceTimeInfo from "../../Components/HomePageComponent/ServiceTimeInfo/ServiceTimeInfo";
 import OurDoctorsList from "../../Components/HomePageComponent/ourDoctorsList/OurDoctorsList";
 import AboutUs from "../../Components/HomePageComponent/AboutUs/AboutUs";
-import PatientReview from "../../Components/HomePageComponent/patientReview/PatientReviews";
+import PatientReview from "../../Components/HomePageComponent/patientReviews/PatientReviews";
 
 const Home = () => {
   return (
