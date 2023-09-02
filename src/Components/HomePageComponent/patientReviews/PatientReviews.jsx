@@ -1,6 +1,6 @@
 import React from "react";
 
-const PatientReview = () => {
+const PatientReviews = () => {
   return (
     <section className="my-20 relative bg-[url(https://medical-clinic.cmsmasters.net/wp-content/uploads/2016/09/bg-3-1.jpg)] bg-cover bg-center bg-no-repeat">
       <div className="absolute inset-0 bg-black/50  sm:from-white/95 sm:to-white/25 ltr:sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l">
@@ -231,4 +231,4 @@ const PatientReview = () => {
   );
 };
 
-export default PatientReview;
+export default PatientReviews;

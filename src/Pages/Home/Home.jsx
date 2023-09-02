@@ -4,7 +4,7 @@ import ContactInfo from "../../Components/HomePageComponent/ContactInfo/ContactI
 import ServiceTimeInfo from "../../Components/HomePageComponent/ServiceTimeInfo/ServiceTimeInfo";
 import OurDoctorsList from "../../Components/HomePageComponent/ourDoctorsList/OurDoctorsList";
 import AboutUs from "../../Components/HomePageComponent/AboutUs/AboutUs";
-import PatientReview from "../../Components/HomePageComponent/patientReview/patientReview";
+import PatientReview from "../../Components/HomePageComponent/patientReview/PatientReviews";
 
 const Home = () => {
   return (
@@ -16,6 +16,7 @@ const Home = () => {
       <PatientReview />
       <OurDoctorsList />
       <AboutUs />
+      <PatientReview />
       {/* <Info></Info> */}
       {/* <HealthTips></HealthTips> */}
     </div>
