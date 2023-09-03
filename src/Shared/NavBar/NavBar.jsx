@@ -30,10 +30,10 @@ const NavBar = () => {
         Department
       </Link>
       <Link
-        to="/about"
+        to="/bookAppointment"
         className="text-sm font-semibold leading-2  text-white relative before:absolute before:-bottom-0.5 before:h-0.5 before:w-full before:scale-x-0 before:bg-slate-100 before:transition hover:before:scale-x-100"
       >
-        About
+        Appointment
       </Link>
 
       <Link
@@ -96,13 +96,15 @@ const NavBar = () => {
                   <MdDataSaverOn />
                 </div>
                 <div className="flex -mt-1 ml-2">
-                  <p className="lg:text-3xl text-2xl font-sans font-bold mr-4">Life</p>
+                  <p className="lg:text-3xl text-2xl font-sans font-bold mr-4">
+                    Life
+                  </p>
                   <p className="lg:text-3xl text-2xl font-sans mr-4">Sever</p>
                 </div>
               </div>
             </a>
           </div>
-          
+
           <div className="flex lg:hidden">
             <button
               type="button"
@@ -120,7 +122,7 @@ const NavBar = () => {
             </Popover.Group>
             <div>
               {!user ? (
-                <div className="hidden lg:-mt-1">
+                <div className="lg:-mt-1">
                   <Link
                     to="/logIn"
                     className="text-sm font-semibold leading-6  text-white relative before:absolute before:-bottom-2 before:h-0.5 before:w-full before:scale-x-0 before:bg-slate-100 before:transition hover:before:scale-x-100"

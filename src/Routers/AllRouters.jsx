@@ -10,6 +10,7 @@ import RequestToAppointDoctor from "../Pages/RequestToAppointDoctor/RequestToApp
 import DoctorDetails from "../Pages/DoctorDetails/DoctorDetails";
 import AdminDashBoard from "../LayOut/AdminDashBoard";
 import AdminSettings from "../Pages/Admin/AdminSettings";
+import BookAppointment from "../Pages/BookAppointment/BookAppointment";
 
 const allRouter = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const allRouter = createBrowserRouter([
       {
         path: "/applyToAppointDoctor",
         element: <RequestToAppointDoctor />,
+      },
+      {
+        path: "/bookAppointment",
+        element: <BookAppointment />,
       },
     ],
   },
