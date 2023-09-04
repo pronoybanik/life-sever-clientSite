@@ -12,6 +12,9 @@ import AdminDashBoard from "../LayOut/AdminDashBoard";
 import AdminSettings from "../Pages/Admin/AdminSettings";
 import BookAppointment from "../Pages/BookAppointment/BookAppointment";
 import Profile from "../Pages/Profile/Profile";
+import Chat from "../Pages/chat/Chat";
+import DoctorDashBoard from "../LayOut/DoctorDashBoard";
+import Notification from "../Pages/Notification/Notification";
 
 const allRouter = createBrowserRouter([
   {
@@ -57,7 +60,11 @@ const allRouter = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
-      }
+      },
+      // {
+      //   path: "/message",
+      //   element: <Chat />,
+      // },
     ],
   },
   {
@@ -70,7 +77,25 @@ const allRouter = createBrowserRouter([
       },
       {
         path: "/adminDashBoard/message",
-        element: "message",
+        element: <Chat />,
+      },
+    ],
+  },
+  {
+    path: "/doctorDashBoard",
+    element: <DoctorDashBoard />,
+    children: [
+      {
+        path: "/doctorDashBoard/notification",
+        element: <Notification />,
+      },
+      {
+        path: "/doctorDashBoard/message",
+        element: <Chat />,
+      },
+      {
+        path: "/doctorDashBoard/patientList",
+        element: <PatientList />,
       },
     ],
   },
