@@ -38,7 +38,7 @@ const Login = () => {
             onSubmit={handleSubmit}
           >
             <p className="text-center text-lg font-medium">
-              Sign in to your account
+              Sign in to your account out put
             </p>
 
             <div>
