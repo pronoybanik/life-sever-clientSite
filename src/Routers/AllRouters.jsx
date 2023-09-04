@@ -11,6 +11,7 @@ import DoctorDetails from "../Pages/DoctorDetails/DoctorDetails";
 import AdminDashBoard from "../LayOut/AdminDashBoard";
 import AdminSettings from "../Pages/Admin/AdminSettings";
 import BookAppointment from "../Pages/BookAppointment/BookAppointment";
+import Profile from "../Pages/Profile/Profile";
 
 const allRouter = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const allRouter = createBrowserRouter([
         path: "/bookAppointment",
         element: <BookAppointment />,
       },
+      {
+        path: "/profile",
+        element: <Profile />,
+      }
     ],
   },
   {

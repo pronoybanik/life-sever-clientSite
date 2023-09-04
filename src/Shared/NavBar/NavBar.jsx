@@ -133,6 +133,15 @@ const NavBar = () => {
               ) : (
                 <PrimaryButton handler={handleLogout}>log out </PrimaryButton>
               )}
+              {!user ? null : (
+                <Link to="/profile">
+                  <div className="avatar">
+                    <div className="w-8 mx-2  rounded-full">
+                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcU50X1UOeDaphmUyD6T8ROKs-HjeirpOoapiWbC9cLAqewFy1gthrgUTB9E7nKjRwOVk&usqp=CAU" />
+                    </div>
+                  </div>
+                </Link>
+              )}
             </div>
           </div>
         </nav>
