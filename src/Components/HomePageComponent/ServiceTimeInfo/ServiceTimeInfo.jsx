@@ -1,4 +1,7 @@
 import React from "react";
+import { CgMail } from "react-icons/cg";
+import { CiLocationOn } from "react-icons/ci";
+import { LiaMobileAltSolid } from "react-icons/lia";
 
 const ServiceTimeInfo = () => {
   return (
@@ -30,16 +33,27 @@ const ServiceTimeInfo = () => {
           </button>
         </div>
         <div className="bg-[#003B73] max-w-md py-6 px-10 border">
-          <p className="text-white py-2 font-semibold text-2xl">
-            opening Hours
+          <p className="font-sans text-2xl text-white font-semibold">
+            Opening Hours
           </p>
-          <p className="text-white py-2 font-light max-w-xs ">
-            Cum sociis natoque penatibus et magnis dis parturient montesmus. Pro
-            vel nibh et elit mollis commodo et nec augue tristique sed volutpat.
-          </p>
-          <button className="text-white border py-2 px-4">
-            Make A Appointment
-          </button>
+          <div className="flex gap-4  mt-6 border-b">
+            <div className="text-2xl text-blue-100 mb-2">
+              <LiaMobileAltSolid />
+            </div>
+            <p className="text-stone-50 ">01609520719</p>
+          </div>
+          <div className="flex gap-4 mt-6 border-b">
+            <div className="text-2xl text-blue-100 mb-2">
+              <CgMail />
+            </div>
+            <p className="text-stone-50 ">lifesever007@gmail.com</p>
+          </div>
+          <div className="flex gap-4 mt-6 border-b">
+            <div className="text-2xl text-blue-100 mb-2">
+              <CiLocationOn />
+            </div>
+            <p className="text-stone-50">227 Marion street</p>
+          </div>
         </div>
       </section>
 

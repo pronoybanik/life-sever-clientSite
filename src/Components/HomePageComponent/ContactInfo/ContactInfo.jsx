@@ -43,7 +43,7 @@ const ContactInfo = () => {
             </p>
             <p className="font-sans font-normal text-2xl mt-2">
               {" "}
-              <p className="font-sans font-normal lg:text-2xl text-xl mt-2">01609520719</p>
+              <p className="font-sans font-normal lg:text-2xl text-xl mt-2">227 Marion street</p>
             </p>
           </div>
         </div>

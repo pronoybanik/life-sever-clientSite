@@ -27,7 +27,7 @@ const NavBar = () => {
         to="/ourDoctors"
         className="text-sm font-semibold leading-2  text-white relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-slate-100 before:transition hover:before:scale-x-100"
       >
-        Department
+        Our Doctors
       </Link>
       <Link
         to="/bookAppointment"
