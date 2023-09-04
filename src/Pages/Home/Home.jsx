@@ -16,8 +16,6 @@ const Home = () => {
       <PatientReview />
       <OurDoctorsList />
       <AboutUs />
-      {/* <Info></Info> */}
-      {/* <HealthTips></HealthTips> */}
     </div>
   );
 };

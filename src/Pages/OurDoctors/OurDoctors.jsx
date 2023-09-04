@@ -1,7 +1,7 @@
 import DoctorsPageBannerImage from "../../imges/doctor-page/pexels-rfstudio-3825444.jpg";
 import { useEffect, useState } from "react";
 import UseGetRequest from "../../Shared/UseGetRequest";
-import DoctorsCard from "../../Components/DoctorsPageRightSite/DoctorsCard";
+import DoctorsCard from "../../Components/DoctorsCard/DoctorsCard";
 import { LiaMobileAltSolid } from "react-icons/lia";
 import { CgMail } from "react-icons/cg";
 import { CiLocationOn } from "react-icons/ci";

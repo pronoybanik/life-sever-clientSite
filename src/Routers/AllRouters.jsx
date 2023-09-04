@@ -15,6 +15,7 @@ import Profile from "../Pages/Profile/Profile";
 import Chat from "../Pages/chat/Chat";
 import DoctorDashBoard from "../LayOut/DoctorDashBoard";
 import Notification from "../Pages/Notification/Notification";
+import PatientList from "../Pages/PatientList/PatientList";
 
 const allRouter = createBrowserRouter([
   {
