@@ -30,7 +30,7 @@ const DoctorNavbar = () => {
                                     />
                                 </svg>
 
-                                <span className="text-sm font-medium text-gray-900"> Archive </span>
+                                <span className="text-sm font-medium text-gray-900"> Message </span>
                             </div>
                         </Link>
                     </li>

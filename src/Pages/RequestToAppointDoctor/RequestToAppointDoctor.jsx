@@ -3,45 +3,51 @@ import { authContext } from "../../Components/AuthProvider/AuthProvider";
 import PrimaryButton from "../../Shared/PrimaryButton";
 import UsePOstRequest from "../../Shared/usePostReq";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
+import usePostRequest from "../../Shared/usePostReq";
 
 const RequestToAppointDoctor = () => {
   const { user } = useContext(authContext);
   const [imgUrl, setImgUrl] = useState("");
 
+  const { data, error, loading, post } = usePostRequest();
+  console.log("post", data);
+  console.log("posterror", error);
+
   const handelSubmit = (event) => {
     event.preventDefault();
-    const from = event.target;
-    const LoginUserEmail = from.username.value;
-    const About = from.about.value;
-    // const FileUpload = from.fileUpload.files[0];
-    const FirstName = from.firstName.value;
-    const LastName = from.lastName.value;
-    const Email = from.email.value;
-    const MobileNumber = from.mobileNumber.value;
-    const Country = from.country.value;
-    const StreetAddress = from.streetAddress.value;
-    const City = from.city.value;
-    const Region = from.region.value;
-    const PostalCode = from.postalCode.value;
+    const form = event.target;
+    const LoginUserEmail = form.username.value;
+    const About = form.about.value;
+    // const FileUpload = form.fileUpload.files[0];
+    const FirstName = form.firstName.value;
+    const LastName = form.lastName.value;
+    const Email = form.email.value;
+    const MobileNumber = form.mobileNumber.value;
+    const Country = form.country.value;
+    const StreetAddress = form.streetAddress.value;
+    const City = form.city.value;
+    const Region = form.region.value;
+    const PostalCode = form.postalCode.value;
     const Role = null;
-    const PushNotifications = from.pushNotifications.value;
-    const DoctorType = from.doctorType.value;
-    const WorkingHour = from.workingHour.value;
-    const PerHourCharge = from.hourPrice.value;
+    const PushNotifications = form.pushNotifications.value;
+    const DoctorType = form.doctorType.value;
+    const WorkingHour = form.workingHour.value;
+    const PerHourCharge = form.hourPrice.value;
 
-    // upload image imgbb server
+    // Upload image to imgbb server
     const DoctorImage = imgUrl;
     const formData = new FormData();
     formData.append("image", DoctorImage);
 
     const url =
       "https://api.imgbb.com/1/upload?key=99f58a547dc4b1d269148eb1b605ef29";
+
     fetch(url, {
       method: "POST",
       body: formData,
     })
       .then((res) => res.json())
-      .then((imgData) => {
+      .then(async (imgData) => {
         const DoctorProfileImage = imgData.data.url;
         console.log(DoctorProfileImage);
         const doctorProfileDetails = {
@@ -64,14 +70,25 @@ const RequestToAppointDoctor = () => {
           PerHourCharge,
         };
         console.log(doctorProfileDetails);
-        UsePOstRequest("doctorProfile", doctorProfileDetails);
-        alert("From fullUp done");
-        // from.reset("")
+
+        // Make sure the `post` function is asynchronous and returns a Promise
+        await post("doctorProfile", doctorProfileDetails);
+        alert("Form full upload done");
+        // form.reset();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
       });
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   // Replace 'your-api-endpoint' with your actual API endpoint.
+  //   await post('your-api-endpoint', formData);
+  // };
+
   return (
-    <div>
+    <section>
       <form onSubmit={handelSubmit} className="mx-20">
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12">
@@ -495,7 +512,7 @@ const RequestToAppointDoctor = () => {
           <PrimaryButton>Submit</PrimaryButton>
         </div>
       </form>
-    </div>
+    </section>
   );
 };
 
