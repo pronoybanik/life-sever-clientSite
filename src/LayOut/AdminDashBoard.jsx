@@ -1,7 +1,7 @@
 import NavBar from '../Shared/NavBar/NavBar';
 import { Outlet } from 'react-router-dom';
-import Footer from '../Shared/NavBar/Footer/Footer';
-import AdminNavBar from '../Components/DashBoard/AdminNavBar';
+import Footer from '../Shared/Footer/Footer';
+import AdminNavBar from '../Shared/AdminNavBar/AdminNavBar';
 
 const AdminDashBoard = () => {
     return (
