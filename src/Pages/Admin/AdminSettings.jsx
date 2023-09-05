@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const AdminSettings = () => {
 
     const [doctors, setDoctors] = useState([]);
-    const [getData] = UseGetRequest("doctorProfile");
+    const [getData] = UseGetRequest("api/v1/doctorProfile");
     console.log(getData);
 
     // get all doctors
@@ -17,7 +17,7 @@ const AdminSettings = () => {
 
     // Delete user
     const deleteUserHandler = id => {
-        axios.delete(`http://localhost:5000/doctorProfile/details/${id}`, {
+        axios.delete(`http://localhost:5000/api/v1/doctorProfile/details/${id}`, {
             method: 'DELETE',
         })
             // .then(res => res.json())
@@ -34,7 +34,7 @@ const AdminSettings = () => {
     // admin role set
     const handleAdmin = id => {
         console.log(id);
-        fetch(`http://localhost:5000/doctorProfile/details/${id}`, {
+        fetch(`http://localhost:5000/api/v1/doctorProfile/details/${id}`, {
             method: 'PATCH',
             headers: {
                 "content-type": "application/json",

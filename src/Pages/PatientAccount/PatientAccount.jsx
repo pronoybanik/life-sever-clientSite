@@ -13,7 +13,7 @@ const PatientAccount = () => {
     return (
         <section className='font-serif '>
             {/* some details in covid-19  (start)*/}
-            <div style={{ backgroundColor: 'yellow' }}>
+            <div className='bg-[#60A3D9] text-white'>
                 <div className='max-w-screen-xl text-left p-10'> <strong>Don't delay your care at Mayo Clinic</strong>
                     <br />
                     <h1 className='text-2xl'>Schedule your appointment now for safe in-person care.</h1>
@@ -33,7 +33,7 @@ const PatientAccount = () => {
             {/* log and register part (start)*/}
             <div className='max-w-[1240px] mx-auto mt-4 '>
                 <img src={siteLogo} className='w-52' alt="" />
-                <h1 className='text-indigo-700 mt-8 font-bold'>PATIENT ONLINE SERVICES</h1>
+                <h1 className='text-[#0074B7] mt-8 font-bold'>PATIENT ONLINE SERVICES</h1>
 
                 <div className='mt-14 '>
                     <h1 className='text-6xl mb-1'>Log in</h1>
