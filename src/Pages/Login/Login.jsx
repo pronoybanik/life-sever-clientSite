@@ -1,32 +1,31 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { authContext } from "../../Components/AuthProvider/AuthProvider";
+import usePostRequest from "../../Shared/usePostReq";
 
 const Login = () => {
-  const { login } = useContext(authContext);
+  // const { user } = useContext(authContext);
+  // console.log(user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const { post, data, loading, error } = usePostRequest();
+  const navigate = useNavigate();
 
-  const reset = () => {
-    setEmail("");
-    setPassword("");
-  };
+  if (data?.statusbar === 200) {
+    localStorage.setItem("userId", JSON.stringify(data.data.user._id));
+    localStorage.setItem("Token", JSON.stringify(data.data.token));
+    alert(data.message);
+    // window.location.reload();
+    navigate("/");
+  }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
-    login(email, password)
-      .then((result) => {
-        const user = result.user;
-        setError("");
-        reset();
-        console.log(user);
-      })
-      .catch((error) => {
-        setError(error.message);
-        console.log(error);
-      });
+    const loginData = {
+      email,
+      password,
+    };
+    await post("api/v1/user/login", loginData);
   };
 
   return (
@@ -139,7 +138,7 @@ const Login = () => {
               type="submit"
               className="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
             >
-              Sign in
+              {loading ? <p>Loading....</p> : <p>Sign in</p>}
             </button>
 
             <p className="text-center text-sm text-gray-500">

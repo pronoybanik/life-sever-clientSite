@@ -17,10 +17,10 @@
 import { useState } from "react";
 
 const usePostRequest = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  
+
   const post = async (endPint, BodyData) => {
     const url = `http://localhost:5000/${endPint}`;
     setLoading(true);
@@ -33,14 +33,30 @@ const usePostRequest = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(BodyData),
-      });
+      })
+        .then((res) => res.json())
+        .then((responseData) => {
+          console.log(responseData);
+          if (responseData.status === "success") {
+            setData(responseData);
+            setLoading(false);
+            setError("");
+          }
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+          if (responseData.status === "Fail") {
+            console.log("test", responseData);
+            setLoading(false);
+            setError(responseData.error);
+          }
+        });
 
-      const responseData = await response.json();
-      setData(responseData);
+      // if (!response.ok) {
+      //   throw new Error("Network response was not ok");
+      // }
+
+      // const responseData = await response.json();
+      // setData(responseData);
+      // setError(responseData)
     } catch (err) {
       setError(err);
     } finally {

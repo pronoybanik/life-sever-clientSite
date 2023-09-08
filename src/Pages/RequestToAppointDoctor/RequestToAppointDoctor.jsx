@@ -72,7 +72,7 @@ const RequestToAppointDoctor = () => {
         console.log(doctorProfileDetails);
 
         // Make sure the `post` function is asynchronous and returns a Promise
-        await post("doctorProfile", doctorProfileDetails);
+        await post("api/v1/doctorProfile", doctorProfileDetails);
         alert("Form full upload done");
         // form.reset();
       })

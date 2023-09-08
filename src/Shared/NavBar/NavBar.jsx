@@ -8,11 +8,14 @@ import PrimaryButton from "../PrimaryButton";
 import { MdDataSaverOn } from "react-icons/md";
 
 const NavBar = () => {
-  const { user, logOut } = useContext(authContext);
+  const { user } = useContext(authContext);
+  console.log(user);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
-    logOut().then().catch();
+    localStorage.removeItem("userId");
+    localStorage.removeItem("Token");
+    window.location.reload();
   };
 
   const menu = (
@@ -127,7 +130,7 @@ const NavBar = () => {
               {menu}
             </Popover.Group>
             <div>
-              {!user ? (
+              {!user.gmail ? (
                 <div className="lg:-mt-1">
                   <Link
                     to="/logIn"
@@ -139,7 +142,7 @@ const NavBar = () => {
               ) : (
                 <PrimaryButton handler={handleLogout}>log out </PrimaryButton>
               )}
-              {!user ? null : (
+              {!user.gmail ? null : (
                 <Link to="/profile">
                   <div className="avatar">
                     <div className="w-8 mx-2  rounded-full">
