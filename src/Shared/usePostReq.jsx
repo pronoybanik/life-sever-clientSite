@@ -17,7 +17,7 @@
 import { useState } from "react";
 
 const usePostRequest = () => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState([] || {});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 

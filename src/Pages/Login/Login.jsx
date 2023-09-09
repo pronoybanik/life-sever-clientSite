@@ -15,8 +15,8 @@ const Login = () => {
     localStorage.setItem("userId", JSON.stringify(data.data.user._id));
     localStorage.setItem("Token", JSON.stringify(data.data.token));
     alert(data.message);
-    // window.location.reload();
     navigate("/");
+    window.location.reload();
   }
 
   const handleSubmit = async (event) => {
