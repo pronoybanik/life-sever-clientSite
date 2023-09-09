@@ -1,11 +1,8 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { authContext } from "../../Components/AuthProvider/AuthProvider";
 import usePostRequest from "../../Shared/usePostReq";
 
 const Login = () => {
-  // const { user } = useContext(authContext);
-  // console.log(user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { post, data, loading, error } = usePostRequest();
