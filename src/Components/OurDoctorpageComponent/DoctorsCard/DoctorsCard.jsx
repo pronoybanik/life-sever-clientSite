@@ -13,7 +13,7 @@ const DoctorsCard = ({ doctorProfile }) => {
     DoctorType,
   } = doctorProfile;
 
-  return Role === "admin" ? (
+  return Role === "Doctor" ? (
     <Link
       to={`/DoctorDetails/${_id}`}
       className="block rounded-lg p-4 shadow-sm  shadow-indigo-100"

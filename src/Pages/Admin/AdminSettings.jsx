@@ -3,10 +3,11 @@ import UseGetRequest from "../../Shared/UseGetRequest";
 import PrimaryButton from "../../Shared/PrimaryButton";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import SecondaryButton from "../../Shared/SecondaryButton";
 
 const AdminSettings = () => {
-  const [doctors, setDoctors] = useState([]);
   const [getData] = UseGetRequest("api/v1/doctorProfile");
+  const [doctors, setDoctors] = useState([]);
   console.log(getData);
 
   // get all doctors
@@ -38,20 +39,14 @@ const AdminSettings = () => {
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({ Role: "admin" }),
+      body: JSON.stringify({ Role: "Doctor" }),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.statusbar === 200) {
+          alert(data.message);
           window.location.reload();
         }
-        console.log(data);
-
-        // if (data.status === 200) {
-        // alert(``)
-        // const remaining = doctors.filter((doctor) => doctor.Role !== 'admin');
-        // setDoctors(remaining);
-        // }
       });
   };
 
@@ -94,13 +89,13 @@ const AdminSettings = () => {
                     {doctor?.PerHourCharge}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2">
-                    {doctor?.Role === "admin" ? (
+                    {doctor?.Role === "Doctor" ? (
                       <button className="disabled bg-slate-400 text-white px-8 py-2">
                         Role set
                       </button>
                     ) : (
                       <div onClick={() => handleAdmin(doctor._id)}>
-                        <PrimaryButton>select by doctor</PrimaryButton>
+                        <SecondaryButton>select by doctor</SecondaryButton>
                       </div>
                     )}
                   </td>

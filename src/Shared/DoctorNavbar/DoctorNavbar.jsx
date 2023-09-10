@@ -10,6 +10,31 @@ const DoctorNavbar = () => {
                    
 
                     <li className="flex-1">
+                        <Link onClick={() => setBorder('BookAppointment')} to="/doctorDashBoard/patientAppointment" className="relative block p-4">
+                            <span
+                                className={`absolute inset-x-0 -bottom-px h-px w-full ${border === "BookAppointment" ? "bg-pink-600" : "bg-slate-50"}`}
+                            ></span>
+                            <div className="flex items-center justify-center gap-4">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-5 w-5 shrink-0 text-gray-500"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
+                                    />
+                                </svg>
+
+                                <span className="text-sm font-medium text-gray-900"> BookAppointment </span>
+                            </div>
+                        </Link>
+                    </li>
+                    <li className="flex-1">
                         <Link onClick={() => setBorder('message')} to="/doctorDashBoard/message" className="relative block p-4">
                             <span
                                 className={`absolute inset-x-0 -bottom-px h-px w-full ${border === "message" ? "bg-pink-600" : "bg-slate-50"}`}

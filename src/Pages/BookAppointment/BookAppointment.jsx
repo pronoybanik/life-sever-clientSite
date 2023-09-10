@@ -1,14 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import usePostRequest from "../../Shared/usePostReq";
+import axios from "axios";
 
 const BookAppointment = () => {
-  const appointmentHandle = (event) => {
+  const [doctorType, setDoctorType] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(
+        `http://localhost:5000/api/v1/doctorProfile?fields=DoctorType,FirstName,LastName`
+      )
+      .then((data) => setDoctorType(data.data.data));
+  }, []);
+
+  const { post, data, loading, error } = usePostRequest();
+  console.log(data);
+
+  if (data?.statusbar === 200) {
+    alert(data.message);
+  }
+
+  const appointmentHandle = async (event) => {
     event.preventDefault();
     const form = event.target;
     const patientName = form.patientName.value;
     const patientEmail = form.patientEmail.value;
     const phoneNumber = form.phone.value;
-    const doctorDetails = { name: form.doctorDetails.value };
+    const doctorDetails = {
+      name: form.doctorName.value,
+      doctorId: form.doctorId.value,
+    };
     const gender = form.gender.value;
     const appointmentStatus = form.appointmentStatus.value;
     const appointmentDate = form.appointmentDate.value;
@@ -32,9 +53,7 @@ const BookAppointment = () => {
       status,
       notes,
     };
-    console.log(BookAppointment);
-    usePostRequest("api/v1/appointment", BookAppointment);
-    console.log(BookAppointment);
+    await post("api/v1/appointment", BookAppointment);
   };
 
   return (
@@ -117,12 +136,18 @@ const BookAppointment = () => {
                       <span className="label-text">Select Doctor</span>
                     </label>
                     <select
-                      name="doctorDetails"
+                      name="doctorName"
                       className="select select-bordered w-full max-w-xs"
                     >
-                      <option disabled>Select Doctor</option>
-                      <option value="Dr.Pronoy">Dr.Pronoy</option>
-                      <option value="Dr.Ashim">Dr.Ashim</option>
+                      <option>Select Doctor</option>
+                      {doctorType.map((data) => (
+                        <option
+                          key={data._id}
+                          value={(data.FirstName, data.LastName)}
+                        >
+                          {data.FirstName} {data.LastName}
+                        </option>
+                      ))}
                     </select>
                   </div>
 
@@ -131,16 +156,15 @@ const BookAppointment = () => {
                       <span className="label-text">select Department</span>
                     </label>
                     <select
-                      name="role"
+                      name="doctorId"
                       className="select select-bordered w-full max-w-xs"
                     >
-                      <option disabled>Department</option>
-                      <option value="OutpatientSurgery">
-                        Outpatient Surgery
-                      </option>
-                      <option value="GynaecologicalClinic">
-                        Gynaecological Clinic
-                      </option>
+                      <option>Department</option>
+                      {doctorType.map((data) => (
+                        <option key={data._id} value={data._id}>
+                          {data.DoctorType}
+                        </option>
+                      ))}
                     </select>
                   </div>
 
@@ -152,7 +176,7 @@ const BookAppointment = () => {
                       name="gender"
                       className="select select-bordered w-full max-w-xs"
                     >
-                      <option disabled>Gender</option>
+                      <option>Gender</option>
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
                       <option value="Other">other</option>
@@ -178,7 +202,7 @@ const BookAppointment = () => {
                       name="durationTime"
                       className="select select-bordered w-full max-w-xs"
                     >
-                      <option disabled>Duration Time</option>
+                      <option>Duration Time</option>
                       <option value="20">20 minutes</option>
                       <option value="40">40 minutes</option>
                       <option value="60">60 minutes</option>
@@ -193,7 +217,7 @@ const BookAppointment = () => {
                       name="appointmentType"
                       className="select select-bordered w-full max-w-xs"
                     >
-                      <option disabled>Appointment Type</option>
+                      <option>Appointment Type</option>
                       <option value="onLine">onLine</option>
                       <option value="onHospital">onHospital</option>
                     </select>
@@ -263,12 +287,36 @@ const BookAppointment = () => {
                   ></textarea>
                 </div>
 
+                {error && (
+                  <div
+                    role="alert"
+                    className="rounded border-s-4 -mt-32 w-full w border-red-500 bg-red-50 p-4"
+                  >
+                    <div className="flex items-center gap-2 text-red-800">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="h-5 w-5"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+
+                      <strong className="block font-medium"> {error} </strong>
+                    </div>
+                  </div>
+                )}
+
                 <div className="mt-4">
                   <button
                     type="submit"
                     className="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto"
                   >
-                    Send Enquiry
+                    {loading ? <p>Loading....</p> : <p>submit</p>}
                   </button>
                 </div>
               </form>

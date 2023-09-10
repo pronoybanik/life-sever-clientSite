@@ -10,8 +10,7 @@ const RequestToAppointDoctor = () => {
   const [imgUrl, setImgUrl] = useState("");
 
   const { data, error, loading, post } = usePostRequest();
-  console.log("post", data);
-  console.log("posterror", error);
+ 
 
   const handelSubmit = (event) => {
     event.preventDefault();

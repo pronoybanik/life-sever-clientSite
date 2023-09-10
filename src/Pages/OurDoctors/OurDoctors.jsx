@@ -5,6 +5,7 @@ import DoctorsCard from "../../Components/OurDoctorpageComponent/DoctorsCard/Doc
 import { LiaMobileAltSolid } from "react-icons/lia";
 import { CgMail } from "react-icons/cg";
 import { CiLocationOn } from "react-icons/ci";
+import axios from "axios";
 
 const filters = [
   {
@@ -46,15 +47,15 @@ const filters = [
 const OurDoctors = () => {
   const [category, setCategory] = useState("");
   const [doctors, setDoctors] = useState([]);
-  const [getData] = UseGetRequest(`api/v1/doctorProfile?${category}`);
-  console.log(getData);
+  // const [getData] = UseGetRequest(`api/v1/doctorProfile?${category}`);
+  // console.log(getData);
 
   // get all doctors
   useEffect(() => {
-    setDoctors(getData);
-  }, [getData]);
-
-  console.log("test", category);
+    axios
+      .get(`http://localhost:5000/api/v1/doctorProfile?${category}`)
+      .then((res) => setDoctors(res.data.data));
+  }, []);
 
   return (
     <section>
@@ -169,7 +170,7 @@ const OurDoctors = () => {
             </div>
             <div className="mt-4">
               <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-2">
-                {doctors.map((doctor) => (
+                {doctors?.map((doctor) => (
                   <DoctorsCard
                     key={doctor?._id}
                     doctorProfile={doctor}

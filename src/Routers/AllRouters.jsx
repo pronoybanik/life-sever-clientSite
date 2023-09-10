@@ -14,8 +14,8 @@ import BookAppointment from "../Pages/BookAppointment/BookAppointment";
 import Profile from "../Pages/Profile/Profile";
 import Chat from "../Pages/chat/Chat";
 import DoctorDashBoard from "../LayOut/DoctorDashBoard";
-import Notification from "../Pages/Notification/Notification";
 import PatientList from "../Pages/PatientList/PatientList";
+import PatientAppointment from "../Components/DoctorDashBoardPageComponent/patientAppointment/PatientAppointment";
 
 const allRouter = createBrowserRouter([
   {
@@ -87,8 +87,8 @@ const allRouter = createBrowserRouter([
     element: <DoctorDashBoard />,
     children: [
       {
-        path: "/doctorDashBoard/notification",
-        element: <Notification />,
+        path: "/doctorDashBoard/patientAppointment",
+        element: <PatientAppointment />,
       },
       {
         path: "/doctorDashBoard/message",
