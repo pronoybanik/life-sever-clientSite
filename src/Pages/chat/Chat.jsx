@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import Module from "../../Components/AdminDashBoardPageComponent/Module/Module";
+import { authContext } from "../../Components/AuthProvider/AuthProvider";
+import UseGetRequest from "../../Shared/UseGetRequest";
 
 const Chat = () => {
   return (
@@ -6,12 +9,21 @@ const Chat = () => {
       <div>
         <p className="relative border mt-1 " />
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 max-w-7xl mx-auto mt-20 ">
-          <div>
-            <div className="bg-[#9ebfdd] px-6 py-10">
+          <div className="bg-[#9ebfdd]">
+            <div className="flex gap-2 justify-between  px-6 py-10">
               <p className="font-sans text-3xl text-white pt-2 font-semibold">
                 chat list
               </p>
+              {/* module button */}
+              <div className="card-actions  flex justify-center">
+                <label htmlFor="mobile-model" className="btn">
+                  Booking
+                </label>
+              </div>
+              {<Module />}
             </div>
+
+            {/* user chat list  */}
           </div>
           {/* message list start */}
           <div className="lg:col-span-3">
