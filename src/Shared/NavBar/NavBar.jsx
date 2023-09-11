@@ -25,17 +25,23 @@ const NavBar = () => {
       >
         Home
       </Link>
-      <Link
+      {/* <Link
         to="/ourDoctors"
         className="text-sm font-semibold leading-2  text-white relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-slate-100 before:transition hover:before:scale-x-100"
       >
         Our Doctors
       </Link>
       <Link
+        to="/appointmentList"
+        className="text-sm font-semibold leading-2  text-white relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-slate-100 before:transition hover:before:scale-x-100"
+      >
+        Appointment List
+      </Link> */}
+      <Link
         to="/bookAppointment"
         className="text-sm font-semibold leading-2  text-white relative before:absolute before:-bottom-0.5 before:h-0.5 before:w-full before:scale-x-0 before:bg-slate-100 before:transition hover:before:scale-x-100"
       >
-        Appointment
+       Book Appointment
       </Link>
 
       <Link

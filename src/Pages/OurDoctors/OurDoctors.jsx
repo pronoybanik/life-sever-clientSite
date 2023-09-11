@@ -56,6 +56,7 @@ const OurDoctors = () => {
       .get(`http://localhost:5000/api/v1/doctorProfile?${category}`)
       .then((res) => setDoctors(res.data.data));
   }, []);
+  console.log(category);
 
   return (
     <section>

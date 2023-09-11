@@ -16,6 +16,7 @@ import Chat from "../Pages/chat/Chat";
 import DoctorDashBoard from "../LayOut/DoctorDashBoard";
 import PatientList from "../Pages/PatientList/PatientList";
 import PatientAppointment from "../Components/DoctorDashBoardPageComponent/patientAppointment/PatientAppointment";
+import AppointmentList from "../Pages/appointmentList/AppointmentList";
 
 const allRouter = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const allRouter = createBrowserRouter([
       {
         path: "/about",
         element: <AboutUs />,
+      },
+      {
+        path: "/appointmentList",
+        element: <AppointmentList />,
       },
       {
         path: "/ourDoctors",

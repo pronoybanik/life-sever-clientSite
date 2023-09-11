@@ -10,7 +10,6 @@ const RequestToAppointDoctor = () => {
   const [imgUrl, setImgUrl] = useState("");
 
   const { data, error, loading, post } = usePostRequest();
- 
 
   const handelSubmit = (event) => {
     event.preventDefault();
@@ -27,7 +26,6 @@ const RequestToAppointDoctor = () => {
     const City = form.city.value;
     const Region = form.region.value;
     const PostalCode = form.postalCode.value;
-    const Role = null;
     const PushNotifications = form.pushNotifications.value;
     const DoctorType = form.doctorType.value;
     const WorkingHour = form.workingHour.value;
@@ -63,7 +61,6 @@ const RequestToAppointDoctor = () => {
           MobileNumber,
           Country,
           DoctorProfileImage,
-          Role,
           DoctorType,
           WorkingHour,
           PerHourCharge,
@@ -508,7 +505,9 @@ const RequestToAppointDoctor = () => {
           >
             Cancel
           </button>
-          <PrimaryButton>Submit</PrimaryButton>
+          <PrimaryButton>
+            {loading ? <p>Loading..</p> : <p>submit</p>}
+          </PrimaryButton>
         </div>
       </form>
     </section>

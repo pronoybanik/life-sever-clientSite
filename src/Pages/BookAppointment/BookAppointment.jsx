@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import usePostRequest from "../../Shared/usePostReq";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const BookAppointment = () => {
   const [doctorType, setDoctorType] = useState([]);
-
+  const id = JSON.parse(localStorage.getItem("userId"));
+  const navigate = useNavigate();
+  
   useEffect(() => {
     axios
       .get(
@@ -18,11 +21,13 @@ const BookAppointment = () => {
 
   if (data?.statusbar === 200) {
     alert(data.message);
+    navigate("/appointmentList");
   }
 
   const appointmentHandle = async (event) => {
     event.preventDefault();
     const form = event.target;
+    const userId = id;
     const patientName = form.patientName.value;
     const patientEmail = form.patientEmail.value;
     const phoneNumber = form.phone.value;
@@ -40,6 +45,7 @@ const BookAppointment = () => {
     const notes = form.message.value;
 
     const BookAppointment = {
+      userId,
       patientName,
       patientEmail,
       phoneNumber,
