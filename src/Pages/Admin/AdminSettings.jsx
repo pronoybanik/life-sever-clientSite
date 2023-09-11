@@ -8,7 +8,8 @@ import SecondaryButton from "../../Shared/SecondaryButton";
 const AdminSettings = () => {
   const [getData] = UseGetRequest("api/v1/doctorProfile");
   const [doctors, setDoctors] = useState([]);
-  console.log(getData);
+  const userId = JSON.parse(localStorage.getItem("userId"));
+
 
   // get all doctors
   useEffect(() => {
@@ -23,7 +24,6 @@ const AdminSettings = () => {
       })
       // .then(res => res.json())
       .then((data) => {
-        console.log(data);
         if (data.status === 200) {
           alert(`Delete user`);
           const remaining = doctors.filter((doctor) => doctor._id !== id);
@@ -43,6 +43,23 @@ const AdminSettings = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
+        // if (data.statusbar === 200) {
+        //   alert(data.message);
+        //   window.location.reload();
+        // }
+      });
+
+    fetch(`http://localhost:5000/api/v1/user/${userId}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ Role: "Doctor" }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
         if (data.statusbar === 200) {
           alert(data.message);
           window.location.reload();
@@ -75,12 +92,12 @@ const AdminSettings = () => {
           <tbody className="divide-y mx-20 divide-gray-200">
             {doctors?.map((doctor) => (
               <>
-                <tr className="max-w-lg" key={doctor._id}>
+                <tr key={doctor?._id} className="max-w-lg">
                   <td className="whitespace-nowrap  px-4 py-2 font-medium text-gray-900">
                     {doctor?.FirstName} {doctor?.LastName}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                    {doctor?.updatedAt.slice(0, 10)}
+                    {doctor?.updatedAt?.slice(0, 10)}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                     {doctor?.DoctorType}

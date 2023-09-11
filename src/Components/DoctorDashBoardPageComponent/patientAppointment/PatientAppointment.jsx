@@ -1,17 +1,24 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { authContext } from "../../AuthProvider/AuthProvider";
 
 const PatientAppointment = () => {
+  const { user } = useContext(authContext);
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(
-        `http://localhost:5000/api/v1/appointment/route/64fc90ecf2e32e25744a2fd6`
-      )
-      .then((res) => setData(res.data.data));
-  }, []);
-  console.log(data);
+    if (user && user.doctorId && user.doctorId.length > 0) {
+      axios
+        .get(
+          `http://localhost:5000/api/v1/appointment/doctorId/${user.doctorId[0]}`
+        )
+        .then((res) => setData(res.data.data))
+        .catch((error) => {
+          // Handle the error here
+          console.error("Error fetching data:", error);
+        });
+    }
+  }, [user]);
 
   return (
     <section className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-2">
@@ -41,7 +48,7 @@ const PatientAppointment = () => {
                 <div>
                   <dt className="sr-only">Address</dt>
 
-                  <dd className="font-medium">123 Wallaby Avenue, Park Road</dd>
+                  <dd className="font-medium">{d?.patientName}</dd>
                 </div>
               </dl>
 

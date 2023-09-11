@@ -17,7 +17,6 @@ const BookAppointment = () => {
   }, []);
 
   const { post, data, loading, error } = usePostRequest();
-  console.log(data);
 
   if (data?.statusbar === 200) {
     alert(data.message);
