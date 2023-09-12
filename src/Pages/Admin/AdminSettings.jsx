@@ -6,15 +6,15 @@ import { Link } from "react-router-dom";
 import SecondaryButton from "../../Shared/SecondaryButton";
 
 const AdminSettings = () => {
-  const [getData] = UseGetRequest("api/v1/doctorProfile");
   const [doctors, setDoctors] = useState([]);
   const userId = JSON.parse(localStorage.getItem("userId"));
+  const { data, loading, error } = UseGetRequest("api/v1/doctorProfile");
 
-
-  // get all doctors
   useEffect(() => {
-    setDoctors(getData);
-  }, [getData]);
+    if (data) {
+      setDoctors(data);
+    }
+  }, [data, loading, error]);
 
   // Delete user
   const deleteUserHandler = (id) => {

@@ -11,9 +11,10 @@ const DoctorsCard = ({ doctorProfile }) => {
     WorkingHour,
     PerHourCharge,
     DoctorType,
+    status,
   } = doctorProfile;
 
-  return Role === "Doctor" ? (
+  return Role === "Doctor" && status === "Active" ? (
     <Link
       to={`/DoctorDetails/${_id}`}
       className="block rounded-lg p-4 shadow-sm  shadow-indigo-100"

@@ -14,6 +14,7 @@ const RequestToAppointDoctor = () => {
   const handelSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
+    const userId = user._id
     const LoginUserEmail = form.username.value;
     const About = form.about.value;
     // const FileUpload = form.fileUpload.files[0];
@@ -48,6 +49,7 @@ const RequestToAppointDoctor = () => {
         const DoctorProfileImage = imgData.data.url;
         console.log(DoctorProfileImage);
         const doctorProfileDetails = {
+          userId,
           LoginUserEmail,
           About,
           StreetAddress,

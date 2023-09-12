@@ -5,13 +5,14 @@ import { useNavigate } from "react-router-dom";
 
 const BookAppointment = () => {
   const [doctorType, setDoctorType] = useState([]);
+  const [imgUrl, setImgUrl] = useState("");
   const id = JSON.parse(localStorage.getItem("userId"));
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5000/api/v1/doctorProfile?fields=DoctorType,FirstName,LastName`
+        `http://localhost:5000/api/v1/doctorProfile?sort=PerHourCharge&fields=DoctorType,FirstName,LastName, status`
       )
       .then((data) => setDoctorType(data.data.data));
   }, []);
@@ -43,22 +44,42 @@ const BookAppointment = () => {
     const status = "Pending";
     const notes = form.message.value;
 
-    const BookAppointment = {
-      userId,
-      patientName,
-      patientEmail,
-      phoneNumber,
-      doctorDetails,
-      gender,
-      appointmentStatus,
-      appointmentDate,
-      durationTime,
-      reason,
-      appointmentType,
-      status,
-      notes,
-    };
-    await post("api/v1/appointment", BookAppointment);
+    // upload patient image
+    const DoctorImage = imgUrl;
+    const formData = new FormData();
+    formData.append("image", DoctorImage);
+
+    const url =
+      "https://api.imgbb.com/1/upload?key=99f58a547dc4b1d269148eb1b605ef29";
+
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then(async (imgData) => {
+        const patientProfileImage = imgData.data.url;
+        const BookAppointment = {
+          userId,
+          patientName,
+          patientEmail,
+          phoneNumber,
+          doctorDetails,
+          gender,
+          appointmentStatus,
+          appointmentDate,
+          durationTime,
+          reason,
+          appointmentType,
+          status,
+          notes,
+          patientProfileImage,
+        };
+        await post("api/v1/appointment", BookAppointment);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
@@ -145,14 +166,16 @@ const BookAppointment = () => {
                       className="select select-bordered w-full max-w-xs"
                     >
                       <option>Select Doctor</option>
-                      {doctorType.map((data) => (
-                        <option
-                          key={data._id}
-                          value={(data.FirstName, data.LastName)}
-                        >
-                          {data.FirstName} {data.LastName}
-                        </option>
-                      ))}
+                      {doctorType.map((data) => {
+                        return data.status === "Active" ? (
+                          <option
+                            key={data._id}
+                            value={(data.FirstName, data.LastName)}
+                          >
+                            {data.FirstName} {data.LastName}
+                          </option>
+                        ) : null;
+                      })}
                     </select>
                   </div>
 
@@ -165,11 +188,14 @@ const BookAppointment = () => {
                       className="select select-bordered w-full max-w-xs"
                     >
                       <option>Department</option>
-                      {doctorType.map((data) => (
-                        <option key={data._id} value={data._id}>
-                          {data.DoctorType}
-                        </option>
-                      ))}
+                      {doctorType.map((data) => {
+                        console.log(data);
+                        return data.status === "Active" ? (
+                          <option key={data._id} value={data._id}>
+                            {data.DoctorType}
+                          </option>
+                        ) : null;
+                      })}
                     </select>
                   </div>
 
@@ -236,6 +262,14 @@ const BookAppointment = () => {
                       type="text"
                       id="reason"
                       name="reason"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email">Please give your Image</label>
+                    <input
+                      onChange={(e) => setImgUrl(e.target.files[0])}
+                      type="file"
+                      className="file-input file-input-bordered file-input-md w-full max-w-xs"
                     />
                   </div>
                 </div>
