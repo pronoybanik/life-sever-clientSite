@@ -1,16 +1,40 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import AppointmentListItem from "../../Components/appoitmentListPage/AppointmentList/AppointmentListItem";
+import UseGetRequest from "../../Shared/UseGetRequest";
+import Error from "../../Shared/error/Error";
 
 const AppointmentList = () => {
   const userId = JSON.parse(localStorage.getItem("userId"));
+  const token = JSON.parse(localStorage.getItem("Token"));
   const [userIdData, setUserIdData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/v1/appointment/userId/${userId}`)
-      .then((data) => setUserIdData(data.data.data));
-  }, []);
+      .get(`http://localhost:5000/api/v1/appointment/userId/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((responseData) => {
+        console.log("data", responseData);
+        if (responseData.data.status === "success") {
+          setUserIdData(responseData.data.data);
+          setIsLoading(false);
+          setError("");
+        } else {
+          setIsLoading(false);
+          setError(responseData.data.error);
+        }
+      })
+      .catch((error) => {
+        console.log("error", error);
+        setIsLoading(false);
+        setError(error.message);
+      });
+  }, [userId, token]);
 
   return (
     <section>
@@ -35,12 +59,24 @@ const AppointmentList = () => {
         </div>
       </div>
       <div className="grid grid-cols-1 max-w-7xl mx-auto gap-4 my-4">
-        {userIdData.map((data) => (
-          <AppointmentListItem
-            key={data?._id}
-            data={data}
-          ></AppointmentListItem>
-        ))}
+        <div>
+          {isLoading ? (
+            <p className="text-4xl text-center">Loading..</p>
+          ) : (
+            <>
+              {error ? (
+                <Error>{error}</Error>
+              ) : (
+                userIdData.map((data) => (
+                  <AppointmentListItem
+                    key={data?._id}
+                    data={data}
+                  ></AppointmentListItem>
+                ))
+              )}
+            </>
+          )}
+        </div>
       </div>
     </section>
   );

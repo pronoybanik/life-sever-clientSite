@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 const usePostRequest = () => {
+  const token = JSON.parse(localStorage.getItem("Token"));
   const [data, setData] = useState([] || {});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -14,6 +15,7 @@ const usePostRequest = () => {
       const response = await fetch(url, {
         method: "POST",
         headers: {
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(BodyData),
@@ -33,14 +35,6 @@ const usePostRequest = () => {
             setError(responseData.error);
           }
         });
-
-      // if (!response.ok) {
-      //   throw new Error("Network response was not ok");
-      // }
-
-      // const responseData = await response.json();
-      // setData(responseData);
-      // setError(responseData)
     } catch (err) {
       setError(err);
     } finally {

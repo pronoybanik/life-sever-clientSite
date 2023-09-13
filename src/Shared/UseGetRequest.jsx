@@ -1,37 +1,27 @@
-// import axios from "axios";
-// import { useEffect, useState } from "react";
-
-// const UseGetRequest = (endPint) => {
-//     const [getData, setGetData] = useState([]);
-//     // const [isLoading, setIsLoading] = useState(true)
-
-//     useEffect(() => {
-//         if (endPint) {
-//             axios.get(`http://localhost:5000/${endPint}`)
-//                 .then(data => {
-//                     setGetData(data.data.data);
-//                 });
-//         }
-//     }, [endPint]);
-//     return [getData]
-// };
-
-// export default UseGetRequest;
-
-// useFetchData.js
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const UseGetRequest = (endPint) => {
-  const [data, setData] = useState(null);
+const UseGetRequest = (endPoint) => {
+  const token = JSON.parse(localStorage.getItem("Token"));
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const url = `http://localhost:5000/${endPint}`;
+
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
+  const url = `http://localhost:5000/${endPoint}`;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(url);
-        setData(response.data.data);
+        const response = await axios.get(url, { headers });
+        console.log("test", response);
+        setError(response.data.error);
+        if (response.data.statusbar === 200) {
+          setData(response.data.data);
+        }
         setLoading(false);
       } catch (err) {
         setError(err);
@@ -40,7 +30,7 @@ const UseGetRequest = (endPint) => {
     };
 
     fetchData();
-  }, [url]);
+  }, [url, token]);
 
   return { data, loading, error };
 };
