@@ -4,17 +4,39 @@ import PrimaryButton from "../../Shared/PrimaryButton";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import SecondaryButton from "../../Shared/SecondaryButton";
+import Error from "../../Shared/error/Error";
 
 const AdminSettings = () => {
   const [doctors, setDoctors] = useState([]);
   const userId = JSON.parse(localStorage.getItem("userId"));
-  const { data, loading, error } = UseGetRequest("api/v1/doctorProfile");
+  // const { data, loading, error } = UseGetRequest("api/v1/doctorProfile");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    if (data) {
-      setDoctors(data);
-    }
-  }, [data, loading, error]);
+    axios
+      .get(`http://localhost:5000/api/v1/doctorProfile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((responseData) => {
+        console.log("data", responseData);
+        if (responseData.data.status === "success") {
+          setDoctors(responseData.data.data);
+          setIsLoading(false);
+          setError("");
+        } else {
+          setIsLoading(false);
+          setError(responseData.data.error);
+        }
+      })
+      .catch((error) => {
+        console.log("error", error);
+        setIsLoading(false);
+        setError(error.message);
+      });
+  }, [data, isLoading, error]);
 
   // Delete user
   const deleteUserHandler = (id) => {
@@ -90,51 +112,55 @@ const AdminSettings = () => {
           </thead>
 
           <tbody className="divide-y mx-20 divide-gray-200">
-            {doctors?.map((doctor) => (
-              <>
-                <tr key={doctor?._id} className="max-w-lg">
-                  <td className="whitespace-nowrap  px-4 py-2 font-medium text-gray-900">
-                    {doctor?.FirstName} {doctor?.LastName}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                    {doctor?.updatedAt?.slice(0, 10)}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                    {doctor?.DoctorType}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                    {doctor?.PerHourCharge}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-2">
-                    {doctor?.Role === "Doctor" ? (
-                      <button className="disabled bg-slate-400 text-white px-8 py-2">
-                        Role set
-                      </button>
-                    ) : (
-                      <div onClick={() => handleAdmin(doctor._id)}>
-                        <SecondaryButton>select by doctor</SecondaryButton>
-                      </div>
-                    )}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-2">
-                    <Link
-                      to={`/DoctorDetails/${doctor?._id}`}
-                      className="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
+            {isLoading ? (
+              <p>Loading....</p>
+            ) : (
+              doctors?.map((doctor) => (
+                <>
+                  <tr key={doctor?._id} className="max-w-lg">
+                    <td className="whitespace-nowrap  px-4 py-2 font-medium text-gray-900">
+                      {doctor?.FirstName} {doctor?.LastName}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                      {doctor?.updatedAt?.slice(0, 10)}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                      {doctor?.DoctorType}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                      {doctor?.PerHourCharge}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-2">
+                      {doctor?.Role === "Doctor" ? (
+                        <button className="disabled bg-slate-400 text-white px-8 py-2">
+                          Role set
+                        </button>
+                      ) : (
+                        <div onClick={() => handleAdmin(doctor._id)}>
+                          <SecondaryButton>select by doctor</SecondaryButton>
+                        </div>
+                      )}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-2">
+                      <Link
+                        to={`/DoctorDetails/${doctor?._id}`}
+                        className="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
+                      >
+                        View details
+                      </Link>
+                    </td>
+                    <td
+                      onClick={() => deleteUserHandler(doctor._id)}
+                      className="whitespace-nowrap px-4 py-2"
                     >
-                      View details
-                    </Link>
-                  </td>
-                  <td
-                    onClick={() => deleteUserHandler(doctor._id)}
-                    className="whitespace-nowrap px-4 py-2"
-                  >
-                    <button className="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700">
-                      delete user
-                    </button>
-                  </td>
-                </tr>
-              </>
-            ))}
+                      <button className="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700">
+                        delete user
+                      </button>
+                    </td>
+                  </tr>
+                </>
+              ))
+            )}
             {/* <tr>
                         <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                             test
@@ -153,6 +179,7 @@ const AdminSettings = () => {
                     </tr> */}
           </tbody>
         </table>
+        {error && <Error>{error}</Error>}
       </div>
     </section>
   );

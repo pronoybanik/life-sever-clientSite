@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import usePostRequest from "../../Shared/usePostReq";
 import Error from "../../Shared/error/Error";
 
@@ -9,11 +9,14 @@ const Login = () => {
   const { post, data, loading, error } = usePostRequest();
   const navigate = useNavigate();
 
+  const location = useLocation();
+  const navigateForm = location.state?.from?.pathname || "/";
+
   if (data?.statusbar === 200) {
     localStorage.setItem("userId", JSON.stringify(data.data.user._id));
     localStorage.setItem("Token", JSON.stringify(data.data.token));
     alert(data.message);
-    navigate("/");
+    navigate(navigateForm, { replace: true });
     window.location.reload();
   }
 

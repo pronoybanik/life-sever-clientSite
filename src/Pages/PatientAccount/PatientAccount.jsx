@@ -7,6 +7,12 @@ import SecondaryButton from "../../Shared/SecondaryButton";
 const PatientAccount = () => {
   const { user } = useContext(authContext);
 
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("Token");
+    window.location.reload();
+  };
+
   return (
     <section className="font-serif ">
       {/* some details in covid-19  (start)*/}
@@ -46,27 +52,37 @@ const PatientAccount = () => {
           <h1 className="text-xl">Or create new account</h1>
 
           <div className="mt-4 flex gap-2">
-            {user?.email ? (
-              <div>
-                <Link to="/applyToAppointDoctor">
-                  <SecondaryButton>request to appoint doctor</SecondaryButton>
-                </Link>
-                <br />
-                <Link to="/">
-                  <SecondaryButton> select doctor</SecondaryButton>
-                </Link>
-              </div>
-            ) : (
-              <div className="flex gap-2">
-                <Link to="/logIn">
-                  <SecondaryButton>Log in</SecondaryButton>
-                </Link>
-
-                <Link to="/register">
-                  <SecondaryButton>register</SecondaryButton>
-                </Link>
-              </div>
-            )}
+            <div>
+              {user?.email ? (
+                <div>
+                  {user.Role === "Doctor" ? (
+                    <p className="text-xl  bg-gray-700 text-white py-2 px-4 border-2">
+                      That account is verified By Admin to Doctor Role
+                    </p>
+                  ) : (
+                    <Link to="/applyToAppointDoctor">
+                      <SecondaryButton>
+                        Request to Appoint Doctor
+                      </SecondaryButton>
+                    </Link>
+                  )}
+                  <br />
+                  <SecondaryButton onClick={handleLogout}>
+                    {" "}
+                    Log Out
+                  </SecondaryButton>
+                </div>
+              ) : (
+                <div className="flex gap-2">
+                  <Link to="/logIn">
+                    <SecondaryButton>Log in</SecondaryButton>
+                  </Link>
+                  <Link to="/register">
+                    <SecondaryButton>Register</SecondaryButton>
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

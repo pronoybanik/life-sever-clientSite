@@ -14,11 +14,10 @@ const AuthProvider = ({ children }) => {
         .then((res) => res.json())
         .then((responseData) => {
           setUser(responseData.data);
-          setLoading(false);
         });
     }
+    setLoading(false);
   }, []);
-
 
   const authInfo = {
     user,

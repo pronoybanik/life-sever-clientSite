@@ -17,6 +17,9 @@ import DoctorDashBoard from "../LayOut/DoctorDashBoard";
 import PatientList from "../Pages/PatientList/PatientList";
 import PatientAppointment from "../Components/DoctorDashBoardPageComponent/patientAppointment/PatientAppointment";
 import AppointmentList from "../Pages/appointmentList/AppointmentList";
+import PrivateRouter from "./PrivateRoute";
+import DoctorPrivateRoute from "./DoctorPrivateRoute";
+import AdminPrivateRoute from "./AdminPrivateRoute";
 
 const allRouter = createBrowserRouter([
   {
@@ -45,7 +48,11 @@ const allRouter = createBrowserRouter([
       },
       {
         path: "/appointmentList",
-        element: <AppointmentList />,
+        element: (
+          <PrivateRouter>
+            <AppointmentList />
+          </PrivateRouter>
+        ),
       },
       {
         path: "/ourDoctors",
@@ -61,7 +68,11 @@ const allRouter = createBrowserRouter([
       },
       {
         path: "/bookAppointment",
-        element: <BookAppointment />,
+        element: (
+          <PrivateRouter>
+            <BookAppointment />
+          </PrivateRouter>
+        ),
       },
       {
         path: "/profile",
@@ -75,7 +86,11 @@ const allRouter = createBrowserRouter([
   },
   {
     path: "/adminDashBoard",
-    element: <AdminDashBoard />,
+    element: (
+      <AdminPrivateRoute>
+        <AdminDashBoard />
+      </AdminPrivateRoute>
+    ),
     children: [
       {
         path: "/adminDashBoard/settings",
@@ -89,7 +104,11 @@ const allRouter = createBrowserRouter([
   },
   {
     path: "/doctorDashBoard",
-    element: <DoctorDashBoard />,
+    element: (
+      <DoctorPrivateRoute>
+        <DoctorDashBoard />
+      </DoctorPrivateRoute>
+    ),
     children: [
       {
         path: "/doctorDashBoard/patientAppointment",
