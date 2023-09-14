@@ -2,39 +2,83 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const AdminNavBar = () => {
-    const [border, setBorder] = useState("settings");
-    return (
-        <div>
-            <nav className="lg:mx-32" >
-                <ul className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 border-b border-gray-100">
-                    <li className="flex-1">
-                        <Link onClick={() => setBorder('settings')} to="/adminDashBoard/settings" className="relative block p-4">
-                            <span
-                                className={`absolute inset-x-0 -bottom-px h-px w-full ${border === "settings" ? "bg-pink-600" : "bg-slate-50"}`}
-                            ></span>
+  const [border, setBorder] = useState("settings");
+  return (
+    <div>
+      <nav className="lg:mx-32">
+        <ul className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 border-b border-gray-100">
+          <li className="flex-1">
+            <Link
+              onClick={() => setBorder("AllDoctor")}
+              to="/adminDashBoard/allDoctorUser"
+              className="relative block p-4"
+            >
+              <span
+                className={`absolute inset-x-0 -bottom-px h-px w-full ${
+                  border === "AllDoctor" ? "bg-pink-600" : "bg-slate-50"
+                }`}
+              ></span>
 
-                            <div className="flex items-center justify-center gap-4">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-5 w-5 shrink-0 text-gray-500"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-                                    />
-                                </svg>
+              <div className="flex items-center justify-center gap-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 shrink-0 text-gray-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                  />
+                </svg>
 
-                                <span className="text-sm font-medium text-gray-900"> Settings </span>
-                            </div>
-                        </Link>
-                    </li>
+                <span className="text-sm font-medium text-gray-900">
+                  {" "}
+                  All Doctor{" "}
+                </span>
+              </div>
+            </Link>
+          </li>
+          <li className="flex-1">
+            <Link
+              onClick={() => setBorder("AllUser")}
+              to="/adminDashBoard/allUser"
+              className="relative block p-4"
+            >
+              <span
+                className={`absolute inset-x-0 -bottom-px h-px w-full ${
+                  border === "AllUser" ? "bg-pink-600" : "bg-slate-50"
+                }`}
+              ></span>
 
-                    <li className="flex-1">
+              <div className="flex items-center justify-center gap-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 shrink-0 text-gray-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                  />
+                </svg>
+
+                <span className="text-sm font-medium text-gray-900">
+                  {" "}
+                  All User{" "}
+                </span>
+              </div>
+            </Link>
+          </li>
+
+          {/* <li className="flex-1">
                         <Link onClick={() => setBorder('message')} to="/adminDashBoard/message" className="relative block p-4">
                             <span
                                 className={`absolute inset-x-0 -bottom-px h-px w-full ${border === "message" ? "bg-pink-600" : "bg-slate-50"}`}
@@ -111,11 +155,11 @@ const AdminNavBar = () => {
                                 <span className="text-sm font-medium text-gray-900"> Notifications </span>
                             </div>
                         </Link>
-                    </li>
-                </ul>
-            </nav>
-        </div >
-    );
+                    </li> */}
+        </ul>
+      </nav>
+    </div>
+  );
 };
 
 export default AdminNavBar;
