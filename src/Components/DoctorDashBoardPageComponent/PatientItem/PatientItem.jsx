@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SecondaryButton from "../../../Shared/SecondaryButton";
 
 const PatientItem = ({ data }) => {
   const [error, setError] = useState("");
@@ -40,7 +41,28 @@ const PatientItem = ({ data }) => {
         }
       });
   };
-  return (
+
+  const handleDone = () => {
+    fetch(`http://localhost:5000/api/v1/appointment/${_id}`, {
+      method: "PATCH",
+      headers: {
+        // Authorization: `Bearer ${token}`,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ status: "Done" }),
+    })
+      .then((res) => res.json())
+      .then((responseData) => {
+        setError(responseData.message);
+        if (responseData.statusbar === 200) {
+          alert(responseData.message);
+          setError("");
+          window.location.reload();
+        }
+      });
+  };
+
+  return !status === "Done" ? (
     <div className="mx-4">
       <div className="flow-root rounded-lg border border-gray-100 py-3 shadow-sm">
         <div className="flex items-center justify-center gap-2">
@@ -128,12 +150,18 @@ const PatientItem = ({ data }) => {
                   confirm Appointment At {appointmentDate}
                 </p>
               )}
+              {status === "Done" && <p className="text-md font-bold ">Done</p>}
+              {status === "Confirmed" && (
+                <div onClick={handleDone} value="value">
+                  <SecondaryButton>Done</SecondaryButton>
+                </div>
+              )}
             </div>
           </div>
         </dl>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default PatientItem;

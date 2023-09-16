@@ -80,12 +80,9 @@ const allRouter = createBrowserRouter([
         path: "/profile",
         element: <Profile />,
       },
-      // {
-      //   path: "/message",
-      //   element: <Chat />,
-      // },
     ],
   },
+  //  Admin Routes
   {
     path: "/adminDashBoard",
     element: (
@@ -112,6 +109,7 @@ const allRouter = createBrowserRouter([
       },
     ],
   },
+  // Doctor Admin routes
   {
     path: "/doctorDashBoard",
     element: (

@@ -7,7 +7,6 @@ import Error from "../../../Shared/error/Error";
 
 const PatientAppointment = () => {
   const { user } = useContext(authContext);
-  console.log(user);
   const [patientData, setPatientData] = useState([]);
   const [error, setError] = useState("");
 
@@ -18,7 +17,6 @@ const PatientAppointment = () => {
       )
         .then((res) => res.json())
         .then((res) => {
-          console.log("res", res);
           setError(res.error);
           if (res.status === "success") {
             setPatientData(res.data);
@@ -31,8 +29,6 @@ const PatientAppointment = () => {
         });
     }
   }, [user]);
-
-  console.log("patientData", patientData);
 
   return (
     <section className="grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 gap-2 my-6">
