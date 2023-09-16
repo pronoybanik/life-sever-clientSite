@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+import { authContext } from "../../Components/AuthProvider/AuthProvider";
+import { CgMail } from "react-icons/cg";
+import { LiaMobileAltSolid } from "react-icons/lia";
+import SecondaryButton from "../../Shared/SecondaryButton";
 
 const Profile = () => {
+  const { user } = useContext(authContext);
+
   return (
     <div className="bg-gray-100 min-h-screen flex items-center justify-center">
       <div className="bg-white max-w-5xl p-8 rounded-lg shadow-md">
@@ -10,8 +16,13 @@ const Profile = () => {
             alt="Profile Picture"
             className="w-32 h-32 mx-auto rounded-full"
           />
-          <h2 className="text-xl font-semibold mt-4">John Doe</h2>
-          <p className="text-gray-500">Web Developer</p>
+          <SecondaryButton>Edit</SecondaryButton>
+          <h2 className="text-xl font-semibold mt-4">
+            {user?.firstName} {user?.lastName}
+          </h2>
+          <p className="text-gray-600 text-lg font-medium ">
+            Role: {user?.Role}
+          </p>
         </div>
         <div className="mt-6">
           <h3 className="text-lg font-semibold">About Me</h3>
@@ -24,33 +35,15 @@ const Profile = () => {
           <h3 className="text-lg font-semibold">Contact Information</h3>
           <ul className="mt-2">
             <li className="flex items-center space-x-2 text-gray-600">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M3.293 3.293a1 1 0 011.414 0L10 8.586l5.293-5.293a1 1 0 111.414 1.414L11.414 10l5.293 5.293a1 1 0 01-1.414 1.414L10 11.414l-5.293 5.293a1 1 0 01-1.414-1.414L8.586 10 3.293 4.707a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              johndoe@example.com
+              <div className="text-3xl text-blue-400 ">
+                <CgMail />
+              </div>
+              {user?.email}
             </li>
             <li className="flex items-center space-x-2 text-gray-600 mt-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 4a1 1 0 112 0v8a1 1 0 11-2 0V4z"
-                  clipRule="evenodd"
-                />
-              </svg>
+              <div className="text-3xl text-blue-400 ">
+                <LiaMobileAltSolid />
+              </div>
               (123) 456-7890
             </li>
           </ul>
