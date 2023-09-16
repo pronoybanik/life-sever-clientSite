@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import SecondaryButton from "../../../Shared/SecondaryButton";
 import Error from "../../../Shared/error/Error";
 import DoctorUserItem from "../DoctorUserItem/DoctorUserItem";
+import Loading from "../../../Shared/Loading/Loading";
 
 const tableName = [
   { name: "Name" },
@@ -84,7 +85,7 @@ const DoctorUsers = () => {
 
           <tbody className="divide-y mx-20 divide-gray-200">
             {isLoading ? (
-              <p>Loading....</p>
+              <Loading />
             ) : (
               doctors?.map((doctor) => (
                 <DoctorUserItem

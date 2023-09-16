@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import UserDataItem from "../userItem/UserDataItem";
+import Loading from "../../../Shared/Loading/Loading";
 
 const tableName = [
   { name: "Name" },
@@ -53,7 +54,7 @@ const AllUser = () => {
 
           <tbody className="divide-y mx-20 divide-gray-200">
             {isLoading ? (
-              <p>Loading....</p>
+              <Loading />
             ) : (
               userData.map((data) => (
                 <UserDataItem key={data?._id} data={data}></UserDataItem>
