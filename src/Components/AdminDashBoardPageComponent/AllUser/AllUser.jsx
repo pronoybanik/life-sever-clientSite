@@ -2,6 +2,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import UserDataItem from "../userItem/UserDataItem";
 
+const tableName = [
+  { name: "Name" },
+  { name: "Email" },
+  { name: "Role" },
+  { name: "Status" },
+  { name: "Change status" },
+];
+
 const AllUser = () => {
   const token = JSON.parse(localStorage.getItem("Token"));
   const [userData, setUserData] = useState([]);
@@ -12,7 +20,6 @@ const AllUser = () => {
     axios
       .get("http://localhost:5000/api/v1/user")
       .then((responseData) => {
-        console.log("data", responseData);
         if (responseData.data.status === "success") {
           setUserData(responseData.data.data);
           setIsLoading(false);
@@ -23,46 +30,40 @@ const AllUser = () => {
         }
       })
       .catch((error) => {
-        console.log("error", error);
         setIsLoading(false);
         setError(error.message);
       });
   }, []);
 
-  
-
   return (
-    <div>
-      <div class="overflow-x-auto rounded-lg border border-gray-200">
-        <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
-          <thead class="ltr:text-left rtl:text-right">
+    <section className="flex justify-center">
+      <div className="overflow-x-auto mt-10">
+        <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+          <thead className="ltr:text-left rtl:text-right">
             <tr>
-              <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                Name
-              </th>
-              <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                Email
-              </th>
-              <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                Role
-              </th>
-              <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                status
-              </th>
-              <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                change status
-              </th>
+              {tableName?.map((data) => (
+                <th className="whitespace-nowrap px-4 py-2 font-bold text-xs text-gray-900 uppercase">
+                  {data.name}
+                </th>
+              ))}
+
+              <th className="px-4 py-2"></th>
             </tr>
           </thead>
 
-          <tbody class="divide-y divide-gray-200">
-            {userData.map((data) => (
-              <UserDataItem key={data?._id} data={data}></UserDataItem>
-            ))}
+          <tbody className="divide-y mx-20 divide-gray-200">
+            {isLoading ? (
+              <p>Loading....</p>
+            ) : (
+              userData.map((data) => (
+                <UserDataItem key={data?._id} data={data}></UserDataItem>
+              ))
+            )}
           </tbody>
         </table>
+        {error && <Error>{error}</Error>}
       </div>
-    </div>
+    </section>
   );
 };
 

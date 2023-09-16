@@ -47,8 +47,7 @@ const filters = [
 const OurDoctors = () => {
   const [category, setCategory] = useState("");
   const [doctors, setDoctors] = useState([]);
-  // const [getData] = UseGetRequest(`api/v1/doctorProfile?${category}`);
-  // console.log(getData);
+ 
 
   // get all doctors
   useEffect(() => {
@@ -56,7 +55,6 @@ const OurDoctors = () => {
       .get(`http://localhost:5000/api/v1/doctorProfile?${category}`)
       .then((res) => setDoctors(res.data.data));
   }, []);
-  console.log("categoryData",doctors);
 
   return (
     <section>

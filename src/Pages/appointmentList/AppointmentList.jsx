@@ -19,7 +19,6 @@ const AppointmentList = () => {
         },
       })
       .then((responseData) => {
-        console.log("data", responseData);
         if (responseData.data.status === "success") {
           setUserIdData(responseData.data.data);
           setIsLoading(false);
@@ -30,7 +29,6 @@ const AppointmentList = () => {
         }
       })
       .catch((error) => {
-        console.log("error", error);
         setIsLoading(false);
         setError(error.message);
       });

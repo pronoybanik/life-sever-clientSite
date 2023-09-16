@@ -5,6 +5,19 @@ import SecondaryButton from "../../../Shared/SecondaryButton";
 import Error from "../../../Shared/error/Error";
 import DoctorUserItem from "../DoctorUserItem/DoctorUserItem";
 
+const tableName = [
+  { name: "Name" },
+  { name: "Doctor Personal Email" },
+  { name: "user Email" },
+  { name: "Doctor Type" },
+  { name: "Status" },
+  { name: "Role" },
+  { name: "confirm Doctor role" },
+  { name: "view profile" },
+  { name: "Delete doctor user" },
+  { name: "Change status" },
+];
+
 const DoctorUsers = () => {
   const [doctors, setDoctors] = useState([]);
   const userId = JSON.parse(localStorage.getItem("userId"));
@@ -22,7 +35,6 @@ const DoctorUsers = () => {
         },
       })
       .then((responseData) => {
-        console.log("data", responseData.data);
         if (responseData.data.status === "success") {
           setDoctors(responseData.data.data);
           setIsLoading(false);
@@ -33,7 +45,6 @@ const DoctorUsers = () => {
         }
       })
       .catch((error) => {
-        console.log("error", error);
         setIsLoading(false);
         setError(error.message);
       });
@@ -61,33 +72,12 @@ const DoctorUsers = () => {
         <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
           <thead className="ltr:text-left rtl:text-right">
             <tr>
-              <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                Name
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                Email
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                Doctor Type
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                Status
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                Salary
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                confirm Doctor role
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                view profile
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                Delete doctor user
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                Change status
-              </th>
+              {tableName?.map((data) => (
+                <th className="whitespace-nowrap px-4 py-2 font-bold text-xs text-gray-900 uppercase">
+                  {data.name}
+                </th>
+              ))}
+
               <th className="px-4 py-2"></th>
             </tr>
           </thead>

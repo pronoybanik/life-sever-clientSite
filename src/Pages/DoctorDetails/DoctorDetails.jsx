@@ -6,7 +6,6 @@ import SecondaryButton from "../../Shared/SecondaryButton";
 const DoctorDetails = () => {
   const { id } = useParams();
   const [doctorDetails, setDoctorDetails] = useState({});
-  console.log(doctorDetails);
   const {
     DoctorProfileImage,
     FirstName,

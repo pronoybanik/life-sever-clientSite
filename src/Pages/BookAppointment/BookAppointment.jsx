@@ -8,6 +8,12 @@ const BookAppointment = () => {
   const [imgUrl, setImgUrl] = useState("");
   const id = JSON.parse(localStorage.getItem("userId"));
   const navigate = useNavigate();
+  const { post, data, loading, error } = usePostRequest();
+
+  if (data?.statusbar === 200) {
+    alert(data.message);
+    navigate("/appointmentList");
+  }
 
   useEffect(() => {
     axios
@@ -17,13 +23,7 @@ const BookAppointment = () => {
       .then((data) => setDoctorType(data.data.data));
   }, []);
 
-  const { post, data, loading, error } = usePostRequest();
-
-  if (data?.statusbar === 200) {
-    alert(data.message);
-    navigate("/appointmentList");
-  }
-
+  // create appointment to doctor
   const appointmentHandle = async (event) => {
     event.preventDefault();
     const form = event.target;
@@ -167,7 +167,7 @@ const BookAppointment = () => {
                     >
                       <option>Select Doctor</option>
                       {doctorType.map((data) => {
-                        return data.status === "Active" ? (
+                        return data.status === "active" ? (
                           <option
                             key={data._id}
                             value={(data.FirstName, data.LastName)}
@@ -189,10 +189,9 @@ const BookAppointment = () => {
                     >
                       <option>Department</option>
                       {doctorType.map((data) => {
-                        console.log(data);
-                        return data.status === "Active" ? (
+                        return data.status === "active" ? (
                           <option key={data._id} value={data._id}>
-                            {data.DoctorType}
+                            {data?.DoctorType}
                           </option>
                         ) : null;
                       })}

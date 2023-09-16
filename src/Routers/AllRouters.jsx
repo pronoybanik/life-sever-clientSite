@@ -51,9 +51,9 @@ const allRouter = createBrowserRouter([
       {
         path: "/appointmentList",
         element: (
-          <PrivateRouter>
+          // <PrivateRouter>
             <AppointmentList />
-          </PrivateRouter>
+          // </PrivateRouter>
         ),
       },
       {
@@ -71,9 +71,9 @@ const allRouter = createBrowserRouter([
       {
         path: "/bookAppointment",
         element: (
-          <PrivateRouter>
+          // <PrivateRouter>
             <BookAppointment />
-          </PrivateRouter>
+          // </PrivateRouter>
         ),
       },
       {
@@ -115,9 +115,9 @@ const allRouter = createBrowserRouter([
   {
     path: "/doctorDashBoard",
     element: (
-      <DoctorPrivateRoute>
+      // <DoctorPrivateRoute>
         <DoctorDashBoard />
-      </DoctorPrivateRoute>
+      // </DoctorPrivateRoute>
     ),
     children: [
       {

@@ -47,7 +47,6 @@ const RequestToAppointDoctor = () => {
       .then((res) => res.json())
       .then(async (imgData) => {
         const DoctorProfileImage = imgData.data.url;
-        console.log(DoctorProfileImage);
         const doctorProfileDetails = {
           userId,
           LoginUserEmail,
@@ -67,7 +66,6 @@ const RequestToAppointDoctor = () => {
           WorkingHour,
           PerHourCharge,
         };
-        console.log(doctorProfileDetails);
 
         // Make sure the `post` function is asynchronous and returns a Promise
         await post("api/v1/doctorProfile", doctorProfileDetails);

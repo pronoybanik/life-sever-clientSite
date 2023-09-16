@@ -19,7 +19,6 @@ const Module = () => {
       userEmail,
       patientEmail,
     };
-    console.log(messageData);
     await post("api/v1/conversation", messageData);
   };
 

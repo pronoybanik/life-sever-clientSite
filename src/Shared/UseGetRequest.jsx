@@ -17,7 +17,6 @@ const UseGetRequest = (endPoint) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(url, { headers });
-        console.log("test", response);
         setError(response.data.error);
         if (response.data.statusbar === 200) {
           setData(response.data.data);

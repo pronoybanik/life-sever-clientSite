@@ -5,8 +5,8 @@ const AdminNavBar = () => {
   const [border, setBorder] = useState("settings");
   return (
     <div>
-      <nav className="lg:mx-32">
-        <ul className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 border-b border-gray-100">
+      <nav className="lg:mx-80 mt-6">
+        <ul className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-2 border-b border-gray-100">
           <li className="flex-1">
             <Link
               onClick={() => setBorder("AllDoctor")}

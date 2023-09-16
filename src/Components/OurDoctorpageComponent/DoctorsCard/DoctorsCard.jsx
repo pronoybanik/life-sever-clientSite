@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import { authContext } from "../../AuthProvider/AuthProvider";
 
 const DoctorsCard = ({ doctorProfile }) => {
-  const { user } = useContext(authContext);
-  console.log("Dc", user);
+
   const {
     _id,
     FirstName,

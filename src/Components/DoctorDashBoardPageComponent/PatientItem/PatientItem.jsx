@@ -32,7 +32,6 @@ const PatientItem = ({ data }) => {
     })
       .then((res) => res.json())
       .then((responseData) => {
-        console.log(responseData);
         setError(responseData.message);
         if (responseData.statusbar === 200) {
           alert(responseData.message);

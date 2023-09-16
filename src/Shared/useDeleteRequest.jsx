@@ -8,7 +8,6 @@ const useDeleteRequest = (endPint) => {
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
             setData(data)
             // if (data.status === "success") {
             //     alert(`Delete user`)
