@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import UserDataItem from "../userItem/UserDataItem";
 
 const AllUser = () => {
   const token = JSON.parse(localStorage.getItem("Token"));
@@ -27,7 +28,9 @@ const AllUser = () => {
         setError(error.message);
       });
   }, []);
-  console.log(userData);
+
+  
+
   return (
     <div>
       <div class="overflow-x-auto rounded-lg border border-gray-200">
@@ -44,27 +47,17 @@ const AllUser = () => {
                 Role
               </th>
               <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                Salary
+                status
+              </th>
+              <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                change status
               </th>
             </tr>
           </thead>
 
           <tbody class="divide-y divide-gray-200">
             {userData.map((data) => (
-              <tr key={data?._id}>
-                <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                  {data?.firstName}{data?.LastName}
-                </td>
-                <td class="whitespace-nowrap px-4 py-2 text-gray-700">
-                  {data?.email}
-                </td>
-                <td class="whitespace-nowrap px-4 py-2 text-gray-700">
-                  {data?.Role}
-                </td>
-                <td class="whitespace-nowrap px-4 py-2 text-gray-700">
-                  $120,000
-                </td>
-              </tr>
+              <UserDataItem key={data?._id} data={data}></UserDataItem>
             ))}
           </tbody>
         </table>

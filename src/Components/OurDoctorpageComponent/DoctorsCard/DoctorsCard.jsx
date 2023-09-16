@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { authContext } from "../../AuthProvider/AuthProvider";
 
 const DoctorsCard = ({ doctorProfile }) => {
+  const { user } = useContext(authContext);
+  console.log("Dc", user);
   const {
     _id,
     FirstName,
@@ -14,7 +18,7 @@ const DoctorsCard = ({ doctorProfile }) => {
     status,
   } = doctorProfile;
 
-  return Role === "Doctor" && status === "Active" ? (
+  return Role === "Doctor" && status === "active" ? (
     <Link
       to={`/DoctorDetails/${_id}`}
       className="block rounded-lg p-4 shadow-sm  shadow-indigo-100"

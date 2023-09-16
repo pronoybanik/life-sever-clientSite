@@ -90,24 +90,24 @@ const allRouter = createBrowserRouter([
     path: "/adminDashBoard",
     element: (
       // <AdminPrivateRoute>
-      <AdminDashBoard />
-      //  </AdminPrivateRoute>
+        <AdminDashBoard />
+      // </AdminPrivateRoute>
     ),
     children: [
       {
         path: "/adminDashBoard/allDoctorUser",
         element: (
-          <AdminPrivateRoute>
+          // <AdminPrivateRoute>
             <DoctorUsers />
-          </AdminPrivateRoute>
+          // </AdminPrivateRoute>
         ),
       },
       {
         path: "/adminDashBoard/allUser",
         element: (
-          // <AdminDashBoard>
-          <AllUser />
-          // </AdminDashBoard>
+          // <AdminPrivateRoute>
+            <AllUser />
+          // </AdminPrivateRoute>
         ),
       },
     ],
