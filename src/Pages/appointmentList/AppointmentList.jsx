@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import AppointmentListItem from "../../Components/appoitmentListPage/AppointmentList/AppointmentListItem";
 import UseGetRequest from "../../Shared/UseGetRequest";
 import Error from "../../Shared/error/Error";
+import { json } from "react-router-dom";
 
 const AppointmentList = () => {
   const userId = JSON.parse(localStorage.getItem("userId"));
@@ -12,25 +13,20 @@ const AppointmentList = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/v1/appointment/userId/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    fetch(`http://localhost:5000/api/v1/appointment/userId/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
       .then((responseData) => {
-        if (responseData.data.status === "success") {
-          setUserIdData(responseData.data.data);
-          setIsLoading(false);
-          setError("");
-        } else {
-          setIsLoading(false);
-          setError(responseData.data.error);
-        }
-      })
-      .catch((error) => {
+        console.log(responseData);
         setIsLoading(false);
-        setError(error.message);
+        setError(responseData.error);
+        if (responseData.statusbar === 200) {
+          setUserIdData(responseData.data);
+          setError("");
+        }
       });
   }, [userId, token]);
 
