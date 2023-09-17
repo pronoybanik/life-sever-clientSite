@@ -52,7 +52,7 @@ const allRouter = createBrowserRouter([
         path: "/appointmentList",
         element: (
           <PrivateRouter>
-          <AppointmentList />
+            <AppointmentList />
           </PrivateRouter>
         ),
       },
@@ -86,25 +86,25 @@ const allRouter = createBrowserRouter([
   {
     path: "/adminDashBoard",
     element: (
-      // <AdminPrivateRoute>
-      <AdminDashBoard />
-      // </AdminPrivateRoute>
+      <AdminPrivateRoute>
+        <AdminDashBoard />
+      </AdminPrivateRoute>
     ),
     children: [
       {
         path: "/adminDashBoard/allDoctorUser",
         element: (
-          // <AdminPrivateRoute>
-          <DoctorUsers />
-          // </AdminPrivateRoute>
+          <AdminPrivateRoute>
+            <DoctorUsers />
+          </AdminPrivateRoute>
         ),
       },
       {
         path: "/adminDashBoard/allUser",
         element: (
-          // <AdminPrivateRoute>
-          <AllUser />
-          // </AdminPrivateRoute>
+          <AdminPrivateRoute>
+            <AllUser />
+          </AdminPrivateRoute>
         ),
       },
     ],
@@ -113,22 +113,26 @@ const allRouter = createBrowserRouter([
   {
     path: "/doctorDashBoard",
     element: (
-      // <DoctorPrivateRoute>
-      <DoctorDashBoard />
-      // </DoctorPrivateRoute>
+      <DoctorPrivateRoute>
+        <DoctorDashBoard />
+      </DoctorPrivateRoute>
     ),
     children: [
       {
         path: "/doctorDashBoard/patientAppointment",
-        element: <PatientAppointment />,
-      },
-      {
-        path: "/doctorDashBoard/message",
-        element: <Chat />,
+        element: (
+          <DoctorPrivateRoute>
+            <PatientAppointment />,
+          </DoctorPrivateRoute>
+        ),
       },
       {
         path: "/doctorDashBoard/patientList",
-        element: <PatientList />,
+        element: (
+          <DoctorPrivateRoute>
+            <PatientList />,
+          </DoctorPrivateRoute>
+        ),
       },
     ],
   },

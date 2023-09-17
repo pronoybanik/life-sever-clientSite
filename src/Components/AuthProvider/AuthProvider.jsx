@@ -1,19 +1,21 @@
+import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 
 export const authContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const userId = JSON.parse(localStorage.getItem("userId"));
 
   useEffect(() => {
+   
     if (userId) {
-      fetch(`http://localhost:5000/api/v1/user/${userId}`)
-        .then((res) => res.json())
+      axios
+        .get(`http://localhost:5000/api/v1/user/${userId}`)
         .then((responseData) => {
-          setUser(responseData.data);
+          setUser(responseData.data.data);
         });
     }
     setLoading(false);
