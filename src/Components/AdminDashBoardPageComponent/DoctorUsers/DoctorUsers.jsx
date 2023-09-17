@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import SecondaryButton from "../../../Shared/SecondaryButton";
 import Error from "../../../Shared/error/Error";
 import DoctorUserItem from "../DoctorUserItem/DoctorUserItem";
 import Loading from "../../../Shared/Loading/Loading";
@@ -21,10 +19,8 @@ const tableName = [
 
 const DoctorUsers = () => {
   const [doctors, setDoctors] = useState([]);
-  const userId = JSON.parse(localStorage.getItem("userId"));
   const token = JSON.parse(localStorage.getItem("Token"));
-  // const { data, loading, error } = UseGetRequest("api/v1/doctorProfile");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   // Fetch Data
@@ -36,6 +32,7 @@ const DoctorUsers = () => {
         },
       })
       .then((responseData) => {
+        setError(responseData.data.error);
         if (responseData.data.status === "success") {
           setDoctors(responseData.data.data);
           setIsLoading(false);
@@ -53,14 +50,21 @@ const DoctorUsers = () => {
 
   // Delete user
   const deleteUserHandler = (id) => {
-    axios
-      .delete(`http://localhost:5000/api/v1/doctorProfile/details/${id}`, {
-        method: "DELETE",
-      })
-      // .then(res => res.json())
+    setIsLoading(true);
+    fetch(`http://localhost:5000/api/v1/doctorProfile/details/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
       .then((data) => {
-        if (data.status === 200) {
-          alert(`Delete user`);
+        if (data.statusbar === 403) {
+          console.log("data", data);
+          setError(data.error);
+        }
+        if (data.statusbar === 200) {
+          alert(data.message);
           const remaining = doctors.filter((doctor) => doctor._id !== id);
           setDoctors(remaining);
         }

@@ -4,20 +4,27 @@ import PrimaryButton from "../../Shared/PrimaryButton";
 import UsePOstRequest from "../../Shared/usePostReq";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import usePostRequest from "../../Shared/usePostReq";
+import SecondaryButton from "../../Shared/SecondaryButton";
+import { useNavigate } from "react-router-dom";
+import Error from "../../Shared/error/Error";
 
 const RequestToAppointDoctor = () => {
   const { user } = useContext(authContext);
   const [imgUrl, setImgUrl] = useState("");
-
   const { data, error, loading, post } = usePostRequest();
+  const navigate = useNavigate();
+
+  if (data.statusbar === 201) {
+    alert(data.message);
+    navigate("/patientAccount");
+  }
 
   const handelSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
-    const userId = user._id
+    const userId = user._id;
     const LoginUserEmail = form.username.value;
     const About = form.about.value;
-    // const FileUpload = form.fileUpload.files[0];
     const FirstName = form.firstName.value;
     const LastName = form.lastName.value;
     const Email = form.email.value;
@@ -66,22 +73,12 @@ const RequestToAppointDoctor = () => {
           WorkingHour,
           PerHourCharge,
         };
-
-        // Make sure the `post` function is asynchronous and returns a Promise
         await post("api/v1/doctorProfile", doctorProfileDetails);
-        alert("Form full upload done");
-        // form.reset();
       })
       .catch((error) => {
-        console.error("Error:", error);
+        setError(error);
       });
   };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   // Replace 'your-api-endpoint' with your actual API endpoint.
-  //   await post('your-api-endpoint', formData);
-  // };
 
   return (
     <section>
@@ -185,6 +182,7 @@ const RequestToAppointDoctor = () => {
                           id="file-upload"
                           name="fileUpload"
                           type="file"
+                          required
                           className="sr-only"
                         />
                       </label>
@@ -497,7 +495,8 @@ const RequestToAppointDoctor = () => {
             </div>
           </div>
         </div>
-
+        {/* error handler */}
+        <div>{error && <Error>{error}</Error>}</div>
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <button
             type="button"
@@ -505,9 +504,9 @@ const RequestToAppointDoctor = () => {
           >
             Cancel
           </button>
-          <PrimaryButton>
+          <SecondaryButton>
             {loading ? <p>Loading..</p> : <p>submit</p>}
-          </PrimaryButton>
+          </SecondaryButton>
         </div>
       </form>
     </section>

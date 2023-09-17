@@ -1,33 +1,41 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Error from "../../../Shared/error/Error";
 import SecondaryButton from "../../../Shared/SecondaryButton";
 
 const DoctorUserItem = ({ doctor, deleteUserHandler }) => {
+  const token = JSON.parse(localStorage.getItem("Token"));
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   // admin role set
   const handleAdmin = (id) => {
+    setIsLoading(true);
     fetch(`http://localhost:5000/api/v1/doctorProfile/details/${id}`, {
       method: "PATCH",
       headers: {
+        Authorization: `Bearer ${token}`,
         "content-type": "application/json",
       },
       body: JSON.stringify({ Role: "Doctor" }),
     })
       .then((res) => res.json())
       .then((data) => {
+        setIsLoading(false);
+        setError(data.error);
         if (data.statusbar === 200) {
           fetch(`http://localhost:5000/api/v1/user/${doctor?.userId[0]}`, {
             method: "PATCH",
             headers: {
+              Authorization: `Bearer ${token}`,
               "content-type": "application/json",
             },
             body: JSON.stringify({ Role: "Doctor" }),
           })
             .then((res) => res.json())
             .then((data) => {
+              setIsLoading(false);
+              setError(data.error);
               if (data.statusbar === 200) {
                 alert(data.message);
                 window.location.reload();
@@ -43,22 +51,19 @@ const DoctorUserItem = ({ doctor, deleteUserHandler }) => {
     fetch(`http://localhost:5000/api/v1/doctorProfile/details/${doctor?._id}`, {
       method: "PATCH",
       headers: {
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
         "content-type": "application/json",
       },
       body: JSON.stringify({ status }),
     })
       .then((res) => res.json())
       .then((responseData) => {
-        console.log(responseData);
-        setError(responseData.message);
+        setError(responseData.error);
         if (responseData.statusbar === 200) {
           alert(responseData.message);
           setError("");
           window.location.reload();
-        } else {
-          setError("not change");
-        }
+        } 
       });
   };
 
@@ -90,7 +95,9 @@ const DoctorUserItem = ({ doctor, deleteUserHandler }) => {
             </button>
           ) : (
             <div onClick={() => handleAdmin(doctor._id)}>
-              <SecondaryButton>select by doctor</SecondaryButton>
+              <SecondaryButton>
+                {isLoading ? <p>Loading...</p> : <p>select Doctor</p>}
+              </SecondaryButton>
             </div>
           )}
         </td>
@@ -107,7 +114,7 @@ const DoctorUserItem = ({ doctor, deleteUserHandler }) => {
           className="whitespace-nowrap px-4 py-2"
         >
           <button className="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700">
-            delete user
+            {isLoading ? <p>Loading</p> : <p>Delete user</p>}
           </button>
         </td>
         <select
@@ -127,6 +134,7 @@ const DoctorUserItem = ({ doctor, deleteUserHandler }) => {
             Blocked
           </option>
         </select>
+        <br />
         {error && <Error>{error}</Error>}
       </tr>
     </>

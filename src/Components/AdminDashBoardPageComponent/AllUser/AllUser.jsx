@@ -19,7 +19,11 @@ const AllUser = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/v1/user")
+      .get("http://localhost:5000/api/v1/user", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((responseData) => {
         if (responseData.data.status === "success") {
           setUserData(responseData.data.data);

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Error from "../../../Shared/error/Error";
+import { json } from "react-router-dom";
 
 const UserDataItem = ({ data }) => {
+  const token = JSON.parse(localStorage.getItem("Token"));
   const [error, setError] = useState("");
 
   const handleStatusChange = (event) => {
@@ -10,19 +12,21 @@ const UserDataItem = ({ data }) => {
     fetch(`http://localhost:5000/api/v1/user/${data?._id}`, {
       method: "PATCH",
       headers: {
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
         "content-type": "application/json",
       },
       body: JSON.stringify({ status }),
     })
       .then((res) => res.json())
       .then((responseData) => {
+        setError(responseData.error)
         if (responseData?.statusbar === 200) {
           fetch(
             `http://localhost:5000/api/v1/doctorProfile/details/${data?.doctorId[0]}`,
             {
               method: "PATCH",
               headers: {
+                Authorization: `Bearer ${token}`,
                 "content-type": "application/json",
               },
               body: JSON.stringify({ status }),
@@ -30,7 +34,7 @@ const UserDataItem = ({ data }) => {
           )
             .then((res) => res.json())
             .then((data) => {
-              setError(responseData?.message);
+              setError(responseData.error);
               if (data?.statusbar === 200) {
                 setError("");
                 alert(data?.message);

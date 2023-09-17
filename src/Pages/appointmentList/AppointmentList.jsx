@@ -1,9 +1,6 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import AppointmentListItem from "../../Components/appoitmentListPage/AppointmentList/AppointmentListItem";
-import UseGetRequest from "../../Shared/UseGetRequest";
 import Error from "../../Shared/error/Error";
-import { json } from "react-router-dom";
 
 const AppointmentList = () => {
   const userId = JSON.parse(localStorage.getItem("userId"));
@@ -20,7 +17,6 @@ const AppointmentList = () => {
     })
       .then((res) => res.json())
       .then((responseData) => {
-        console.log(responseData);
         setIsLoading(false);
         setError(responseData.error);
         if (responseData.statusbar === 200) {
