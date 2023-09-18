@@ -1,9 +1,6 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { authContext } from "../../AuthProvider/AuthProvider";
 
 const DoctorsCard = ({ doctorProfile }) => {
-
   const {
     _id,
     FirstName,
