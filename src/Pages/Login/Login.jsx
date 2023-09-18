@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import usePostRequest from "../../Shared/usePostReq";
 import Error from "../../Shared/error/Error";
+import SecondaryButton from "../../Shared/SecondaryButton";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -111,12 +112,11 @@ const Login = () => {
               </div>
             </div>
 
-            <button
-              type="submit"
-              className="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
-            >
-              {loading ? <p>Loading....</p> : <p>Sign in</p>}
-            </button>
+            <div className="flex justify-center h-full">
+              <SecondaryButton>
+                {loading ? <p>Loading....</p> : <p>Sign in</p>}
+              </SecondaryButton>
+            </div>
 
             <p className="text-center text-sm text-gray-500">
               No account?

@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { authContext } from "../../Components/AuthProvider/AuthProvider";
 import { GoogleAuthProvider } from "firebase/auth";
 import usePostRequest from "../../Shared/usePostReq";
+import SecondaryButton from "../../Shared/SecondaryButton";
 
 const Register = () => {
   //   const { createAccount, googleLogin } = useContext(authContext);
@@ -37,19 +38,21 @@ const Register = () => {
     };
 
     await post("api/v1/user/signup", registerData);
-    
   };
 
   return (
     <div className="max-w-screen-2xl mt-8  mx-auto">
       <section className="bg-white">
         <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
-          <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-4/5 xl:col-span-6">
+          <section className="relative flex h-32 rounded-full py-10 items-end bg-gray-900 lg:col-span-5 lg:h-4/5 xl:col-span-6">
             <img
               alt="Night"
-              src={bgImage}
+              src="https://images.pexels.com/photos/5863333/pexels-photo-5863333.jpeg?auto=compress&cs=tinysrgb&w=1600"
               className="absolute inset-0 h-full w-full object-cover opacity-80"
             />
+            <div className="absolute inset-0 bg-black/40  sm:from-white/95 sm:to-white/25 ltr:sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l">
+              {" "}
+            </div>
 
             <div className="hidden lg:relative lg:block lg:p-12">
               <Link className="block text-white">
@@ -236,9 +239,9 @@ const Register = () => {
                   </div>
 
                   <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-                    <button className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 text-xl py-3 pl-2text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
+                    <SecondaryButton >
                       {loading ? <p>Loading...</p> : <p>create a account</p>}
-                    </button>
+                    </SecondaryButton>
 
                     <p className="mt-4 text-sm text-gray-500 sm:mt-0">
                       Already have an account?
