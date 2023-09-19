@@ -10,7 +10,7 @@ const AppointmentList = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/v1/appointment/userId/${userId}`, {
+    fetch(`https://life-sever-serversite.vercel.app/api/v1/appointment/userId/${userId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

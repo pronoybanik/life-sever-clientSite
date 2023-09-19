@@ -9,7 +9,7 @@ const PatientList = () => {
   useEffect(() => {
     if (user && user.doctorId && user.doctorId.length > 0) {
       fetch(
-        `http://localhost:5000/api/v1/appointment/doctorId/${user?.doctorId[0]._id}`
+        `https://life-sever-serversite.vercel.app/api/v1/appointment/doctorId/${user?.doctorId[0]._id}`
       )
         .then((res) => res.json())
         .then((res) => {

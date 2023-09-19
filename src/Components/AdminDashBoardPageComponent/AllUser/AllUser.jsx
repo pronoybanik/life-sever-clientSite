@@ -19,7 +19,7 @@ const AllUser = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/v1/user", {
+      .get("https://life-sever-serversite.vercel.app/api/v1/user", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

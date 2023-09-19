@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
    
     if (userId) {
       axios
-        .get(`http://localhost:5000/api/v1/user/${userId}`)
+        .get(`https://life-sever-serversite.vercel.app/api/v1/user/${userId}`)
         .then((responseData) => {
           setUser(responseData.data.data);
         });

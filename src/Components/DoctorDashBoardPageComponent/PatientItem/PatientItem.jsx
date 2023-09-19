@@ -23,7 +23,7 @@ const PatientItem = ({ data }) => {
   const handleStatusChange = (data) => {
     const status = data.target.value;
 
-    fetch(`http://localhost:5000/api/v1/appointment/${_id}`, {
+    fetch(`https://life-sever-serversite.vercel.app/api/v1/appointment/${_id}`, {
       method: "PATCH",
       headers: {
         // Authorization: `Bearer ${token}`,
@@ -43,7 +43,7 @@ const PatientItem = ({ data }) => {
   };
 
   const handleDone = () => {
-    fetch(`http://localhost:5000/api/v1/appointment/${_id}`, {
+    fetch(`https://life-sever-serversite.vercel.app/api/v1/appointment/${_id}`, {
       method: "PATCH",
       headers: {
         // Authorization: `Bearer ${token}`,

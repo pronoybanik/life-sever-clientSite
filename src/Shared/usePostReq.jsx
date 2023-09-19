@@ -7,8 +7,8 @@ const usePostRequest = () => {
   const [loading, setLoading] = useState(false);
 
   const post = async (endPoint, BodyData) => {
-    const url = `http://localhost:5000/${endPoint}`;
     // const url = `https://life-sever-serversite.vercel.app/${endPoint}`;
+    const url = `https://life-sever-serversite.vercel.app/${endPoint}`;
 
     setLoading(true);
     setError(null);

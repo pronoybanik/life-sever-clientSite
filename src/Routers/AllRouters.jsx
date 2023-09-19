@@ -22,6 +22,7 @@ import DoctorPrivateRoute from "./DoctorPrivateRoute";
 import AdminPrivateRoute from "./AdminPrivateRoute";
 import DoctorUsers from "../Components/AdminDashBoardPageComponent/DoctorUsers/DoctorUsers";
 import AllUser from "../Components/AdminDashBoardPageComponent/AllUser/AllUser";
+import FeedBack from "../Pages/FeedBack/FeedBack";
 
 const allRouter = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const allRouter = createBrowserRouter([
       {
         path: "/ourDoctors",
         element: <OurDoctors />,
+      },
+      {
+        path: "/feedBack",
+        element: <FeedBack />,
       },
       {
         path: "/DoctorDetails/:id",

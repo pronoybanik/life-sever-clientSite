@@ -9,7 +9,7 @@ const UserDataItem = ({ data }) => {
   const handleStatusChange = (event) => {
     const status = event.target.value;
 
-    fetch(`http://localhost:5000/api/v1/user/${data?._id}`, {
+    fetch(`https://life-sever-serversite.vercel.app/api/v1/user/${data?._id}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -22,7 +22,7 @@ const UserDataItem = ({ data }) => {
         setError(responseData.error)
         if (responseData?.statusbar === 200) {
           fetch(
-            `http://localhost:5000/api/v1/doctorProfile/details/${data?.doctorId[0]}`,
+            `https://life-sever-serversite.vercel.app/api/v1/doctorProfile/details/${data?.doctorId[0]}`,
             {
               method: "PATCH",
               headers: {

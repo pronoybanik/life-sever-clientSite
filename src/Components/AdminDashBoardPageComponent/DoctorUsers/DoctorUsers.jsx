@@ -26,7 +26,7 @@ const DoctorUsers = () => {
   // Fetch Data
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/v1/doctorProfile`, {
+      .get(`https://life-sever-serversite.vercel.app/api/v1/doctorProfile`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -51,7 +51,7 @@ const DoctorUsers = () => {
   // Delete user
   const deleteUserHandler = (id) => {
     setIsLoading(true);
-    fetch(`http://localhost:5000/api/v1/doctorProfile/details/${id}`, {
+    fetch(`https://life-sever-serversite.vercel.app/api/v1/doctorProfile/details/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

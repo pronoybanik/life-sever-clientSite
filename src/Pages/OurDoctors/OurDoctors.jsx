@@ -47,14 +47,13 @@ const filters = [
 const OurDoctors = () => {
   const [category, setCategory] = useState("");
   const [doctors, setDoctors] = useState([]);
- 
 
   // get all doctors
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/v1/doctorProfile?${category}`)
+      .get(`https://life-sever-serversite.vercel.app/api/v1/doctorProfile?${category}`)
       .then((res) => setDoctors(res.data.data));
-  }, []);
+  }, [category]);
 
   return (
     <section>

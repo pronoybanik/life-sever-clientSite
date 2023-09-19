@@ -18,7 +18,7 @@ const BookAppointment = () => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5000/api/v1/doctorProfile?sort=PerHourCharge&fields=DoctorType,FirstName,LastName, status`
+        `https://life-sever-serversite.vercel.app/api/v1/doctorProfile?sort=PerHourCharge&fields=DoctorType,FirstName,LastName, status`
       )
       .then((data) => setDoctorType(data.data.data));
   }, []);

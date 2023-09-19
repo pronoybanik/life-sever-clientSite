@@ -11,7 +11,7 @@ const UseGetRequest = (endPoint) => {
     Authorization: `Bearer ${token}`,
   };
 
-  const url = `http://localhost:5000/${endPoint}`;
+  const url = `https://life-sever-serversite.vercel.app/${endPoint}`;
 
   useEffect(() => {
     const fetchData = async () => {
