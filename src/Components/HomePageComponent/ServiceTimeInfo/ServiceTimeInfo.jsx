@@ -2,23 +2,24 @@ import React from "react";
 import { CgMail } from "react-icons/cg";
 import { CiLocationOn } from "react-icons/ci";
 import { LiaMobileAltSolid } from "react-icons/lia";
-
+import firstImage from "../../../imges/help logo/icons8-treatment.gif";
+import secondImage from "../../../imges/help logo/icons8-ambulance.gif";
+import thirdImage from "../../../imges/help logo/icons8-half-heart.gif";
+import forthImage from "../../../imges/help logo/icons8-medical.gif";
+import PrimaryButton from "../../../Shared/PrimaryButton";
 const ServiceTimeInfo = () => {
   return (
     <section>
-      <section
-        data-aos="zoom-out-down"
-        className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 max-w-7xl mx-auto -mt-10 "
-      >
+      <section className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 max-w-7xl mx-auto -mt-10 ">
         <div className="bg-[#60A3D9] max-w-md py-6 px-10 border">
           <p className="text-white py-2 font-semibold text-2xl">Top Doctors</p>
           <p className="text-white py-2 font-light max-w-xs ">
             Cum sociis natoque penatibus et magnis dis parturient montesmus. Pro
             vel nibh et elit mollis commodo et nec augue tristique sed volutpat.
           </p>
-          <button className="text-white border py-2 px-4">
-            Make A Appointment
-          </button>
+          <div className="mt-4">
+            <PrimaryButton>Read More</PrimaryButton>
+          </div>
         </div>
         <div className="bg-[#0074B7] max-w-md py-6 px-10">
           <p className="text-white py-2 font-semibold text-2xl">
@@ -28,9 +29,9 @@ const ServiceTimeInfo = () => {
             Cum sociis natoque penatibus et magnis dis parturient montesmus. Pro
             vel nibh et elit mollis commodo et nec augue tristique sed volutpat.
           </p>
-          <button className="text-white border py-2 px-4">
-            Make A Appointment
-          </button>
+          <div className="mt-4">
+            <PrimaryButton>Read More</PrimaryButton>
+          </div>
         </div>
         <div className="bg-[#003B73] max-w-md py-6 px-10 border">
           <p className="font-sans text-2xl text-white font-semibold">
@@ -74,7 +75,9 @@ const ServiceTimeInfo = () => {
 
         <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-2 max-w-7xl mx-auto mb-2">
           <div className=" py-6 px-2 ml-4 ">
-            <p>image</p>
+            <div>
+              <img className="h-12 w-12" src={firstImage} alt="" />
+            </div>
             <p className="text-xl font-sans mt-4">Medical Treatment</p>
             <p className="text-sm mt-4 font-sans">
               Cum sociis natoque penatibus et magnis dis parturient montesmus.
@@ -82,7 +85,9 @@ const ServiceTimeInfo = () => {
             </p>
           </div>
           <div className=" py-6 px-2 ml-4">
-            <p>image</p>
+            <div>
+              <img className="h-12 w-12" src={secondImage} alt="" />
+            </div>
             <p className="text-xl font-sans mt-4">Emergency Help</p>
             <p className="text-sm mt-4 font-sans">
               Cum sociis natoque penatibus et magnis dis parturient montesmus.
@@ -91,8 +96,10 @@ const ServiceTimeInfo = () => {
           </div>
 
           <div className=" py-6 px-2 ml-4">
-            <p>image</p>
-            <p className="text-xl font-sans mt-4">Qualified Doctors</p>
+            <div>
+              <img className="h-8 w-8 " src={thirdImage} alt="" />
+            </div>
+            <p className="text-xl font-sans mt-8">Qualified Doctors</p>
             <p className="text-sm mt-4 font-sans">
               Cum sociis natoque penatibus et magnis dis parturient montesmus.
               Pro vel nibh et elit mollis commodo et nec augueique
@@ -100,7 +107,9 @@ const ServiceTimeInfo = () => {
           </div>
 
           <div className=" py-6 px-2 ml-4">
-            <p>image</p>
+            <div>
+              <img className="h-12 w-12" src={forthImage} alt="" />
+            </div>
             <p className="text-xl font-sans mt-4">Medical professionals</p>
             <p className="text-sm mt-4 font-sans">
               Cum sociis natoque penatibus et magnis dis parturient montesmus.

@@ -50,9 +50,11 @@ const OurDoctors = () => {
 
   // get all doctors
   useEffect(() => {
-    axios
-      .get(`https://life-sever-serversite.vercel.app/api/v1/doctorProfile?${category}`)
-      .then((res) => setDoctors(res.data.data));
+    fetch(
+      `https://life-sever-serversite.vercel.app/api/v1/doctorProfile?${category}`
+    )
+      .then((res) => res.json())
+      .then((data) => setDoctors(data.data));
   }, [category]);
 
   return (

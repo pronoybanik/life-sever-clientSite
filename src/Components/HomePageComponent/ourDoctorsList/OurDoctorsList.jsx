@@ -14,7 +14,36 @@ const OurDoctorsList = () => {
         <Link className="block border ">
           <img
             alt="Art"
-            src="https://images.pexels.com/photos/5452201/pexels-photo-5452201.jpeg?auto=compress&cs=tinysrgb&w=1600"
+            src="https://images.pexels.com/photos/7579828/pexels-photo-7579828.jpeg?auto=compress&cs=tinysrgb&w=1600"
+            className="h-64 w-full object-cover lg:h-60"
+          />
+
+          <div className="my-4 mx-4">
+            <p className="text-xl text-[#60A3D9]">Dr. Michael Linden</p>
+            <p>Throat Specialist</p>
+          </div>
+          <p className="border"></p>
+
+          <div className="my-2 mx-2">
+            <div className="flex">
+              <div className="text-2xl text-[#BFD7ED]">
+                <LiaMobileAltSolid />
+              </div>
+              <p className="ml-2">01609522552</p>
+            </div>
+
+            <div className="flex mt-2">
+              <div className="text-2xl text-[#BFD7ED]">
+                <CgMail />
+              </div>
+              <p className="ml-2">pronoy@mail.com</p>
+            </div>
+          </div>
+        </Link>
+        <Link className="block border ">
+          <img
+            alt="Art"
+            src="https://images.pexels.com/photos/7089615/pexels-photo-7089615.jpeg?auto=compress&cs=tinysrgb&w=1600"
             className="h-64 w-full object-cover  lg:h-60"
           />
 
@@ -43,7 +72,7 @@ const OurDoctorsList = () => {
         <Link className="block border ">
           <img
             alt="Art"
-            src="https://images.pexels.com/photos/5452201/pexels-photo-5452201.jpeg?auto=compress&cs=tinysrgb&w=1600"
+            src="https://images.pexels.com/photos/8942645/pexels-photo-8942645.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
             className="h-64 w-full object-cover  lg:h-60"
           />
 
@@ -72,36 +101,7 @@ const OurDoctorsList = () => {
         <Link className="block border ">
           <img
             alt="Art"
-            src="https://images.pexels.com/photos/5452201/pexels-photo-5452201.jpeg?auto=compress&cs=tinysrgb&w=1600"
-            className="h-64 w-full object-cover  lg:h-60"
-          />
-
-          <div className="my-4 mx-4">
-            <p className="text-xl text-[#60A3D9]">Dr. Michael Linden</p>
-            <p>Throat Specialist</p>
-          </div>
-          <p className="border"></p>
-
-          <div className="my-2 mx-2">
-            <div className="flex">
-              <div className="text-2xl text-[#BFD7ED]">
-                <LiaMobileAltSolid />
-              </div>
-              <p className="ml-2">01609522552</p>
-            </div>
-
-            <div className="flex mt-2">
-              <div className="text-2xl text-[#BFD7ED]">
-                <CgMail />
-              </div>
-              <p className="ml-2">pronoy@mail.com</p>
-            </div>
-          </div>
-        </Link>
-        <Link className="block border ">
-          <img
-            alt="Art"
-            src="https://images.pexels.com/photos/5452201/pexels-photo-5452201.jpeg?auto=compress&cs=tinysrgb&w=1600"
+            src="https://images.pexels.com/photos/5452290/pexels-photo-5452290.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
             className="h-64 w-full object-cover  lg:h-60"
           />
 

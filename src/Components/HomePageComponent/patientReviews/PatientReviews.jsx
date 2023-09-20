@@ -5,7 +5,7 @@ const PatientReviews = () => {
   const [feedBack, setFeedBack] = useState([]);
   useEffect(() => {
     axios
-      .get("https://life-sever-serversite.vercel.app/api/v1/feedBack")
+      .get("https://life-sever-serversite.vercel.app/api/v1/feedBack",)
       .then((data) => setFeedBack(data.data.data));
   }, []);
   return (
@@ -76,7 +76,7 @@ const PatientReviews = () => {
                       </strong>
 
                       <p className="mt-1 text-xs font-medium text-gray-300">
-                       {data?.message}
+                        {data?.message}
                       </p>
                     </a>
                   </li>

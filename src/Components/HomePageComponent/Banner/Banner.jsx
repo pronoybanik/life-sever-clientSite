@@ -1,3 +1,6 @@
+import PrimaryButton from "../../../Shared/PrimaryButton";
+import SecondaryButton from "../../../Shared/SecondaryButton";
+
 const Banner = () => {
   return (
     <div className="bg-white">
@@ -18,13 +21,9 @@ const Banner = () => {
             <p className="text-white lg:text-4xl md:text-3xl text-2xl font-semibold mt-4 max-w-sm sm:text-xl/relaxed">
               Medical Excellence Every Day.
             </p>
-            <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-2 mt-6">
-              <button className="text-white border py-2 px-4">
-                Make A Appointment
-              </button>
-              <button className="text-white border py-2 px-4">
-                View Department
-              </button>
+            <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-2 mt-8">
+              <PrimaryButton>Make A Appointment</PrimaryButton>
+              <PrimaryButton>View Department</PrimaryButton>
             </div>
           </div>
         </div>
