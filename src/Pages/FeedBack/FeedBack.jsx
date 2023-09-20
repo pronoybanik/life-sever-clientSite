@@ -3,7 +3,6 @@ import SecondaryButton from "../../Shared/SecondaryButton";
 import { authContext } from "../../Components/AuthProvider/AuthProvider";
 import usePostRequest from "../../Shared/usePostReq";
 import Error from "../../Shared/error/Error";
-import Loading from "../../Shared/Loading/Loading";
 
 const FeedBack = () => {
   const { user } = useContext(authContext);
@@ -25,7 +24,7 @@ const FeedBack = () => {
       userName,
       message,
     };
-    await post("api/v1/feedBack", feedBackValue);
+    await post("api/v1/userFeedBack", feedBackValue);
   };
   return (
     <section>
