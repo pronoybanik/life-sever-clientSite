@@ -1,11 +1,9 @@
-import DoctorsPageBannerImage from "../../imges/doctor-page/pexels-rfstudio-3825444.jpg";
 import { useEffect, useState } from "react";
-import UseGetRequest from "../../Shared/UseGetRequest";
 import DoctorsCard from "../../Components/OurDoctorpageComponent/DoctorsCard/DoctorsCard";
 import { LiaMobileAltSolid } from "react-icons/lia";
 import { CgMail } from "react-icons/cg";
 import { CiLocationOn } from "react-icons/ci";
-import axios from "axios";
+import Loading from "../../Shared/Loading/Loading";
 
 const filters = [
   {
@@ -47,14 +45,19 @@ const filters = [
 const OurDoctors = () => {
   const [category, setCategory] = useState("");
   const [doctors, setDoctors] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // get all doctors
   useEffect(() => {
+    setIsLoading(true);
     fetch(
       `https://life-sever-serversite.vercel.app/api/v1/doctorProfile?${category}`
     )
       .then((res) => res.json())
-      .then((data) => setDoctors(data.data));
+      .then((data) => {
+        setIsLoading(false);
+        setDoctors(data.data);
+      });
   }, [category]);
 
   return (
@@ -90,31 +93,37 @@ const OurDoctors = () => {
               <p className="font-sans text-3xl text-white pt-2 font-semibold">
                 Filtering...
               </p>
-              {filters.map((section) => (
-                <div
-                  key={section.id}
-                  className="border-b border-gray-200 pb-6 "
-                >
-                  <div className="pt-6">
-                    <div className="space-y-4">
-                      {section.options.map((option, optionIdx) => (
-                        <div key={option.value} className="flex items-center">
-                          <input
-                            defaultValue={option.value}
-                            type="checkbox"
-                            onChange={(e) => setCategory(e.target.defaultValue)}
-                            defaultChecked={option.checked}
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                          />
-                          <label className="ml-3 text-sm text-gray-100 ">
-                            {option.label}
-                          </label>
-                        </div>
-                      ))}
+              {isLoading ? (
+                <Loading />
+              ) : (
+                filters.map((section) => (
+                  <div
+                    key={section.id}
+                    className="border-b border-gray-200 pb-6 "
+                  >
+                    <div className="pt-6">
+                      <div className="space-y-4">
+                        {section.options.map((option, optionIdx) => (
+                          <div key={option.value} className="flex items-center">
+                            <input
+                              defaultValue={option.value}
+                              type="checkbox"
+                              onChange={(e) =>
+                                setCategory(e.target.defaultValue)
+                              }
+                              defaultChecked={option.checked}
+                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                            />
+                            <label className="ml-3 text-sm text-gray-100 ">
+                              {option.label}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
             {/* Opening Hours section Start */}
             <div className="bg-[#0074B7] px-6 py-10">

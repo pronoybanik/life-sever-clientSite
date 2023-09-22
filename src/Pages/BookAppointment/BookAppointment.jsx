@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import usePostRequest from "../../Shared/usePostReq";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import SecondaryButton from "../../Shared/SecondaryButton";
 
 const BookAppointment = () => {
   const [doctorType, setDoctorType] = useState([]);
@@ -252,7 +253,6 @@ const BookAppointment = () => {
                       <option value="onHospital">onHospital</option>
                     </select>
                   </div>
-
                   <div>
                     <label htmlFor="email">reason:</label>
                     <input
@@ -268,6 +268,7 @@ const BookAppointment = () => {
                     <input
                       onChange={(e) => setImgUrl(e.target.files[0])}
                       type="file"
+                      required
                       className="file-input file-input-bordered file-input-md w-full max-w-xs"
                     />
                   </div>
@@ -350,12 +351,9 @@ const BookAppointment = () => {
                 )}
 
                 <div className="mt-4">
-                  <button
-                    type="submit"
-                    className="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto"
-                  >
-                    {loading ? <p>Loading....</p> : <p>submit</p>}
-                  </button>
+                  <SecondaryButton>
+                    {loading ? <p>Loading..</p> : <p>Submit</p>}
+                  </SecondaryButton>
                 </div>
               </form>
             </div>

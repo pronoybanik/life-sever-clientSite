@@ -22,24 +22,28 @@ const Services = () => {
     },
   };
 
+  const DepartmentName = [
+    { name: "Outpatient Surgery" },
+    { name: "Cardiac Clinicy" },
+    { name: "Ophthalmology Clinic" },
+    { name: "Gynaecological Clinic" },
+    { name: "Outpatient Rehabilitation" },
+    { name: "Laryngological Clinic" },
+    { name: "Pediatric Clinic" },
+  ];
+
   return (
     <section>
       <p className="border mt-10" />
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 max-w-7xl mx-auto mt-20">
         <div className="bg-[#0074B7] ">
-          <div className="mt-14 ml-4">
+          <div className="mt-14 ml-8">
             <p className=" text-2xl mb-6 text-white font-sans">Department</p>
-            <p className="text-lg font-sans text-white mb-1">
-              Outpatient Surgery
-            </p>
-            <p className="text-lg font-sans text-white mb-1">Cardiac Clinicy</p>
-            <p className="text-lg font-sans text-white mb-1">
-              Ophthalmology Clinic
-            </p>
-            <p className="text-lg font-sans text-white mb-1">
-              Gynaecological Clinic
-            </p>
-            <p className="text-xm font-sans mt-20 text-white">view all</p>
+            {DepartmentName.map((data) => (
+              <p className="text-xm font-sans text-white mb-1">{data?.name}</p>
+            ))}
+
+            <p className="text-xm mt-10 font-sans text-white">view all</p>
           </div>
         </div>
 

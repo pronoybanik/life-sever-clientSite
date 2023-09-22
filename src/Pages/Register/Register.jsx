@@ -1,17 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
-import siteLogo from "../../imges/siteImage/340800268_560723189381106_5880403428875795146_n.png";
-import bgImage from "../../imges/siteImage/pexels-skylar-kang-6207368.jpg";
-import { useContext, useState } from "react";
-import { authContext } from "../../Components/AuthProvider/AuthProvider";
-import { GoogleAuthProvider } from "firebase/auth";
+import siteLogo from "../../imges/siteImage/siteLogo.png";
+import { useState } from "react";
 import usePostRequest from "../../Shared/usePostReq";
 import SecondaryButton from "../../Shared/SecondaryButton";
 
 const Register = () => {
-  //   const { createAccount, googleLogin } = useContext(authContext);
   const [checkBox, setCheckBox] = useState(false);
-  //   const [error, setError] = useState("");
-  //   const [user, setUser] = useState("");
   const { post, data, error, loading } = usePostRequest();
   const navigate = useNavigate();
 
@@ -239,7 +233,7 @@ const Register = () => {
                   </div>
 
                   <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-                    <SecondaryButton >
+                    <SecondaryButton>
                       {loading ? <p>Loading...</p> : <p>create a account</p>}
                     </SecondaryButton>
 

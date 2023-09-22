@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import siteLogo from "../../imges/siteImage/340800268_560723189381106_5880403428875795146_n.png";
+import siteLogo from "../../imges/siteImage/siteLogo.png";
 import { useContext } from "react";
 import { authContext } from "../../Components/AuthProvider/AuthProvider";
 import SecondaryButton from "../../Shared/SecondaryButton";

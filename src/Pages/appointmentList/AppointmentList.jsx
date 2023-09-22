@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AppointmentListItem from "../../Components/appoitmentListPage/AppointmentList/AppointmentListItem";
 import Error from "../../Shared/error/Error";
+import Loading from "../../Shared/Loading/Loading";
 
 const AppointmentList = () => {
   const userId = JSON.parse(localStorage.getItem("userId"));
@@ -10,11 +11,14 @@ const AppointmentList = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch(`https://life-sever-serversite.vercel.app/api/v1/appointment/userId/${userId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    fetch(
+      `https://life-sever-serversite.vercel.app/api/v1/appointment/userId/${userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((responseData) => {
         setIsLoading(false);
@@ -51,7 +55,7 @@ const AppointmentList = () => {
       <div className="grid grid-cols-1 max-w-7xl mx-auto gap-4 my-4">
         <div>
           {isLoading ? (
-            <p className="text-4xl text-center">Loading..</p>
+            <Loading />
           ) : (
             <>
               {error ? (

@@ -1,6 +1,7 @@
 import React from "react";
 
 const AppointmentListItem = ({ data }) => {
+  console.log(data);
   const {
     _id,
     appointmentStatus,
@@ -88,12 +89,14 @@ const AppointmentListItem = ({ data }) => {
 
           <div>
             <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
-              <dt className="font-medium text-gray-900"> status</dt>
+              <dt className="font-bold text-xl text-gray-900">Status</dt>
 
               {status === "Confirmed" ? (
-                <p className="text-md font-bold ">
-                  Your Appointment is Confirmed and please check out Email
+                <p className="text-md font-bold text-xl">
+                  Your Appointment is Confirmed and please check your email.
                 </p>
+              ) : status === "Done" ? (
+                <p className="text-md font-bold text-xl">Your Appointment is Done</p>
               ) : (
                 <p>Appointment is pending</p>
               )}
