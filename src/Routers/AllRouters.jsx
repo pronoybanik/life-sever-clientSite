@@ -65,14 +65,14 @@ const allRouter = createBrowserRouter([
         path: "/feedBack",
         element: <FeedBack />,
       },
-      {
-        path: "/DoctorDetails/:id",
-        element: <DoctorDetails />,
-      },
-      {
-        path: "/applyToAppointDoctor",
-        element: <RequestToAppointDoctor />,
-      },
+      // {
+      //   path: "/DoctorDetails/:id",
+      //   element: <DoctorDetails />,
+      // },
+      // {
+      //   path: "/applyToAppointDoctor",
+      //   element: <RequestToAppointDoctor />,
+      // },
       {
         path: "/bookAppointment",
         element: (
