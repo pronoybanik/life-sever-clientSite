@@ -9,14 +9,21 @@ const PatientAppointment = () => {
   const { user } = useContext(authContext);
   const [patientData, setPatientData] = useState([]);
   const [error, setError] = useState("");
+  const token = JSON.parse(localStorage.getItem("Token"));
 
   useEffect(() => {
     if (user && user.doctorId && user.doctorId.length > 0) {
       fetch(
-        `https://life-sever-serversite.vercel.app/api/v1/appointment/doctorId/${user?.doctorId[0]._id}`
+        `https://life-sever-serversite.vercel.app/api/v1/appointment/doctorId/${user?.doctorId[0]._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
         .then((res) => res.json())
         .then((res) => {
+          console.log(res.data);
           setError(res.error);
           if (res.status === "success") {
             setPatientData(res.data);

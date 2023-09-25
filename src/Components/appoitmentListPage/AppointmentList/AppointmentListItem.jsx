@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const AppointmentListItem = ({ data }) => {
-  console.log(data);
+  const [doctorInfo, setDoctorsInfo] = useState({});
+  console.log(doctorInfo);
   const {
     _id,
     appointmentStatus,
@@ -19,6 +20,14 @@ const AppointmentListItem = ({ data }) => {
     reason,
   } = data;
 
+  useEffect(() => {
+    fetch(
+      `http://localhost:5000/api/v1/doctorProfile/details/${doctorDetails.doctorId}`
+    )
+      .then((res) => res.json())
+      .then((data) => setDoctorsInfo(data.data));
+  }, []);
+
   return (
     <div className="mx-4">
       <div className="flow-root rounded-lg border border-gray-100 py-3 shadow-sm">
@@ -33,7 +42,13 @@ const AppointmentListItem = ({ data }) => {
           <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
             <dt className="font-medium text-gray-900">Doctor Name</dt>
             <dd className="text-gray-700 sm:col-span-2 font-medium">
-              {doctorDetails?.name}
+              {doctorInfo?.FirstName} {doctorInfo?.LastName}
+            </dd>
+          </div>
+          <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+            <dt className="font-medium text-gray-900">Doctor Email</dt>
+            <dd className="text-gray-700 sm:col-span-2 font-medium">
+              {doctorInfo?.Email}
             </dd>
           </div>
           <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
@@ -96,7 +111,9 @@ const AppointmentListItem = ({ data }) => {
                   Your Appointment is Confirmed and please check your email.
                 </p>
               ) : status === "Done" ? (
-                <p className="text-md font-bold text-xl">Your Appointment is Done</p>
+                <p className="text-md font-bold text-xl">
+                  Your Appointment is Done
+                </p>
               ) : (
                 <p>Appointment is pending</p>
               )}

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 const DoctorsCard = ({ doctorProfile }) => {
+  console.log(doctorProfile);
   const {
     _id,
     FirstName,
@@ -35,7 +36,7 @@ const DoctorsCard = ({ doctorProfile }) => {
         <div className="text-sm font-medium mt-1">
           Working Hour: {WorkingHour}
         </div>
-        <div className="text-sm font-medium mt-1">Price: {PerHourCharge}</div>
+        <div className="text-sm font-medium mt-1 uppercase">Price: {PerHourCharge}</div>
       </div>
     </Link>
   ) : null;

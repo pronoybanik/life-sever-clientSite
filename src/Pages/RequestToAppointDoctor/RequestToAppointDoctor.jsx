@@ -277,12 +277,16 @@ const RequestToAppointDoctor = () => {
                     id="doctorType"
                     name="doctorType"
                     autoComplete="country-name"
+                    required
                     className="block w-full font-bold rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
-                    <option>United States</option>
-                    <option>Heart Doctor</option>
-                    <option>Brin Doctor</option>
+                    <option disabled>United States</option>
+                    <option>Outpatient Surgery</option>
+                    <option>Cardiac Clinicy</option>
                     <option>pregnancy Doctor</option>
+                    <option>Gynaecological Clinic</option>
+                    <option>Ophthalmology Clinic</option>
+                    <option>Laryngological Clinic</option>
                   </select>
                 </div>
               </div>
@@ -321,7 +325,8 @@ const RequestToAppointDoctor = () => {
                     name="hourPrice"
                     id="street-address"
                     autoComplete="price"
-                    className="block w-full ps-2 font-bold rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    required
+                    className="block w-full uppercase ps-2 font-bold rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>

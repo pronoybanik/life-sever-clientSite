@@ -4,6 +4,7 @@ import { LiaMobileAltSolid } from "react-icons/lia";
 import { CgMail } from "react-icons/cg";
 import { CiLocationOn } from "react-icons/ci";
 import Loading from "../../Shared/Loading/Loading";
+import Error from "../../Shared/error/Error";
 
 const filters = [
   {
@@ -12,14 +13,38 @@ const filters = [
     options: [
       { value: "", label: "All", checked: false },
       {
-        value: "DoctorType=Heart-Doctor",
-        label: "Heart Doctor",
+        value: "DoctorType=Outpatient Surgery",
+        label: "Outpatient Surgery",
         checked: false,
       },
-      { value: "DoctorType=Brin-Doctor", label: "Brin Doctor", checked: false },
       {
-        value: "DoctorType=pregnancy-Doctor",
-        label: "pregnancy Doctor",
+        value: "DoctorType=Cardiac Clinicy",
+        label: "Cardiac Clinicy",
+        checked: false,
+      },
+      {
+        value: "DoctorType=Ophthalmology Clinic",
+        label: "Ophthalmology Clinic",
+        checked: false,
+      },
+      {
+        value: "DoctorType=Gynaecological Clinic",
+        label: "Gynaecological Clinic",
+        checked: false,
+      },
+      {
+        value: "DoctorType=Outpatient Rehabilitation",
+        label: "Outpatient Rehabilitation",
+        checked: false,
+      },
+      {
+        value: "DoctorType=Laryngological Clinic",
+        label: "Laryngological Clinic",
+        checked: false,
+      },
+      {
+        value: "DoctorType=Pediatric Clinic",
+        label: "Pediatric Clinic",
         checked: false,
       },
     ],
@@ -45,32 +70,37 @@ const filters = [
 const OurDoctors = () => {
   const [category, setCategory] = useState("");
   const [doctors, setDoctors] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   // get all doctors
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      `https://life-sever-serversite.vercel.app/api/v1/doctorProfile?${category}`
+      // `https://life-sever-serversite.vercel.app/api/v1/doctorProfile?${category}`
+      `http://localhost:5000/api/v1/doctorProfile?${category}`
     )
       .then((res) => res.json())
       .then((data) => {
         setIsLoading(false);
-        setDoctors(data.data);
+        setError(data.error);
+        if (data.status === "success") {
+          setError("");
+          setDoctors(data.data);
+        }
       });
   }, [category]);
 
   return (
     <section>
       {/* Banner section start  */}
-      <section className="relative lg:h-[500px] md:h-[400px] h-80 bg-[url(https://medical-clinic.cmsmasters.net/wp-content/uploads/2016/09/bg-3-1.jpg)] bg-cover bg-center bg-no-repeat">
+      <section className="relative lg:h-[300px] md:h-[400px] h-80 bg-[url(https://medical-clinic.cmsmasters.net/wp-content/uploads/2016/09/bg-3-1.jpg)] bg-cover bg-center bg-no-repeat">
         <div className="absolute inset-0 bg-black/20  sm:from-white/95 sm:to-white/25 ltr:sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l">
           {" "}
         </div>
 
         <div
-          data-aos="fade-up"
-          data-aos-duration="3000"
+          data-aos="zoom-in-down"
           className="flex  items-center justify-center h-full"
         >
           <div className="relative">
@@ -93,37 +123,31 @@ const OurDoctors = () => {
               <p className="font-sans text-3xl text-white pt-2 font-semibold">
                 Filtering...
               </p>
-              {isLoading ? (
-                <Loading />
-              ) : (
-                filters.map((section) => (
-                  <div
-                    key={section.id}
-                    className="border-b border-gray-200 pb-6 "
-                  >
-                    <div className="pt-6">
-                      <div className="space-y-4">
-                        {section.options.map((option, optionIdx) => (
-                          <div key={option.value} className="flex items-center">
-                            <input
-                              defaultValue={option.value}
-                              type="checkbox"
-                              onChange={(e) =>
-                                setCategory(e.target.defaultValue)
-                              }
-                              defaultChecked={option.checked}
-                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                            />
-                            <label className="ml-3 text-sm text-gray-100 ">
-                              {option.label}
-                            </label>
-                          </div>
-                        ))}
-                      </div>
+              {filters.map((section) => (
+                <div
+                  key={section.id}
+                  className="border-b border-gray-200 pb-6 "
+                >
+                  <div className="pt-6">
+                    <div className="space-y-4">
+                      {section.options.map((option, optionIdx) => (
+                        <div key={option.value} className="flex items-center">
+                          <input
+                            defaultValue={option.value}
+                            type="checkbox"
+                            onChange={(e) => setCategory(e.target.defaultValue)}
+                            defaultChecked={option.checked}
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label className="ml-3 text-sm text-gray-100 ">
+                            {option.label}
+                          </label>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                ))
-              )}
+                </div>
+              ))}
             </div>
             {/* Opening Hours section Start */}
             <div className="bg-[#0074B7] px-6 py-10">
@@ -179,12 +203,18 @@ const OurDoctors = () => {
             </div>
             <div className="mt-4">
               <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-2">
-                {doctors?.map((doctor) => (
-                  <DoctorsCard
-                    key={doctor?._id}
-                    doctorProfile={doctor}
-                  ></DoctorsCard>
-                ))}
+                {isLoading ? (
+                  <Loading />
+                ) : error ? (
+                  <Error>{error}</Error>
+                ) : (
+                  doctors?.map((doctor) => (
+                    <DoctorsCard
+                      key={doctor?._id}
+                      doctorProfile={doctor}
+                    ></DoctorsCard>
+                  ))
+                )}
               </div>
             </div>
           </div>

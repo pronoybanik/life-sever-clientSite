@@ -53,7 +53,7 @@ const UserDataItem = ({ data }) => {
           {data?.LastName}
         </td>
         <td class="whitespace-nowrap px-4 py-2 text-gray-700">{data?.email}</td>
-        <td class="whitespace-nowrap px-4 py-2 text-gray-700">{data?.Role}</td>
+        <td class="whitespace-nowrap px-4 py-2 text-gray-700 font-bold">{data?.Role}</td>
         <td class="whitespace-nowrap px-4 text-red-500 font-semibold py-2">
           {data?.status}
         </td>

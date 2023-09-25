@@ -21,6 +21,7 @@ const AppointmentList = () => {
     )
       .then((res) => res.json())
       .then((responseData) => {
+        console.log(responseData);
         setIsLoading(false);
         setError(responseData.error);
         if (responseData.statusbar === 200) {
@@ -32,14 +33,13 @@ const AppointmentList = () => {
 
   return (
     <section>
-      <div className="relative lg:h-[500px] md:h-[400px] h-80 bg-[url(https://medical-clinic.cmsmasters.net/wp-content/uploads/2016/09/bg-3-1.jpg)] bg-cover bg-center bg-no-repeat">
+      <div className="relative lg:h-[300px] md:h-[400px] h-80 bg-[url(https://medical-clinic.cmsmasters.net/wp-content/uploads/2016/09/bg-3-1.jpg)] bg-cover bg-center bg-no-repeat">
         <div className="absolute inset-0 bg-black/20  sm:from-white/95 sm:to-white/25 ltr:sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l">
           {" "}
         </div>
 
         <div
-          data-aos="fade-up"
-          data-aos-duration="3000"
+          data-aos="zoom-in-down"
           className="flex  items-center justify-center h-full"
         >
           <div className="relative">

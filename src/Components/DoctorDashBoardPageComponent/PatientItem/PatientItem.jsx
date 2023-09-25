@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SecondaryButton from "../../../Shared/SecondaryButton";
 
 const PatientItem = ({ data }) => {
+  console.log("PatientItem", data);
   const [error, setError] = useState("");
   const {
     _id,
@@ -23,14 +24,17 @@ const PatientItem = ({ data }) => {
   const handleStatusChange = (data) => {
     const status = data.target.value;
 
-    fetch(`https://life-sever-serversite.vercel.app/api/v1/appointment/${_id}`, {
-      method: "PATCH",
-      headers: {
-        // Authorization: `Bearer ${token}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ status }),
-    })
+    fetch(
+      `https://life-sever-serversite.vercel.app/api/v1/appointment/${_id}`,
+      {
+        method: "PATCH",
+        headers: {
+          // Authorization: `Bearer ${token}`,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ status }),
+      }
+    )
       .then((res) => res.json())
       .then((responseData) => {
         setError(responseData.message);
@@ -43,14 +47,17 @@ const PatientItem = ({ data }) => {
   };
 
   const handleDone = () => {
-    fetch(`https://life-sever-serversite.vercel.app/api/v1/appointment/${_id}`, {
-      method: "PATCH",
-      headers: {
-        // Authorization: `Bearer ${token}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ status: "Done" }),
-    })
+    fetch(
+      `https://life-sever-serversite.vercel.app/api/v1/appointment/${_id}`,
+      {
+        method: "PATCH",
+        headers: {
+          // Authorization: `Bearer ${token}`,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ status: "Done" }),
+      }
+    )
       .then((res) => res.json())
       .then((responseData) => {
         setError(responseData.message);
@@ -62,7 +69,7 @@ const PatientItem = ({ data }) => {
       });
   };
 
-  return !status === "Done" ? (
+  return status !== "Done" ? (
     <div className="mx-4">
       <div className="flow-root rounded-lg border border-gray-100 py-3 shadow-sm">
         <div className="flex items-center justify-center gap-2">
