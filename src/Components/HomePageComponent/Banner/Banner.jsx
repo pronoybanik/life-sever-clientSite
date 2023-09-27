@@ -3,8 +3,8 @@ import SecondaryButton from "../../../Shared/SecondaryButton";
 
 const Banner = () => {
   return (
-    <div className="bg-white">
-      <section className="relative lg:h-[600px] md:h-[400px] h-80 bg-[url(https://medical-clinic.cmsmasters.net/wp-content/uploads/2016/09/bg-1.jpg)] bg-cover bg-center bg-no-repeat">
+    <div className="bg-white ">
+      <section className="relative lg:h-[600px] md:h-[400px]  h-80 bg-[url(https://medical-clinic.cmsmasters.net/wp-content/uploads/2016/09/bg-1.jpg)] bg-cover bg-center bg-no-repeat">
         <div className="absolute inset-0 bg-black/20  sm:from-white/95 sm:to-white/25 ltr:sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l">
           {" "}
         </div>
@@ -12,7 +12,7 @@ const Banner = () => {
         <div
           data-aos="fade-up"
           data-aos-duration="3000"
-          className="flex  items-center lg:ml-80 md:ml-6 ml-6 lg:w-full h-full"
+          className="flex  items-center lg:ml-80 md:ml-6 ml-6  h-full"
         >
           <div className="relative">
             <p className="text-white font-sans lg:text-2xl md:text-2xl text-xl ">
