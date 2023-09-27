@@ -22,7 +22,7 @@ const AppointmentListItem = ({ data }) => {
 
   useEffect(() => {
     fetch(
-      `http://localhost:5000/api/v1/doctorProfile/details/${doctorDetails.doctorId}`
+      `https://life-sever-serversite.vercel.app/api/v1/doctorProfile/details/${doctorDetails.doctorId}`
     )
       .then((res) => res.json())
       .then((data) => setDoctorsInfo(data.data));

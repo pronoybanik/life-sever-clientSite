@@ -10,15 +10,12 @@ const AuthProvider = ({ children }) => {
   const userId = JSON.parse(localStorage.getItem("userId"));
 
   useEffect(() => {
-   
-    if (userId) {
-      axios
-        .get(`https://life-sever-serversite.vercel.app/api/v1/user/${userId}`)
-        .then((responseData) => {
-          setUser(responseData.data.data);
-        });
-    }
-    setLoading(false);
+    fetch(`https://life-sever-serversite.vercel.app/api/v1/user/${userId}`)
+      .then((res) => res.json())
+      .then((responseData) => {
+        setLoading(false);
+        setUser(responseData.data);
+      });
   }, []);
 
   const authInfo = {

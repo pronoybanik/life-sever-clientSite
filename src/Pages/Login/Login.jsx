@@ -12,7 +12,7 @@ const Login = () => {
 
   const location = useLocation();
   const navigateForm = location.state?.from?.pathname || "/";
-
+  console.log(navigateForm);
   if (data?.statusbar === 200) {
     localStorage.setItem("userId", JSON.stringify(data.data.user._id));
     localStorage.setItem("Token", JSON.stringify(data.data.token));
