@@ -16,7 +16,7 @@ const AuthProvider = ({ children }) => {
         setLoading(false);
         setUser(responseData.data);
       });
-  }, []);
+  }, [userId]);
 
   const authInfo = {
     user,

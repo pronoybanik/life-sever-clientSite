@@ -159,7 +159,6 @@ const PatientList = () => {
                         <dt className="font-medium text-gray-900"> status</dt>
                         {status === "Pending" && (
                           <select
-                            onChange={handleStatusChange}
                             className="h-8 w-72 rounded border-gray-200 bg-gray-50 p-0 text-center text-lg text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
                             id="nameSelect"
                             name="selectedName"
@@ -180,7 +179,7 @@ const PatientList = () => {
                           <p className="text-md font-bold ">Done</p>
                         )}
                         {status === "Confirmed" && (
-                          <div onClick={handleDone} value="value">
+                          <div  value="value">
                             <SecondaryButton>Done</SecondaryButton>
                           </div>
                         )}
