@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useId, useState } from "react";
 
 export const authContext = createContext();
 
@@ -16,6 +16,12 @@ const AuthProvider = ({ children }) => {
         setLoading(false);
         setUser(responseData.data);
       });
+  }, [userId]);
+
+  useEffect(() => {
+    if (!userId) {
+      setLoading(false);
+    }
   }, [userId]);
 
   const authInfo = {
