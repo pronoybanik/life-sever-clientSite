@@ -9,6 +9,7 @@ const tableName = [
   { name: "Role" },
   { name: "Status" },
   { name: "Change status" },
+  { name: "User Delete" },
 ];
 
 const AllUser = () => {

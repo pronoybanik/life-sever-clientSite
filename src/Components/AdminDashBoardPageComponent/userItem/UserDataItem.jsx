@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Error from "../../../Shared/error/Error";
 import { json } from "react-router-dom";
+import PrimaryButton from "../../../Shared/PrimaryButton";
+import SecondaryButton from "../../../Shared/SecondaryButton";
 
 const UserDataItem = ({ data }) => {
   const token = JSON.parse(localStorage.getItem("Token"));
@@ -19,7 +21,7 @@ const UserDataItem = ({ data }) => {
     })
       .then((res) => res.json())
       .then((responseData) => {
-        setError(responseData.error)
+        setError(responseData.error);
         if (responseData?.statusbar === 200) {
           fetch(
             `https://life-sever-serversite.vercel.app/api/v1/doctorProfile/details/${data?.doctorId[0]}`,
@@ -45,6 +47,25 @@ const UserDataItem = ({ data }) => {
       });
   };
 
+  const handleDelete = (userId) => {
+    console.log(userId);
+
+    fetch(`http://localhost:5000/api/v1/user/${userId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.statusbar === 200) {
+          setError("");
+          alert(data?.message);
+          window.location.reload();
+        }
+      });
+  };
+
   return (
     <>
       <tr>
@@ -53,7 +74,9 @@ const UserDataItem = ({ data }) => {
           {data?.LastName}
         </td>
         <td class="whitespace-nowrap px-4 py-2 text-gray-700">{data?.email}</td>
-        <td class="whitespace-nowrap px-4 py-2 text-gray-700 font-bold">{data?.Role}</td>
+        <td class="whitespace-nowrap px-4 py-2 text-gray-700 font-bold">
+          {data?.Role}
+        </td>
         <td class="whitespace-nowrap px-4 text-red-500 font-semibold py-2">
           {data?.status}
         </td>
@@ -74,6 +97,12 @@ const UserDataItem = ({ data }) => {
             Blocked
           </option>
         </select>
+        <td>
+          <SecondaryButton onClick={() => handleDelete(data?._id)}>
+            Delete
+          </SecondaryButton>
+        </td>
+
         {error && <Error>{error}</Error>}
       </tr>
     </>
