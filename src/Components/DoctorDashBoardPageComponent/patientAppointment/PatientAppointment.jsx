@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { authContext } from "../../AuthProvider/AuthProvider";
-import UseGetRequest from "../../../Shared/UseGetRequest";
 import PatientItem from "../PatientItem/PatientItem";
 import Error from "../../../Shared/error/Error";
 import Loading from "../../../Shared/Loading/Loading";

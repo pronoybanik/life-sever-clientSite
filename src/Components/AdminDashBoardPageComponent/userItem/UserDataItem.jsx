@@ -50,7 +50,7 @@ const UserDataItem = ({ data }) => {
   const handleDelete = (userId) => {
     console.log(userId);
 
-    fetch(`http://localhost:5000/api/v1/user/${userId}`, {
+    fetch(`https://life-sever-serversite.vercel.app/api/v1/user/${userId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

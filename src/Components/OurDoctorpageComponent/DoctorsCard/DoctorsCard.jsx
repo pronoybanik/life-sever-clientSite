@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 const DoctorsCard = ({ doctorProfile }) => {
-  console.log(doctorProfile);
+
   const {
     _id,
     FirstName,
