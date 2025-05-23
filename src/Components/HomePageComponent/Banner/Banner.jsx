@@ -5,9 +5,7 @@ const Banner = () => {
   return (
     <div className="bg-white ">
       <section className="relative lg:h-[600px] md:h-[400px]  h-80 bg-[url(https://images.pexels.com/photos/6520047/pexels-photo-6520047.jpeg?auto=compress&cs=tinysrgb&w=2000&lazy=load)] bg-cover bg-center bg-no-repeat">
-        <div className="absolute inset-0 bg-black/20  sm:from-white/95 sm:to-white/25 ltr:sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l">
-          {" "}
-        </div>
+        <div className="absolute inset-0 bg-black/20  sm:from-white/95 sm:to-white/25 ltr:sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l"></div>
 
         <div
           data-aos="fade-up"
