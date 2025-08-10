@@ -20,7 +20,6 @@ const NavBar = () => {
     localStorage.removeItem("Token");
     window.location.reload();
   };
-  
 
   const menu = (
     <>
@@ -36,14 +35,20 @@ const NavBar = () => {
       >
         Our Doctors
       </Link>
-   
-        <Link
-          to="/appointmentList"
-          className="text-sm font-semibold leading-2  text-white relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-slate-100 before:transition hover:before:scale-x-100"
-        >
-          Appointment List
-        </Link>
-      
+      <Link
+        to="/patientAccount"
+        className="text-sm font-semibold leading-2  text-white relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-slate-100 before:transition hover:before:scale-x-100"
+      >
+        Patient Account
+      </Link>
+
+      <Link
+        to="/appointmentList"
+        className="text-sm font-semibold leading-2  text-white relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-slate-100 before:transition hover:before:scale-x-100"
+      >
+        Appointment List
+      </Link>
+
       <Link
         to="/bookAppointment"
         className="text-sm font-semibold leading-2  text-white relative before:absolute before:-bottom-0.5 before:h-0.5 before:w-full before:scale-x-0 before:bg-slate-100 before:transition hover:before:scale-x-100"
@@ -52,28 +57,18 @@ const NavBar = () => {
       </Link>
 
       <Link
-        to="/patientAccount"
+        to="/adminDashBoard"
         className="text-sm font-semibold leading-2  text-white relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-slate-100 before:transition hover:before:scale-x-100"
       >
-        Patient Account
+        Admin DashBoard
       </Link>
 
-   
-        <Link
-          to="/adminDashBoard"
-          className="text-sm font-semibold leading-2  text-white relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-slate-100 before:transition hover:before:scale-x-100"
-        >
-          Admin DashBoard
-        </Link>
-    
-  
-        <Link
-          to="/doctorDashBoard"
-          className="text-sm font-semibold leading-2  text-white relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-slate-100 before:transition hover:before:scale-x-100"
-        >
-          Doctor DashBoard
-        </Link>
-   
+      <Link
+        to="/doctorDashBoard"
+        className="text-sm font-semibold leading-2  text-white relative before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-slate-100 before:transition hover:before:scale-x-100"
+      >
+        Doctor DashBoard
+      </Link>
     </>
   );
 
