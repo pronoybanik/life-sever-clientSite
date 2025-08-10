@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 const AppointmentListItem = ({ data }) => {
   const [doctorInfo, setDoctorsInfo] = useState({});
-  console.log(doctorInfo);
   const {
     _id,
     appointmentStatus,
@@ -22,7 +21,7 @@ const AppointmentListItem = ({ data }) => {
 
   useEffect(() => {
     fetch(
-      `https://life-sever-serversite.vercel.app/api/v1/doctorProfile/details/${doctorDetails.doctorId}`
+      `${import.meta.env.VITE_API_URL}/api/v1/doctorProfile/details/${doctorDetails.doctorId}`
     )
       .then((res) => res.json())
       .then((data) => setDoctorsInfo(data.data));

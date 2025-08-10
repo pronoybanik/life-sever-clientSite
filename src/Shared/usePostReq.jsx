@@ -7,7 +7,7 @@ const usePostRequest = () => {
   const [loading, setLoading] = useState(false);
 
   const post = async (endPoint, BodyData) => {
-    const url = `https://life-sever-serversite.vercel.app/${endPoint}`;
+    const url = `${import.meta.env.VITE_API_URL}/${endPoint}`;
 
     setLoading(true);
     setError(null);

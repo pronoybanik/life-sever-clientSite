@@ -9,17 +9,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const { post, data, loading, error } = usePostRequest();
   const navigate = useNavigate();
-
   const location = useLocation();
   const navigateForm = location.state?.from?.pathname || "/";
-  console.log(navigateForm);
-  if (data?.statusbar === 200) {
-    localStorage.setItem("userId", JSON.stringify(data.data.user._id));
-    localStorage.setItem("Token", JSON.stringify(data.data.token));
-    alert(data.message);
-    navigate(navigateForm, { replace: true });
-    window.location.reload();
-  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,6 +20,19 @@ const Login = () => {
     };
     await post("api/v1/user/login", loginData);
   };
+
+  if (data?.status === "success") {
+    localStorage.setItem("userId", JSON.stringify(data?.data?.user._id));
+    localStorage.setItem("Token", JSON.stringify(data?.data?.token));
+    alert(data?.message);
+    navigate(navigateForm, { replace: true });
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+  }
+
+  console.log("login", data);
+  console.log("login Error", error);
 
   return (
     <div>
@@ -124,7 +128,7 @@ const Login = () => {
                 Sign up
               </Link>
             </p>
-            {error ? <Error>{error}</Error> : null}
+            {error ? <Error>{error?.message || String(error)}</Error> : null}
           </form>
         </div>
       </div>

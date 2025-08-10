@@ -13,7 +13,6 @@ function classNames(...classes) {
 
 const NavBar = () => {
   const { user } = useContext(authContext);
-  console.log("navbar", user);
 
   // logout button handler...
   const handleLogout = () => {

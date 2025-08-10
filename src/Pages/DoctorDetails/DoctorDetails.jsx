@@ -24,7 +24,7 @@ const DoctorDetails = () => {
     setIsLoading(true);
     axios
       .get(
-        `https://life-sever-serversite.vercel.app/api/v1/doctorProfile/details/${id}`
+        `${import.meta.env.VITE_API_URL}/api/v1/doctorProfile/details/${id}`
       )
       .then((data) => {
         setIsLoading(false);

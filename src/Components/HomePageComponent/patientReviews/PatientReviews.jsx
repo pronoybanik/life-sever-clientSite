@@ -10,121 +10,112 @@ const PatientReviews = () => {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get("https://life-sever-serversite.vercel.app/api/v1/userFeedBack")
+      .get(`${import.meta.env.VITE_API_URL}/api/v1/userFeedBack`)
       .then((data) => {
         setIsLoading(false);
         setFeedBack(data.data.data);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        console.error("Error fetching feedback:", error);
       });
   }, []);
 
   return (
-    <section className="my-20 relative bg-[url(https://medical-clinic.cmsmasters.net/wp-content/uploads/2016/09/bg-3-1.jpg)] bg-cover bg-center bg-no-repeat">
-      <div className="absolute inset-0 bg-black/50  sm:from-white/95 sm:to-white/25 ltr:sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l">
-        {" "}
-      </div>
-      <div className="relative pt-32">
-        <div className=" max-w-screen-2xl mx-auto mb-32 mt32">
-          <div className=" text-center grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-2">
-            {isLoading ? (
-              <Loading />
-            ) : (
-              feedBack?.map((data) => (
-                <article className="rounded-xl border border-gray-700 bg-gray-800 p-4">
-                  <div className="flex items-center gap-4">
-                    {!data.image ? (
-                      <img
-                        alt="Developer"
-                        src={userIcon}
-                        className="h-16 w-16 rounded-full object-cover"
-                      />
-                    ) : (
-                      <img
-                        alt="Developer"
-                        src={data?.image}
-                        className="h-16 w-16 rounded-full object-cover"
-                      />
-                    )}
+    <section className="py-24 relative bg-[url(https://img.freepik.com/free-photo/medical-banner-with-stethoscope_23-2149611199.jpg)] bg-fixed bg-cover bg-center bg-no-repeat">
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70"></div>
 
-                    <div>
-                      <h3 className="text-lg font-medium text-white">
-                        {data?.userName}
-                      </h3>
-
-                      <div className="flow-root">
-                        <ul className="-m-1 flex flex-wrap">
-                          <li className="p-1 leading-none">
-                            <a
-                              href="#"
-                              className="text-xs font-medium text-gray-300"
-                            >
-                              {" "}
-                              Twitter{" "}
-                            </a>
-                          </li>
-
-                          <li className="p-1 leading-none">
-                            <a
-                              href="#"
-                              className="text-xs font-medium text-gray-300"
-                            >
-                              {" "}
-                              GitHub{" "}
-                            </a>
-                          </li>
-
-                          <li className="p-1 leading-none">
-                            <a
-                              href="#"
-                              className="text-xs font-medium text-gray-300"
-                            >
-                              Website
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-
-                  <ul className="mt-4 space-y-2">
-                    <li>
-                      <a
-                        href="#"
-                        className="block h-full rounded-lg border border-gray-700 p-4 hover:border-pink-600"
-                      >
-                        <strong className="font-medium text-white">
-                          {data?.email}
-                        </strong>
-
-                        <p className="mt-1 text-xs font-medium text-gray-300">
-                          {data?.message}
-                        </p>
-                      </a>
-                    </li>
-                  </ul>
-                </article>
-              ))
-            )}
-          </div>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-white mb-4">
+            Patient Testimonials
+          </h2>
+          <p className="text-xl text-gray-300">
+            What our patients say about us
+          </p>
         </div>
 
-        <div className="relative w-full  lg:-mb-32 text-white  bg-[#60A3D9]  py-10">
-          <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 mx-auto max-w-6xl gap-28">
-            <div className="text-center">
-              <p className="text-2xl">100 %</p>
-              <p className="text-sm">Quality</p>
-            </div>
-            <div className="text-center">
-              <p className="text-2xl">20</p>
-              <p className="text-sm">Patients a year</p>
-            </div>
-            <div className="text-center">
-              <p className="text-2xl">78</p>
-              <p className="text-sm">Years of experience</p>
-            </div>
-            <div className="text-center">
-              <p className="text-2xl">40</p>
-              <p className="text-sm">Happy Smiles</p>
-            </div>
+        {isLoading ? (
+          <div className="flex justify-center">
+            <Loading />
+          </div>
+        ) : (
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8">
+            {feedBack?.map((data, index) => (
+              <article
+                key={index}
+                className="bg-white/10 backdrop-blur-md rounded-2xl p-6 transform hover:scale-105 transition-all duration-300"
+              >
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="relative">
+                    <img
+                      alt="Patient"
+                      src={data.image || userIcon}
+                      className="h-16 w-16 rounded-full object-cover ring-4 ring-blue-400/50"
+                    />
+                    <div className="absolute -bottom-2 -right-2 h-6 w-6 bg-green-500 rounded-full border-2 border-white"></div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold text-white">
+                      {data?.userName}
+                    </h3>
+                    <p className="text-sm text-blue-300">{data?.email}</p>
+                  </div>
+                </div>
+
+                <blockquote className="relative">
+                  <span className="absolute top-0 left-0 text-6xl text-blue-400/30">
+                    "
+                  </span>
+                  <p className="pt-8 px-4 text-gray-300 italic">
+                    {data?.message}
+                  </p>
+                  <span className="absolute bottom-0 right-4 text-6xl text-blue-400/30">
+                    "
+                  </span>
+                </blockquote>
+
+                <div className="mt-6 pt-6 border-t border-white/10">
+                  <div className="flex items-center justify-between text-sm text-gray-300">
+                    <span>Verified Patient</span>
+                    <div className="flex items-center">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <svg
+                          key={star}
+                          className="w-5 h-5 text-yellow-400"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+
+        <div className="mt-24 relative w-full text-white">
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 mx-auto max-w-7xl gap-8 px-4">
+            {[
+              { number: "100%", label: "Satisfaction Rate" },
+              { number: "1000+", label: "Patients Yearly" },
+              { number: "25+", label: "Years Experience" },
+              { number: "98%", label: "Recovery Rate" },
+            ].map((stat, index) => (
+              <div
+                key={index}
+                className="bg-white/10 backdrop-blur-md rounded-xl p-8 text-center transform hover:scale-105 transition-all duration-300"
+              >
+                <div className="text-4xl font-bold text-blue-400 mb-2">
+                  {stat.number}
+                </div>
+                <div className="text-lg text-gray-300">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

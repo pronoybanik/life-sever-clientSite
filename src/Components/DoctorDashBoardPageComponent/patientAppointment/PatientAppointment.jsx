@@ -16,7 +16,7 @@ const PatientAppointment = () => {
     setLoading(true);
     if (user && user.doctorId && user.doctorId.length > 0) {
       fetch(
-        `https://life-sever-serversite.vercel.app/api/v1/appointment/doctorId/${user?.doctorId[0]._id}`,
+        `${import.meta.env.VITE_API_URL}/api/v1/appointment/doctorId/${user?.doctorId[0]._id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

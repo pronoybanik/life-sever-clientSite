@@ -1,83 +1,86 @@
 import { useContext, useState } from "react";
 import { authContext } from "../../Components/AuthProvider/AuthProvider";
-import PrimaryButton from "../../Shared/PrimaryButton";
-import UsePOstRequest from "../../Shared/usePostReq";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
+import { toast } from "react-hot-toast";
 import usePostRequest from "../../Shared/usePostReq";
 import SecondaryButton from "../../Shared/SecondaryButton";
 import { useNavigate } from "react-router-dom";
 import Error from "../../Shared/error/Error";
+import uploadToCloudinary from "../../utils/uploadToCloudinary";
 
 const RequestToAppointDoctor = () => {
   const { user } = useContext(authContext);
   const [imgUrl, setImgUrl] = useState("");
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [previewImage, setPreviewImage] = useState("");
   const { data, error, loading, post } = usePostRequest();
   const navigate = useNavigate();
 
-  if (data.statusbar === 201) {
-    alert(data.message);
+  // Handle successful submission
+  if (data?.statusbar === 201) {
+    toast.success(data.message);
     navigate("/patientAccount");
   }
 
-  const handelSubmit = (event) => {
+  // Handle image file selection
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Preview the selected image
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewImage(reader.result);
+    };
+    reader.readAsDataURL(file);
+
+    try {
+      setUploadingImage(true);
+      const imageUrl = await uploadToCloudinary(file);
+      if (imageUrl) {
+        setImgUrl(imageUrl);
+        toast.success("Image uploaded successfully");
+      } else {
+        toast.error("Failed to upload image");
+      }
+    } catch (err) {
+      console.error("Error uploading image:", err);
+      toast.error("Failed to upload image");
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
+  const handelSubmit = async (event) => {
     event.preventDefault();
     const form = event.target;
-    const userId = user._id;
-    const LoginUserEmail = form.username.value;
-    const About = form.about.value;
-    const FirstName = form.firstName.value;
-    const LastName = form.lastName.value;
-    const Email = form.email.value;
-    const MobileNumber = form.mobileNumber.value;
-    const Country = form.country.value;
-    const StreetAddress = form.streetAddress.value;
-    const City = form.city.value;
-    const Region = form.region.value;
-    const PostalCode = form.postalCode.value;
-    const PushNotifications = form.pushNotifications.value;
-    const DoctorType = form.doctorType.value;
-    const WorkingHour = form.workingHour.value;
-    const PerHourCharge = form.hourPrice.value;
+    
+    try {
+      const doctorProfileDetails = {
+        userId: user._id,
+        LoginUserEmail: form.username.value,
+        About: form.about.value,
+        FirstName: form.firstName.value,
+        LastName: form.lastName.value,
+        Email: form.email.value,
+        MobileNumber: form.mobileNumber.value,
+        Country: form.country.value,
+        StreetAddress: form.streetAddress.value,
+        City: form.city.value,
+        Region: form.region.value,
+        PostalCode: form.postalCode.value,
+        PushNotifications: form.pushNotifications.value,
+        DoctorType: form.doctorType.value,
+        WorkingHour: form.workingHour.value,
+        PerHourCharge: form.hourPrice.value,
+        DoctorProfileImage: imgUrl,
+      };
 
-    // Upload image to imgbb server
-    const DoctorImage = imgUrl;
-    const formData = new FormData();
-    formData.append("image", DoctorImage);
-
-    const url =
-      "https://api.imgbb.com/1/upload?key=99f58a547dc4b1d269148eb1b605ef29";
-
-    fetch(url, {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then(async (imgData) => {
-        const DoctorProfileImage = imgData.data.url;
-        const doctorProfileDetails = {
-          userId,
-          LoginUserEmail,
-          About,
-          StreetAddress,
-          City,
-          Region,
-          PushNotifications,
-          PostalCode,
-          FirstName,
-          LastName,
-          Email,
-          MobileNumber,
-          Country,
-          DoctorProfileImage,
-          DoctorType,
-          WorkingHour,
-          PerHourCharge,
-        };
-        await post("api/v1/doctorProfile", doctorProfileDetails);
-      })
-      .catch((error) => {
-        setError(error);
-      });
+      await post("api/v1/doctorProfile", doctorProfileDetails);
+    } catch (error) {
+      toast.error("Failed to submit form");
+      console.error("Form submission error:", error);
+    }
   };
 
   return (
@@ -163,35 +166,65 @@ const RequestToAppointDoctor = () => {
                   htmlFor="cover-photo"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Cover photo
+                  Profile Photo
                 </label>
-                <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                  <div className="text-center">
-                    <PhotoIcon
-                      className="mx-auto h-12 w-12 text-gray-300"
-                      aria-hidden="true"
-                    />
-                    <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                      <label
-                        htmlFor="file-upload"
-                        className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                      >
-                        <span>Upload a file</span>
-                        <input
-                          onChange={(e) => setImgUrl(e.target.files[0])}
-                          id="file-upload"
-                          name="fileUpload"
-                          type="file"
-                          required
-                          className="sr-only"
+                <div className="mt-2">
+                  <div className="flex flex-col items-center">
+                    {/* Image Preview */}
+                    <div className="w-40 h-40 mb-4 rounded-full overflow-hidden border-4 border-blue-100 shadow-lg">
+                      {previewImage ? (
+                        <img
+                          src={previewImage}
+                          alt="Preview"
+                          className="w-full h-full object-cover"
                         />
-                      </label>
-
-                      <p className="pl-1">or drag and drop</p>
+                      ) : (
+                        <div className="w-full h-full bg-gray-50 flex items-center justify-center">
+                          <UserCircleIcon className="w-20 h-20 text-gray-300" />
+                        </div>
+                      )}
                     </div>
-                    <p className="text-xs leading-5 text-gray-600">
-                      PNG, JPG, GIF up to 10MB
-                    </p>
+
+                    {/* Upload Section */}
+                    <div className="flex flex-col items-center w-full max-w-md">
+                      <div className="relative w-full">
+                        <input
+                          type="file"
+                          id="file-upload"
+                          accept="image/*"
+                          onChange={handleImageChange}
+                          className="hidden"
+                          required={!imgUrl}
+                        />
+                        <label
+                          htmlFor="file-upload"
+                          className={`flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg cursor-pointer
+                            ${uploadingImage ? 'bg-gray-100 cursor-not-allowed' : 'bg-white hover:bg-gray-50'}`}
+                        >
+                          <PhotoIcon className="w-5 h-5 mr-2 text-gray-500" />
+                          <span className="text-sm font-medium text-gray-700">
+                            {uploadingImage ? 'Uploading...' : 'Choose Photo'}
+                          </span>
+                        </label>
+                      </div>
+
+                      {uploadingImage && (
+                        <div className="mt-2 flex items-center justify-center">
+                          <div className="animate-spin rounded-full h-4 w-4 border-2 border-b-transparent border-blue-500 mr-2"></div>
+                          <span className="text-sm text-gray-600">Uploading...</span>
+                        </div>
+                      )}
+
+                      {imgUrl && !uploadingImage && (
+                        <div className="mt-2 text-sm text-green-600">
+                          ✓ Image uploaded successfully
+                        </div>
+                      )}
+
+                      <p className="mt-2 text-xs text-gray-500">
+                        PNG, JPG, or GIF up to 10MB. Professional headshot recommended.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -11,7 +11,7 @@ const UseGetRequest = (endPoint) => {
     Authorization: `Bearer ${token}`,
   };
 
-  const url = `https://life-sever-serversite.vercel.app/${endPoint}`;
+  const url = `${import.meta.env.VITE_API_URL}/${endPoint}`;
 
   useEffect(() => {
     const fetchData = async () => {

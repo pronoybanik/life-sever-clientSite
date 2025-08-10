@@ -11,7 +11,7 @@ const UserDataItem = ({ data }) => {
   const handleStatusChange = (event) => {
     const status = event.target.value;
 
-    fetch(`https://life-sever-serversite.vercel.app/api/v1/user/${data?._id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/v1/user/${data?._id}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -24,7 +24,7 @@ const UserDataItem = ({ data }) => {
         setError(responseData.error);
         if (responseData?.statusbar === 200) {
           fetch(
-            `https://life-sever-serversite.vercel.app/api/v1/doctorProfile/details/${data?.doctorId[0]}`,
+            `${import.meta.env.VITE_API_URL}/api/v1/doctorProfile/details/${data?.doctorId[0]}`,
             {
               method: "PATCH",
               headers: {
@@ -48,9 +48,7 @@ const UserDataItem = ({ data }) => {
   };
 
   const handleDelete = (userId) => {
-    console.log(userId);
-
-    fetch(`https://life-sever-serversite.vercel.app/api/v1/user/${userId}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/v1/user/${userId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

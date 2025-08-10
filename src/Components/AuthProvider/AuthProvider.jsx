@@ -10,7 +10,7 @@ const AuthProvider = ({ children }) => {
   const userId = JSON.parse(localStorage.getItem("userId"));
 
   useEffect(() => {
-    fetch(`https://life-sever-serversite.vercel.app/api/v1/user/${userId}`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/v1/user/${userId}`)
       .then((res) => res.json())
       .then((responseData) => {
         setLoading(false);

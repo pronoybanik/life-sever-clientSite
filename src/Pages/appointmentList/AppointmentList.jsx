@@ -12,7 +12,7 @@ const AppointmentList = () => {
 
   useEffect(() => {
     fetch(
-      `https://life-sever-serversite.vercel.app/api/v1/appointment/userId/${userId}`,
+      `${import.meta.env.VITE_API_URL}/api/v1/appointment/userId/${userId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

@@ -11,7 +11,7 @@ const DoctorUserItem = ({ doctor, deleteUserHandler }) => {
   // admin role set
   const handleAdmin = (id) => {
     setIsLoading(true);
-    fetch(`https://life-sever-serversite.vercel.app/api/v1/doctorProfile/details/${id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/v1/doctorProfile/details/${id}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -24,7 +24,7 @@ const DoctorUserItem = ({ doctor, deleteUserHandler }) => {
         setIsLoading(false);
         setError(data.error);
         if (data.statusbar === 200) {
-          fetch(`https://life-sever-serversite.vercel.app/api/v1/user/${doctor?.userId[0]}`, {
+          fetch(`${import.meta.env.VITE_API_URL}/api/v1/user/${doctor?.userId[0]}`, {
             method: "PATCH",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -48,7 +48,7 @@ const DoctorUserItem = ({ doctor, deleteUserHandler }) => {
   const handleStatusChange = (event) => {
     const status = event.target.value;
 
-    fetch(`https://life-sever-serversite.vercel.app/api/v1/doctorProfile/details/${doctor?._id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/v1/doctorProfile/details/${doctor?._id}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,

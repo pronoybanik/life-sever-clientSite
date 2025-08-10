@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import SecondaryButton from "../../../Shared/SecondaryButton";
 
 const PatientItem = ({ data }) => {
-  console.log("PatientItem", data);
   const [error, setError] = useState("");
   const {
     _id,
@@ -25,7 +24,7 @@ const PatientItem = ({ data }) => {
     const status = data.target.value;
 
     fetch(
-      `https://life-sever-serversite.vercel.app/api/v1/appointment/${_id}`,
+      `${import.meta.env.VITE_API_URL}/api/v1/appointment/${_id}`,
       {
         method: "PATCH",
         headers: {
@@ -48,7 +47,7 @@ const PatientItem = ({ data }) => {
 
   const handleDone = () => {
     fetch(
-      `https://life-sever-serversite.vercel.app/api/v1/appointment/${_id}`,
+      `${import.meta.env.VITE_API_URL}/api/v1/appointment/${_id}`,
       {
         method: "PATCH",
         headers: {
