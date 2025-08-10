@@ -5,6 +5,7 @@ import { CgMail } from "react-icons/cg";
 import { CiLocationOn } from "react-icons/ci";
 import Loading from "../../Shared/Loading/Loading";
 import Error from "../../Shared/error/Error";
+import { FaStethoscope } from "react-icons/fa";
 
 const filters = [
   {
@@ -94,21 +95,20 @@ const OurDoctors = () => {
   return (
     <section>
       {/* Banner section start  */}
-      <section className="relative lg:h-[300px] md:h-[400px] h-80 bg-[url(https://medical-clinic.cmsmasters.net/wp-content/uploads/2016/09/bg-3-1.jpg)] bg-cover bg-center bg-no-repeat">
-        <div className="absolute inset-0 bg-black/20  sm:from-white/95 sm:to-white/25 ltr:sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l">
-          {" "}
-        </div>
+       <section className="relative h-[400px] bg-[url(https://img.freepik.com/free-photo/team-young-specialist-doctors-standing-corridor-hospital_1303-21199.jpg)] bg-cover bg-center bg-fixed bg-no-repeat">
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/30"></div>
 
-        <div
-          data-aos="zoom-in-down"
-          className="flex  items-center justify-center h-full"
-        >
-          <div className="relative">
-            <p className="text-white font-sans lg:text-2xl md:text-2xl text-xl ">
-              Entrust Your Health Our Doctors
-            </p>
-            <p className="text-white lg:text-4xl md:text-3xl text-2xl font-semibold mt-4  sm:text-xl/relaxed">
-              Medical Excellence Every Day.
+        <div className="relative flex items-center justify-center h-full max-w-7xl mx-auto px-4">
+          <div className="text-center space-y-6">
+            <div className="inline-block p-2 rounded-full bg-blue-500/20 backdrop-blur-sm mb-4">
+              <FaStethoscope className="text-3xl text-white" />
+            </div>
+            <h1 className="text-white font-bold text-4xl md:text-5xl lg:text-6xl max-w-3xl">
+              Meet Our Expert Medical Team
+            </h1>
+            <p className="text-gray-200 text-xl md:text-2xl max-w-2xl mx-auto">
+              Dedicated professionals committed to your health and well-being
             </p>
           </div>
         </div>
