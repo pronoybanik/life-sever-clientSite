@@ -23,7 +23,7 @@ const DoctorUsers = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Fetch Data
+  
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_API_URL}/api/v1/doctorProfile`, {

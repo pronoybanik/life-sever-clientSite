@@ -78,8 +78,7 @@ const OurDoctors = () => {
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      // `https://life-sever-serversite.vercel.app/api/v1/doctorProfile?${category}`
-      `https://life-sever-serversite.vercel.app/api/v1/doctorProfile?${category}`
+      `${import.meta.env.VITE_API_URL}/api/v1/doctorProfile?${category}`
     )
       .then((res) => res.json())
       .then((data) => {

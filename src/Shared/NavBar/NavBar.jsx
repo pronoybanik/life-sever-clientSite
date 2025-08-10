@@ -21,9 +21,6 @@ const NavBar = () => {
     window.location.reload();
   };
   
-  // Admin pass word
-  // admin@gmail.com
-  // mezba123456#A
 
   const menu = (
     <>

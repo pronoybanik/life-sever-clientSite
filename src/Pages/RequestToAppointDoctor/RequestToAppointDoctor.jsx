@@ -16,18 +16,18 @@ const RequestToAppointDoctor = () => {
   const { data, error, loading, post } = usePostRequest();
   const navigate = useNavigate();
 
-  // Handle successful submission
+
   if (data?.statusbar === 201) {
     toast.success(data.message);
     navigate("/patientAccount");
   }
 
-  // Handle image file selection
+ 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    // Preview the selected image
+  
     const reader = new FileReader();
     reader.onloadend = () => {
       setPreviewImage(reader.result);
