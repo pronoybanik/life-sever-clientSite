@@ -144,7 +144,7 @@ const Login = () => {
                     <input
                       type="email"
                       required
-                      className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                      className="w-full rounded-lg bg-white text-gray-700 border-gray-200 p-4 pe-12 text-sm shadow-sm"
                       placeholder="Enter email"
                       onChange={(e) => setEmail(e.target.value)}
                       value={email}
@@ -176,7 +176,7 @@ const Login = () => {
                     <input
                       type="password"
                       required
-                      className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                      className="w-full rounded-lg bg-white text-gray-700 border-gray-200 p-4 pe-12 text-sm shadow-sm"
                       placeholder="Enter password"
                       onChange={(e) => setPassword(e.target.value)}
                       value={password}

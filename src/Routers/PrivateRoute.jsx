@@ -13,7 +13,7 @@ const PrivateRouter = ({ children }) => {
   if (user?.Role === "Patient") {
     return children;
   }
-  return <Navigate to="/logIn" state={{ from: location }} replace></Navigate>;
+  return <Navigate to="/logIn" state={{ from: "/" }} replace></Navigate>;
 };
 
 export default PrivateRouter;

@@ -1,4 +1,11 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import {
+  UserIcon,
+  EnvelopeIcon,
+  ChatBubbleBottomCenterTextIcon,
+} from "@heroicons/react/24/outline";
 import SecondaryButton from "../../Shared/SecondaryButton";
 import { authContext } from "../../Components/AuthProvider/AuthProvider";
 import usePostRequest from "../../Shared/usePostReq";
@@ -7,92 +14,137 @@ import Error from "../../Shared/error/Error";
 const FeedBack = () => {
   const { user } = useContext(authContext);
   const { post, data, error, loading } = usePostRequest();
+  const navigate = useNavigate();
 
-  if (data.statusbar === 201) {
-    alert(data.message);
+  if (data?.statusbar === 201) {
+    toast.success(data.message);
     navigate("/");
   }
 
   const handleFeedBack = async (event) => {
     event.preventDefault();
-    const from = event.target;
+    const form = event.target;
     const email = user?.email;
     const userName = (user?.firstName || "") + " " + (user?.lastName || "");
-    const message = from.message.value;
+    const message = form.message.value;
+
+    if (!message.trim()) {
+      toast.error("Feedback message cannot be empty.");
+      return;
+    }
+
     const feedBackValue = {
       email,
       userName,
       message,
     };
     await post("api/v1/userFeedBack", feedBackValue);
+    form.reset();
   };
-  return (
-    <section>
-      {/* Banner section start  */}
-      <section className="relative lg:h-[500px] md:h-[400px] h-80 bg-[url(https://medical-clinic.cmsmasters.net/wp-content/uploads/2016/09/bg-3-1.jpg)] bg-cover bg-center bg-no-repeat">
-        <div className="absolute inset-0 bg-black/20  sm:from-white/95 sm:to-white/25 ltr:sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l">
-          {" "}
-        </div>
 
-        <div
-          data-aos="fade-up"
-          data-aos-duration="3000"
-          className="flex  items-center justify-center h-full"
-        >
-          <div className="relative">
-            <p className="text-white font-sans lg:text-2xl md:text-2xl text-xl ">
-              Entrust Your Health Our Doctors
-            </p>
-            <p className="text-white lg:text-4xl md:text-3xl text-2xl font-semibold mt-4  sm:text-xl/relaxed">
-              Medical Excellence Every Day.
-            </p>
-          </div>
+  return (
+    <section className="bg-gray-50">
+      {/* Banner section start */}
+      <div className="relative h-80 bg-[url(https://medical-clinic.cmsmasters.net/wp-content/uploads/2016/09/bg-3-1.jpg)] bg-cover bg-center bg-no-repeat">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-600/70"></div>
+        <div className="relative flex flex-col justify-center items-center h-full max-w-4xl mx-auto text-center px-4">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl text-white font-sans font-bold mb-2">
+            Share Your Feedback
+          </h1>
+          <p className="text-white/90 md:text-lg max-w-2xl">
+            We value your opinion. Help us improve our services by sharing your experience.
+          </p>
         </div>
-      </section>
+      </div>
       {/* Banner section End */}
 
-      <div className="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
-        <form onSubmit={handleFeedBack} action="" className="space-y-4">
-          <div>
-            <label htmlFor="name">Patient Email:</label>
-            <input
-              className="w-full font-bold  rounded-lg border-gray-200 border p-3 text-sm"
-              placeholder="patientEmail"
-              type="text"
-              disabled
-              value={user?.email}
-              name="patientEmail"
-              id="patientName"
-            />
-          </div>
-          <div>
-            <label htmlFor="name">Patient Name:</label>
-            <input
-              className="w-full  rounded-lg border-gray-200 border p-3 text-sm"
-              placeholder="patientName"
-              type="text"
-              value={(user?.firstName || "") + " " + (user?.lastName || "")}
-              name="patientName"
-              id="patientName"
-            />
-          </div>
-          <div>
-            <label htmlFor="message">Message:</label>
-            <textarea
-              className="w-full rounded-lg border-gray-200 border p-3 text-sm"
-              placeholder="Message"
-              rows="8"
-              id="message"
-              name="message"
-            ></textarea>
-          </div>
-          <div className="mt-4">
-            <SecondaryButton>
-              {loading ? <p>Loading...</p> : <p> submit</p>}
-            </SecondaryButton>
-          </div>
-        </form>
-        {error && <Error>{error}</Error>}
+      <div className="max-w-2xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        <div className="bg-white rounded-xl shadow-md p-8 lg:p-10">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+            Feedback Form
+          </h2>
+          <form onSubmit={handleFeedBack} className="space-y-6">
+            {/* Patient Name */}
+            <div>
+              <label htmlFor="patientName" className="block text-sm font-medium text-gray-700 mb-1">
+                Your Name
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <UserIcon className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  type="text"
+                  name="patientName"
+                  id="patientName"
+                  disabled
+                  value={(user?.firstName || "") + " " + (user?.lastName || "") || user?.displayName || "N/A"}
+                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md bg-gray-100 text-gray-500 cursor-not-allowed"
+                />
+              </div>
+            </div>
+
+            {/* Patient Email */}
+            <div>
+              <label htmlFor="patientEmail" className="block text-sm font-medium text-gray-700 mb-1">
+                Your Email
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <EnvelopeIcon className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  type="email"
+                  name="patientEmail"
+                  id="patientEmail"
+                  disabled
+                  value={user?.email || "N/A"}
+                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md bg-gray-100 text-gray-500 cursor-not-allowed"
+                />
+              </div>
+            </div>
+
+            {/* Message */}
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                Your Feedback
+              </label>
+              <div className="relative">
+                <div className="absolute top-3 left-0 pl-3 flex items-center pointer-events-none">
+                  <ChatBubbleBottomCenterTextIcon className="h-5 w-5 text-gray-400" />
+                </div>
+                <textarea
+                  name="message"
+                  id="message"
+                  required
+                  rows="6"
+                  className="w-full pl-10 pr-3 py-2 border bg-white text-gray-700 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Please share your thoughts, suggestions, or concerns..."
+                ></textarea>
+              </div>
+            </div>
+
+            {/* Error Message */}
+            {error && <Error>{error}</Error>}
+
+            {/* Submit Button */}
+            <div className="text-center">
+              <SecondaryButton>
+                {loading ? (
+                  <div className="flex items-center justify-center">
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Submitting...
+                  </div>
+                ) : (
+                  "Submit Feedback"
+                )}
+              </SecondaryButton>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
   );
