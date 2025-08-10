@@ -2,56 +2,84 @@ import React, { useEffect, useState } from "react";
 import AppointmentListItem from "../../Components/appoitmentListPage/AppointmentList/AppointmentListItem";
 import Error from "../../Shared/error/Error";
 import Loading from "../../Shared/Loading/Loading";
+import {
+  CalendarIcon,
+  ClockIcon,
+  CheckIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { FaStethoscope } from "react-icons/fa";
 
 const AppointmentList = () => {
   const userId = JSON.parse(localStorage.getItem("userId"));
   const token = JSON.parse(localStorage.getItem("Token"));
-  const [userIdData, setUserIdData] = useState([]);
+  const [appointments, setAppointments] = useState([]);
+  const [filteredAppointments, setFilteredAppointments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [searchTerm, setSearchTerm] = useState("");
+
+  console.log(appointments);
+
+  // Fetch appointments data
+  const fetchAppointments = async () => {
+    try {
+      setIsLoading(true);
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/v1/appointment/userId/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data.statusbar === 200) {
+        setAppointments(response.data.data);
+        setFilteredAppointments(response.data.data);
+        setError("");
+      } else {
+        setError(response.data.error || "Failed to fetch appointments");
+      }
+    } catch (err) {
+      console.error("Error fetching appointments:", err);
+      setError("Failed to load your appointments. Please try again later.");
+      toast.error("Failed to load appointments");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    fetch(
-      `${import.meta.env.VITE_API_URL}/api/v1/appointment/userId/${userId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then((responseData) => {
-        console.log(responseData);
-        setIsLoading(false);
-        setError(responseData.error);
-        if (responseData.statusbar === 200) {
-          setUserIdData(responseData.data);
-          setError("");
-        }
-      });
+    fetchAppointments();
   }, [userId, token]);
 
   return (
     <section>
-      <div className="relative lg:h-[300px] md:h-[400px] h-80 bg-[url(https://medical-clinic.cmsmasters.net/wp-content/uploads/2016/09/bg-3-1.jpg)] bg-cover bg-center bg-no-repeat">
-        <div className="absolute inset-0 bg-black/20  sm:from-white/95 sm:to-white/25 ltr:sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l">
-          {" "}
-        </div>
+      {/* Banner section start  */}
+      <section className="relative h-[400px] bg-[url(https://images.pexels.com/photos/8941903/pexels-photo-8941903.jpeg?auto=compress&cs=tinysrgb&w=1600)] bg-cover bg-center bg-fixed bg-no-repeat">
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/30"></div>
 
-        <div
-          data-aos="zoom-in-down"
-          className="flex  items-center justify-center h-full"
-        >
-          <div className="relative">
-            <p className="text-white font-sans lg:text-2xl md:text-2xl text-xl ">
-              Entrust Your Health Our Doctors
-            </p>
-            <p className="text-white lg:text-4xl md:text-3xl text-2xl font-semibold mt-4  sm:text-xl/relaxed">
-              Medical Excellence Every Day.
+        <div className="relative flex items-center justify-center h-full max-w-7xl mx-auto px-4">
+          <div className="text-center space-y-6">
+            <div className="inline-block p-2 rounded-full bg-blue-500/20 backdrop-blur-sm mb-4">
+              <FaStethoscope className="text-3xl text-white" />
+            </div>
+            <h1 className="text-white font-bold text-4xl md:text-5xl lg:text-6xl max-w-3xl">
+              Your Application Info
+            </h1>
+            <p className="text-gray-200 text-xl md:text-2xl max-w-2xl mx-auto">
+              Dedicated professionals committed to your health and well-being
             </p>
           </div>
         </div>
-      </div>
+      </section>
+      {/* Banner section End */}
+
       <div className="grid grid-cols-1 max-w-7xl mx-auto gap-4 my-4">
         <div>
           {isLoading ? (
@@ -61,7 +89,7 @@ const AppointmentList = () => {
               {error ? (
                 <Error>{error}</Error>
               ) : (
-                userIdData.map((data) => (
+                appointments.map((data) => (
                   <AppointmentListItem
                     key={data?._id}
                     data={data}

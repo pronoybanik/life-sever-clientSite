@@ -27,7 +27,7 @@ const Login = () => {
     localStorage.setItem("userId", JSON.stringify(data?.data?.user._id));
     localStorage.setItem("Token", JSON.stringify(data?.data?.token));
     alert(data?.message);
-    navigate(navigateForm, { replace: true });
+    navigate(navigateForm, { replace: true } , "");
     setTimeout(() => {
       window.location.reload();
     }, 1000);
