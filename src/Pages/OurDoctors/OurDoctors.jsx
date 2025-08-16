@@ -6,6 +6,7 @@ import { CiLocationOn } from "react-icons/ci";
 import Loading from "../../Shared/Loading/Loading";
 import Error from "../../Shared/error/Error";
 import { FaStethoscope } from "react-icons/fa";
+import SkeletonDoctorCard from "../../Shared/Loading/SkeletonDoctorCard";
 
 const filters = [
   {
@@ -77,9 +78,7 @@ const OurDoctors = () => {
   // get all doctors
   useEffect(() => {
     setIsLoading(true);
-    fetch(
-      `${import.meta.env.VITE_API_URL}/api/v1/doctorProfile?${category}`
-    )
+    fetch(`${import.meta.env.VITE_API_URL}/api/v1/doctorProfile?${category}`)
       .then((res) => res.json())
       .then((data) => {
         setIsLoading(false);
@@ -94,7 +93,7 @@ const OurDoctors = () => {
   return (
     <section>
       {/* Banner section start  */}
-       <section className="relative h-[400px] bg-[url(https://img.freepik.com/free-photo/team-young-specialist-doctors-standing-corridor-hospital_1303-21199.jpg)] bg-cover bg-center bg-fixed bg-no-repeat">
+      <section className="relative h-[400px] bg-[url(https://img.freepik.com/free-photo/team-young-specialist-doctors-standing-corridor-hospital_1303-21199.jpg)] bg-cover bg-center bg-fixed bg-no-repeat">
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/30"></div>
 
@@ -203,15 +202,21 @@ const OurDoctors = () => {
             <div className="mt-4">
               <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-2">
                 {isLoading ? (
-                  <Loading />
+                  Array.from({ length: 9 }).map((_, index) => (
+                    <SkeletonDoctorCard key={index} />
+                  ))
                 ) : error ? (
                   <Error>{error}</Error>
                 ) : (
                   doctors?.map((doctor) => (
+                    <div className="gap-4 mt-4">
+
                     <DoctorsCard
+                      
                       key={doctor?._id}
                       doctorProfile={doctor}
-                    ></DoctorsCard>
+                      ></DoctorsCard>
+                      </div>
                   ))
                 )}
               </div>

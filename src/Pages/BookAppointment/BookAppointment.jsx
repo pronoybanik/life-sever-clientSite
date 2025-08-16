@@ -299,7 +299,7 @@ const BookAppointment = () => {
                         name="patientName"
                         id="patientName"
                         required
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white"
                         placeholder="Enter your full name"
                       />
                     </div>
@@ -316,7 +316,7 @@ const BookAppointment = () => {
                         name="patientEmail"
                         id="email"
                         required
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white"
                         placeholder="your@email.com"
                       />
                     </div>
@@ -333,7 +333,7 @@ const BookAppointment = () => {
                         name="phone"
                         id="phone"
                         required
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white"
                         placeholder="(123) 456-7890"
                       />
                     </div>
@@ -349,7 +349,7 @@ const BookAppointment = () => {
                         name="gender"
                         id="gender"
                         required
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white"
                       >
                         <option value="">Select Gender</option>
                         <option value="Male">Male</option>
@@ -425,7 +425,7 @@ const BookAppointment = () => {
                         name="doctorName"
                         id="doctorName"
                         required
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white"
                       >
                         <option value="">Select Doctor</option>
                         {doctorType.map((data) => {
@@ -452,7 +452,7 @@ const BookAppointment = () => {
                         name="doctorId"
                         id="doctorId"
                         required
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white"
                       >
                         <option value="">Select Department</option>
                         {doctorType.map((data) => {
@@ -478,7 +478,7 @@ const BookAppointment = () => {
                         id="appointmentDate"
                         required
                         min={new Date().toISOString().split("T")[0]}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white"
                       />
                     </div>
 
@@ -493,7 +493,7 @@ const BookAppointment = () => {
                         name="durationTime"
                         id="durationTime"
                         required
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white"
                       >
                         <option value="">Select Duration</option>
                         <option value="20">20 minutes</option>
@@ -513,7 +513,7 @@ const BookAppointment = () => {
                         name="appointmentType"
                         id="appointmentType"
                         required
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white"
                       >
                         <option value="">Select Type</option>
                         <option value="onLine">Online Consultation</option>
@@ -533,7 +533,7 @@ const BookAppointment = () => {
                         name="reason"
                         id="reason"
                         required
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white"
                         placeholder="Brief reason for appointment"
                       />
                     </div>
@@ -603,7 +603,7 @@ const BookAppointment = () => {
                     name="message"
                     id="message"
                     rows="4"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white"
                     placeholder="Please provide any additional information that might be relevant for your appointment..."
                   ></textarea>
                 </div>

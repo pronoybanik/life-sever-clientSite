@@ -23,7 +23,6 @@ const usePostRequest = () => {
       })
         .then((res) => res.json())
         .then((responseData) => {
-          console.log(responseData);
           if (responseData.status === "success") {
             setData(responseData);
             setLoading(false);
@@ -31,7 +30,7 @@ const usePostRequest = () => {
           }
 
           if (responseData.status === "Fail") {
-            console.log("test", responseData);
+         
             setLoading(false);
             setError(responseData.error);
           }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import usePostRequest from "../../Shared/usePostReq";
 import Error from "../../Shared/error/Error";
@@ -9,10 +9,36 @@ import siteLogo from "../../imges/siteImage/siteLogo.png";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [pendingQuickLogin, setPendingQuickLogin] = useState(null);
   const { post, data, loading, error } = usePostRequest();
   const navigate = useNavigate();
   const location = useLocation();
   const navigateForm = location.state?.from?.pathname || "/";
+
+  // Helper for quick login
+  const quickLogin = (userType) => {
+    if (userType === "doctor") {
+      setEmail("pronoybanik82@gmail.com");
+      setPassword("Admin@123");
+      setPendingQuickLogin("doctor");
+    } else if (userType === "admin") {
+      setEmail("admin@gmail.com");
+      setPassword("Admin@123");
+      setPendingQuickLogin("admin");
+    } else if (userType === "patient") {
+      setEmail("joy@gmail.com");
+      setPassword("Admin@123");
+      setPendingQuickLogin("patient");
+    }
+  };
+
+  // Effect to submit after quick login state is set
+  useEffect(() => {
+    if (pendingQuickLogin && email && password) {
+      handleSubmit({ preventDefault: () => {} });
+      setPendingQuickLogin(null);
+    }
+  }, [email, password, pendingQuickLogin]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -20,6 +46,7 @@ const Login = () => {
       email,
       password,
     };
+
     await post("api/v1/user/login", loginData);
   };
 
@@ -27,14 +54,11 @@ const Login = () => {
     localStorage.setItem("userId", JSON.stringify(data?.data?.user._id));
     localStorage.setItem("Token", JSON.stringify(data?.data?.token));
     alert(data?.message);
-    navigate(navigateForm, { replace: true } , "");
+    navigate("/", { replace: true });
     setTimeout(() => {
       window.location.reload();
     }, 1000);
   }
-
-  console.log("login", data);
-  console.log("login Error", error);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-12">
@@ -129,6 +153,34 @@ const Login = () => {
           {/* Right Panel - Login Form */}
           <div className="md:w-1/2 lg:w-3/5 p-8 md:p-12 flex items-center">
             <div className="w-full max-w-md mx-auto">
+              {/* Quick login buttons */}
+              <div className="flex flex-wrap justify-center gap-4 mb-4">
+                <button
+                  type="button"
+                  className="px-4 py-2 rounded-lg bg-blue-100 text-blue-700 font-semibold hover:bg-blue-200 transition"
+                  onClick={() => quickLogin("doctor")}
+                  title="Login as Doctor"
+                >
+                  Doctor Quick Login
+                </button>
+                <button
+                  type="button"
+                  className="px-4 py-2 rounded-lg bg-green-100 text-green-700 font-semibold hover:bg-green-200 transition"
+                  onClick={() => quickLogin("admin")}
+                  title="Login as Admin"
+                >
+                  Admin Quick Login
+                </button>
+                <button
+                  type="button"
+                  className="px-4 py-2 rounded-lg bg-yellow-100 text-yellow-700 font-semibold hover:bg-yellow-200 transition"
+                  onClick={() => quickLogin("patient")}
+                  title="Login as Patient"
+                >
+                  Patient Quick Login
+                </button>
+              </div>
+              {/* ...existing code... */}
               <form
                 className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
                 onSubmit={handleSubmit}

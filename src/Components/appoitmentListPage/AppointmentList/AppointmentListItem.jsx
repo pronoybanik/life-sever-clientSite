@@ -1,4 +1,6 @@
+
 import React, { useEffect, useState } from "react";
+import { FaUserMd, FaUser, FaCalendarAlt, FaMapMarkerAlt, FaClock, FaEnvelope, FaPhone, FaNotesMedical, FaVenusMars } from "react-icons/fa";
 
 const AppointmentListItem = ({ data }) => {
   const [doctorInfo, setDoctorsInfo] = useState({});
@@ -28,97 +30,89 @@ const AppointmentListItem = ({ data }) => {
   }, []);
 
   return (
-    <div className="mx-4">
-      <div className="flow-root rounded-lg border border-gray-100 py-3 shadow-sm">
-        <div className="flex items-center justify-center gap-2">
+    <div className="mx-4 my-6">
+      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden max-w-3xl mx-auto">
+        {/* Header: Patient Avatar, Name, Status */}
+        <div className="flex flex-col sm:flex-row items-center gap-6 px-8 py-6 bg-gradient-to-r from-blue-50 to-blue-100 border-b">
           <img
-            className="w-52 h-52 rounded-full my-6"
+            className="w-28 h-28 rounded-full border-4 border-blue-200 shadow"
             src={patientProfileImage}
-            alt=""
+            alt={patientName}
           />
-        </div>
-        <dl className=" divide-y divide-gray-100 text-sm">
-          <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
-            <dt className="font-medium text-gray-900">Doctor Name</dt>
-            <dd className="text-gray-700 sm:col-span-2 font-medium">
-              {doctorInfo?.FirstName} {doctorInfo?.LastName}
-            </dd>
-          </div>
-          <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
-            <dt className="font-medium text-gray-900">Doctor Email</dt>
-            <dd className="text-gray-700 sm:col-span-2 font-medium">
-              {doctorInfo?.Email}
-            </dd>
-          </div>
-          <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
-            <dt className="font-medium text-gray-900">Appointment Date</dt>
-            <dd className="text-gray-700 sm:col-span-2 font-medium">
-              {appointmentStatus}
-            </dd>
-          </div>
-          <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
-            <dt className="font-medium text-gray-900">Appointment Status</dt>
-            <dd className="text-gray-700 sm:col-span-2 font-medium">
-              {appointmentDate}
-            </dd>
-          </div>
-
-          <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
-            <dt className="font-medium text-gray-900">Appointment Location</dt>
-            <dd className="text-gray-700 sm:col-span-2 font-medium">
-              {appointmentType}
-            </dd>
-          </div>
-
-          <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
-            <dt className="font-medium text-gray-900"> Duration Time</dt>
-            <dd className="text-gray-700 sm:col-span-2 font-medium">
-              {durationTime} Minutes
-            </dd>
-          </div>
-
-          <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
-            <dt className="font-medium text-gray-900">Patient Name</dt>
-            <dd className="text-gray-700 sm:col-span-2">{patientName}</dd>
-          </div>
-
-          <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
-            <dt className="font-medium text-gray-900">Patient Email</dt>
-            <dd className="text-gray-700 sm:col-span-2">{patientEmail}</dd>
-          </div>
-
-          <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
-            <dt className="font-medium text-gray-900">Patent PhoneNumber</dt>
-            <dd className="text-gray-700 sm:col-span-2">{phoneNumber}</dd>
-          </div>
-          <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
-            <dt className="font-medium text-gray-900">Sex</dt>
-            <dd className="text-gray-700 sm:col-span-2">{gender}</dd>
-          </div>
-
-          <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
-            <dt className="font-medium text-gray-900"> Note Health</dt>
-            <dd className="text-gray-700 sm:col-span-2">{reason}</dd>
-          </div>
-
-          <div>
-            <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
-              <dt className="font-bold text-xl text-gray-900">Status</dt>
-
-              {status === "Confirmed" ? (
-                <p className="text-md font-bold text-xl">
-                  Your Appointment is Confirmed and please check your email.
-                </p>
-              ) : status === "Done" ? (
-                <p className="text-md font-bold text-xl">
-                  Your Appointment is Done
-                </p>
-              ) : (
-                <p>Appointment is pending</p>
-              )}
+          <div className="flex-1 flex flex-col items-center sm:items-start">
+            <div className="flex items-center gap-2 mb-1">
+              <FaUser className="text-blue-500" />
+              <span className="text-xl font-bold text-gray-800">{patientName}</span>
+              <span className={`ml-3 px-3 py-1 rounded-full text-xs font-semibold 
+                ${status === "Confirmed" ? "bg-green-100 text-green-700" : status === "Done" ? "bg-blue-100 text-blue-700" : "bg-yellow-100 text-yellow-700"}`}
+              >
+                {status}
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-gray-500 text-sm">
+              <FaEnvelope /> {patientEmail}
+              <FaPhone className="ml-4" /> {phoneNumber}
+              <FaVenusMars className="ml-4" /> {gender}
             </div>
           </div>
-        </dl>
+        </div>
+
+        {/* Main Content */}
+        <div className="px-8 py-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Doctor Info */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 text-gray-700">
+              <FaUserMd className="text-indigo-500" />
+              <span className="font-semibold">Doctor:</span>
+              <span>{doctorInfo?.FirstName} {doctorInfo?.LastName}</span>
+            </div>
+            <div className="flex items-center gap-2 text-gray-700">
+              <FaEnvelope className="text-indigo-400" />
+              <span className="font-semibold">Email:</span>
+              <span>{doctorInfo?.Email}</span>
+            </div>
+          </div>
+
+          {/* Appointment Info */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 text-gray-700">
+              <FaCalendarAlt className="text-pink-500" />
+              <span className="font-semibold">Date:</span>
+              <span>{appointmentDate}</span>
+            </div>
+            <div className="flex items-center gap-2 text-gray-700">
+              <FaMapMarkerAlt className="text-green-500" />
+              <span className="font-semibold">Location:</span>
+              <span>{appointmentType}</span>
+            </div>
+            <div className="flex items-center gap-2 text-gray-700">
+              <FaClock className="text-yellow-500" />
+              <span className="font-semibold">Duration:</span>
+              <span>{durationTime} Minutes</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Notes & Status */}
+        <div className="px-8 pb-6">
+          <div className="flex items-center gap-2 text-gray-700 mb-2">
+            <FaNotesMedical className="text-red-400" />
+            <span className="font-semibold">Health Note:</span>
+            <span>{reason}</span>
+          </div>
+          <div className="flex items-center gap-2 text-gray-700">
+            <span className="font-semibold">Appointment Status:</span>
+            <span className={`px-2 py-1 rounded text-xs font-bold 
+              ${status === "Confirmed" ? "bg-green-100 text-green-700" : status === "Done" ? "bg-blue-100 text-blue-700" : "bg-yellow-100 text-yellow-700"}`}
+            >
+              {status === "Confirmed"
+                ? "Confirmed - Please check your email."
+                : status === "Done"
+                ? "Done"
+                : "Pending"}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );
