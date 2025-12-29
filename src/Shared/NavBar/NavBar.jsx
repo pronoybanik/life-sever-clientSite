@@ -12,13 +12,12 @@ function classNames(...classes) {
 }
 
 const NavBar = () => {
-  const { user } = useContext(authContext);
+  const { user, logout } = useContext(authContext);
 
   // logout button handler...
   const handleLogout = () => {
-    localStorage.removeItem("userId");
-    localStorage.removeItem("Token");
-    window.location.reload();
+    logout();
+    window.location.href = "/";
   };
 
   const menu = (
@@ -222,15 +221,15 @@ const NavBar = () => {
                           </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
-                              <a
-                                href="#"
+                              <button
+                                onClick={handleLogout}
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
+                                  "block w-full text-left px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
                                 Sign out
-                              </a>
+                              </button>
                             )}
                           </Menu.Item>
                         </Menu.Items>

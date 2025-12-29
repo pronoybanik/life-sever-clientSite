@@ -1,7 +1,9 @@
-import axios from "axios";
+import axiosInstance from "../../../utils/axiosInterceptor";
 import React, { useEffect, useState } from "react";
 import UserDataItem from "../userItem/UserDataItem";
 import Loading from "../../../Shared/Loading/Loading";
+import AdminTableLoader from "../../../Shared/Loading/AdminTableLoader";
+import Error from "../../../Shared/error/Error";
 
 const tableName = [
   { name: "Name" },
@@ -13,33 +15,45 @@ const tableName = [
 ];
 
 const AllUser = () => {
-  const token = JSON.parse(localStorage.getItem("Token"));
   const [userData, setUserData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/api/v1/user`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((responseData) => {
-        if (responseData.data.status === "success") {
-          setUserData(responseData.data.data);
-          setIsLoading(false);
+    const fetchUsers = async () => {
+      try {
+        setIsLoading(true);
+        const response = await axiosInstance.get(`/api/v1/user`);
+        
+        if (response.data.status === "success") {
+          setUserData(response.data.data);
           setError("");
         } else {
-          setIsLoading(false);
-          setError(responseData.data.error);
+          setError(response.data.error || "Failed to fetch users");
         }
-      })
-      .catch((error) => {
+      } catch (err) {
+        setError(err.response?.data?.message || err.message || "An error occurred");
+      } finally {
         setIsLoading(false);
-        setError(error.message);
-      });
+      }
+    };
+
+    fetchUsers();
   }, []);
+
+  // Update user in local state
+  const handleUpdateUser = (updatedUser) => {
+    setUserData(prevUsers => 
+      prevUsers.map(user => 
+        user._id === updatedUser._id ? { ...user, ...updatedUser } : user
+      )
+    );
+  };
+
+  // Remove user from local state
+  const handleDeleteUser = (userId) => {
+    setUserData(prevUsers => prevUsers.filter(user => user._id !== userId));
+  };
 
   return (
     <section className="flex justify-center">
@@ -47,8 +61,8 @@ const AllUser = () => {
         <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
           <thead className="ltr:text-left rtl:text-right">
             <tr>
-              {tableName?.map((data) => (
-                <th className="whitespace-nowrap px-4 py-2 font-bold text-xs text-gray-900 uppercase">
+              {tableName?.map((data, index) => (
+                <th key={index} className="whitespace-nowrap px-4 py-2 font-bold text-xs text-gray-900 uppercase">
                   {data.name}
                 </th>
               ))}
@@ -59,10 +73,15 @@ const AllUser = () => {
 
           <tbody className="divide-y mx-20 divide-gray-200">
             {isLoading ? (
-              <Loading />
+              <AdminTableLoader />
             ) : (
               userData.map((data) => (
-                <UserDataItem key={data?._id} data={data}></UserDataItem>
+                <UserDataItem 
+                  key={data?._id} 
+                  data={data}
+                  onUpdate={handleUpdateUser}
+                  onDelete={handleDeleteUser}
+                ></UserDataItem>
               ))
             )}
           </tbody>

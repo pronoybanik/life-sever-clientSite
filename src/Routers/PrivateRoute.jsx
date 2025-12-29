@@ -10,10 +10,19 @@ const PrivateRouter = ({ children }) => {
   if (loading) {
     return <Loading />;
   }
+
+  // Not logged in - redirect to login
+  if (!user) {
+    return <Navigate to="/logIn" state={{ from: location }} replace />;
+  }
+
+  // Logged in as Patient - allow access
   if (user?.Role === "Patient") {
     return children;
   }
-  return <Navigate to="/logIn" state={{ from: "/" }} replace></Navigate>;
+
+  // Logged in but wrong role - redirect to home
+  return <Navigate to="/" replace />;
 };
 
 export default PrivateRouter;

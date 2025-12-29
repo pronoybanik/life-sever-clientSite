@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import usePostRequest from "../../Shared/usePostReq";
+import { authContext } from "../../Components/AuthProvider/AuthProvider";
 import Error from "../../Shared/error/Error";
 import SecondaryButton from "../../Shared/SecondaryButton";
 import { FaEnvelope, FaLock, FaSignInAlt } from "react-icons/fa";
@@ -10,10 +10,20 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [pendingQuickLogin, setPendingQuickLogin] = useState(null);
-  const { post, data, loading, error } = usePostRequest();
+  const [localError, setLocalError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const { login, loading, user } = useContext(authContext);
   const navigate = useNavigate();
   const location = useLocation();
-  const navigateForm = location.state?.from?.pathname || "/";
+  const navigateFrom = location.state?.from?.pathname || "/";
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      navigate(navigateFrom, { replace: true });
+    }
+  }, [user, navigate, navigateFrom]);
 
   // Helper for quick login
   const quickLogin = (userType) => {
@@ -42,23 +52,26 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const loginData = {
-      email,
-      password,
-    };
+    setLocalError(null);
+    setIsSubmitting(true);
 
-    await post("api/v1/user/login", loginData);
+    try {
+      const result = await login(email, password);
+      
+      if (result.success) {
+        // Show success message
+        alert(result.message || "Login successful!");
+        // Navigate to the intended page
+        navigate(navigateFrom, { replace: true });
+      } else {
+        setLocalError(result.message);
+      }
+    } catch (err) {
+      setLocalError(err.message || "An unexpected error occurred");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
-
-  if (data?.status === "success") {
-    localStorage.setItem("userId", JSON.stringify(data?.data?.user._id));
-    localStorage.setItem("Token", JSON.stringify(data?.data?.token));
-    alert(data?.message);
-    navigate("/", { replace: true });
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-12">
@@ -261,7 +274,7 @@ const Login = () => {
 
                 <div className="flex justify-center h-full">
                   <SecondaryButton>
-                    {loading ? <p>Loading....</p> : <p>Sign in</p>}
+                    {loading || isSubmitting ? <p>Loading....</p> : <p>Sign in</p>}
                   </SecondaryButton>
                 </div>
 
@@ -271,9 +284,7 @@ const Login = () => {
                     Sign up
                   </Link>
                 </p>
-                {error ? (
-                  <Error>{error?.message || String(error)}</Error>
-                ) : null}
+                {localError && <Error>{localError}</Error>}
               </form>
             </div>
           </div>

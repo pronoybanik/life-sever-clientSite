@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState, useContext, useRef } from "react";
+import axiosInstance from "../../../utils/axiosInterceptor";
+import { authContext } from "../../AuthProvider/AuthProvider";
 import Error from "../../../Shared/error/Error";
 import DoctorUserItem from "../DoctorUserItem/DoctorUserItem";
-import Loading from "../../../Shared/Loading/Loading";
+import AdminTableLoader from "../../../Shared/Loading/AdminTableLoader";
 
 const tableName = [
   { name: "Name" },
@@ -19,55 +20,68 @@ const tableName = [
 
 const DoctorUsers = () => {
   const [doctors, setDoctors] = useState([]);
-  const token = JSON.parse(localStorage.getItem("Token"));
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const { user } = useContext(authContext);
+  const hasFetched = useRef(false);
 
-  
+  const fetchDoctors = async () => {
+    try {
+      setIsLoading(true);
+      const response = await axiosInstance.get(`/api/v1/doctorProfile`);
+      
+      if (response.data.status === "success") {
+        setDoctors(response.data.data);
+        setError("");
+      } else {
+        setError(response.data.error || "Failed to fetch doctors");
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || err.message || "An error occurred");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/api/v1/doctorProfile`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((responseData) => {
-        setError(responseData.data.error);
-        if (responseData.data.status === "success") {
-          setDoctors(responseData.data.data);
-          setIsLoading(false);
-          setError("");
-        } else {
-          setIsLoading(false);
-          setError(responseData.data.error);
-        }
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        setError(error.message);
-      });
-  }, [isLoading, error]);
+    if (user && !hasFetched.current) {
+      hasFetched.current = true;
+      fetchDoctors();
+    }
+  }, [user]);
+
+  // Update doctor in local state
+  const updateDoctorInList = (updatedDoctor) => {
+    setDoctors(prevDoctors => 
+      prevDoctors.map(doctor => 
+        doctor._id === updatedDoctor._id ? { ...doctor, ...updatedDoctor } : doctor
+      )
+    );
+  };
 
   // Delete user
-  const deleteUserHandler = (id) => {
+  const deleteUserHandler = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this doctor?")) {
+      return;
+    }
+
     setIsLoading(true);
-    fetch(`${import.meta.env.VITE_API_URL}/api/v1/doctorProfile/details/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.statusbar === 403) {
-          setError(data.error);
-        }
-        if (data.statusbar === 200) {
-          alert(data.message);
-          const remaining = doctors.filter((doctor) => doctor._id !== id);
-          setDoctors(remaining);
-        }
-      });
+    try {
+      const response = await axiosInstance.delete(
+        `/api/v1/doctorProfile/details/${id}`
+      );
+      
+      if (response.data.statusbar === 200 || response.status === 200) {
+        alert(response.data.message || "Doctor deleted successfully");
+        setDoctors(doctors.filter((doctor) => doctor._id !== id));
+      } else {
+        setError(response.data.error || "Failed to delete doctor");
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || err.message || "Failed to delete doctor");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -88,13 +102,14 @@ const DoctorUsers = () => {
 
           <tbody className="divide-y mx-20 divide-gray-200">
             {isLoading ? (
-              <Loading />
+              <AdminTableLoader />
             ) : (
               doctors?.map((doctor) => (
                 <DoctorUserItem
                   deleteUserHandler={deleteUserHandler}
                   doctor={doctor}
                   key={doctor?._id}
+                  onUpdate={updateDoctorInList}
                 ></DoctorUserItem>
               ))
             )}

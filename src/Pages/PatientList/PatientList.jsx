@@ -1,43 +1,73 @@
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { authContext } from "../../Components/AuthProvider/AuthProvider";
 import Loading from "../../Shared/Loading/Loading";
 import { FaUserMd, FaUser, FaCalendarAlt, FaMapMarkerAlt, FaClock, FaEnvelope, FaPhone, FaNotesMedical, FaVenusMars } from "react-icons/fa";
 import SecondaryButton from "../../Shared/SecondaryButton";
+import Error from "../../Shared/error/Error";
 
 const PatientList = () => {
-  const { user } = useContext(authContext);
+  const { user, loading: authLoading } = useContext(authContext);
   const [patientData, setPatientData] = useState([]);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const token = JSON.parse(localStorage.getItem("Token"));
+  const [loading, setLoading] = useState(true);
+  const hasFetched = useRef(false);
 
   useEffect(() => {
-    setLoading(true);
-    if (user && user.doctorId && user.doctorId.length > 0) {
-      fetch(
-        `${import.meta.env.VITE_API_URL}/api/v1/appointment/doctorId/${user?.doctorId[0]._id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-        .then((res) => res.json())
-        .then((res) => {
-          setLoading(false);
-          setError(res.error);
-          if (res.status === "success") {
-            setPatientData(res.data);
-            setError("");
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-          setError(error);
-        });
+    if (authLoading) return;
+    
+    const doctorId = user?.doctorId?.[0]?._id || user?.doctorId?.[0];
+    
+    // Check if we have valid user and doctorId
+    if (!user || !doctorId) {
+      setLoading(false);
+      return;
     }
-  }, [user]);
+
+    // Prevent duplicate fetches
+    if (hasFetched.current) return;
+    hasFetched.current = true;
+
+    // Get token safely
+    const tokenStr = localStorage.getItem("Token");
+    if (!tokenStr) {
+      setLoading(false);
+      setError("Authentication required");
+      return;
+    }
+
+    let token;
+    try {
+      token = JSON.parse(tokenStr);
+    } catch (e) {
+      setLoading(false);
+      setError("Invalid token");
+      return;
+    }
+
+    fetch(
+      `${import.meta.env.VITE_API_URL}/api/v1/appointment/doctorId/${doctorId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        setLoading(false);
+        if (res.status === "success") {
+          setPatientData(res.data);
+          setError("");
+        } else {
+          setError(res.error || "Failed to fetch appointments");
+        }
+      })
+      .catch((error) => {
+        setLoading(false);
+        setError(error.message || "Error fetching data");
+      });
+  }, [user, authLoading]);
 
 
 
