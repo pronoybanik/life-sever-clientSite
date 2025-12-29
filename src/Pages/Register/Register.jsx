@@ -3,10 +3,12 @@ import siteLogo from "../../imges/siteImage/siteLogo.png";
 import { useState } from "react";
 import usePostRequest from "../../Shared/usePostReq";
 import SecondaryButton from "../../Shared/SecondaryButton";
-import { FaUserPlus, FaLock, FaEnvelope, FaUserAlt } from "react-icons/fa";
+import { FaUserPlus, FaLock, FaEnvelope, FaUserAlt, FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Register = () => {
   const [checkBox, setCheckBox] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { post, data, error, loading } = usePostRequest();
   const navigate = useNavigate();
 
@@ -191,13 +193,20 @@ const Register = () => {
                         <FaLock className="text-gray-400" />
                       </div>
                       <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         id="Password"
                         name="password"
                         placeholder="Password"
-                        className="w-full pl-10 pr-4 py-3 text-gray-700 bg-white border border-gray-200 rounded-lg focus:border-[#0074B7] focus:ring-[#0074B7] focus:outline-none focus:ring focus:ring-opacity-20"
+                        className="w-full pl-10 pr-10 py-3 text-gray-700 bg-white border border-gray-200 rounded-lg focus:border-[#0074B7] focus:ring-[#0074B7] focus:outline-none focus:ring focus:ring-opacity-20"
                         required
                       />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
+                      >
+                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                      </button>
                     </div>
 
                     <div className="relative">
@@ -205,13 +214,20 @@ const Register = () => {
                         <FaLock className="text-gray-400" />
                       </div>
                       <input
-                        type="password"
+                        type={showConfirmPassword ? "text" : "password"}
                         id="PasswordConfirmation"
                         name="passwordConfirmation"
                         placeholder="Confirm Password"
-                        className="w-full pl-10 pr-4 py-3 text-gray-700 bg-white border border-gray-200 rounded-lg focus:border-[#0074B7] focus:ring-[#0074B7] focus:outline-none focus:ring focus:ring-opacity-20"
+                        className="w-full pl-10 pr-10 py-3 text-gray-700 bg-white border border-gray-200 rounded-lg focus:border-[#0074B7] focus:ring-[#0074B7] focus:outline-none focus:ring focus:ring-opacity-20"
                         required
                       />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
+                      >
+                        {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                      </button>
                     </div>
                   </div>
 
