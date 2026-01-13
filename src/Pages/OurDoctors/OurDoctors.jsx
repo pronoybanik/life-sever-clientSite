@@ -131,10 +131,16 @@ const OurDoctors = () => {
                       {section.options.map((option, optionIdx) => (
                         <div key={option.value} className="flex items-center">
                           <input
-                            defaultValue={option.value}
+                            value={option.value}
                             type="checkbox"
-                            onChange={(e) => setCategory(e.target.defaultValue)}
-                            defaultChecked={option.checked}
+                            checked={category === option.value}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setCategory(e.target.value);
+                              } else {
+                                setCategory("");
+                              }
+                            }}
                             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                           />
                           <label className="ml-3 text-sm text-gray-100 ">
@@ -207,16 +213,15 @@ const OurDoctors = () => {
                   ))
                 ) : error ? (
                   <Error>{error}</Error>
+                ) : doctors?.length === 0 ? (
+                  <div className="col-span-full text-center py-10">
+                    <p className="text-gray-500 text-xl">No doctors available</p>
+                  </div>
                 ) : (
                   doctors?.map((doctor) => (
-                    <div className="gap-4 mt-4">
-
-                    <DoctorsCard
-                      
-                      key={doctor?._id}
-                      doctorProfile={doctor}
-                      ></DoctorsCard>
-                      </div>
+                    <div className="gap-4 mt-4" key={doctor?._id}>
+                      <DoctorsCard doctorProfile={doctor} />
+                    </div>
                   ))
                 )}
               </div>

@@ -1,7 +1,76 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import userIcon from "../../../imges/userIcon/icons8-male-user.gif";
 import Loading from "../../../Shared/Loading/Loading";
+
+// Custom hook for counting animation
+const useCountUp = (end, duration = 2000, start = 0) => {
+  const [count, setCount] = useState(start);
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    let startTime;
+    let animationFrame;
+
+    const animate = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      setCount(Math.floor(easeOutQuart * (end - start) + start));
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, [isVisible, end, duration, start]);
+
+  return { count, ref };
+};
+
+// Animated stat component
+const AnimatedStat = ({ number, label }) => {
+  const numericValue = parseInt(number.replace(/\D/g, ""));
+  const suffix = number.replace(/[0-9]/g, "");
+  const { count, ref } = useCountUp(numericValue, 2000);
+
+  return (
+    <div
+      ref={ref}
+      className="bg-white/10 backdrop-blur-md rounded-xl p-8 text-center transform hover:scale-105 transition-all duration-300"
+    >
+      <div className="text-4xl font-bold text-blue-400 mb-2">
+        {count}{suffix}
+      </div>
+      <div className="text-lg text-gray-300">{label}</div>
+    </div>
+  );
+};
 
 const PatientReviews = () => {
   const [feedBack, setFeedBack] = useState([]);
@@ -37,10 +106,10 @@ const PatientReviews = () => {
 
         {isLoading ? (
           <div className="flex justify-center">
-            <Loading />
+            Loading....
           </div>
         ) : (
-          <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8">
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
             {feedBack?.map((data, index) => (
               <article
                 key={index}
@@ -106,15 +175,7 @@ const PatientReviews = () => {
               { number: "25+", label: "Years Experience" },
               { number: "98%", label: "Recovery Rate" },
             ].map((stat, index) => (
-              <div
-                key={index}
-                className="bg-white/10 backdrop-blur-md rounded-xl p-8 text-center transform hover:scale-105 transition-all duration-300"
-              >
-                <div className="text-4xl font-bold text-blue-400 mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-lg text-gray-300">{stat.label}</div>
-              </div>
+              <AnimatedStat key={index} number={stat.number} label={stat.label} />
             ))}
           </div>
         </div>
