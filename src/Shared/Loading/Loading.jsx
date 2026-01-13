@@ -3,7 +3,7 @@ import { FaHeartbeat } from "react-icons/fa";
 
 const Loading = () => {
   return (
-    <div className="flex flex-col items-center  justify-center min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="flex flex-col items-center  justify-center bg-gradient-to-b from-blue-50 to-white">
       <div className="relative">
         {/* Pulse Ring */}
         <div className="absolute inset-0 rounded-full animate-ping bg-blue-400 opacity-30" style={{ animationDuration: '1.5s' }}></div>
